@@ -1,9 +1,22 @@
-dist/
-build/
+# Build output
+bin/
+out/
+target/
+
+# IDE (Eclipse / IntelliJ / NetBeans)
+.classpath
+.project
+.settings/
+*.iml
 nbproject/
-build.xml
-manifest.mf
-test/
-docs/
-Database5.sql
-Database4.sql
+build/
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VSCode — garder launch/tasks, ignorer les chemins locaux si besoin
+.vscode/*
+lib/*
+pom.xml
