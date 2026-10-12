@@ -4,6 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles appointment read and write operations for the clinic application.
+ */
 public class RendezVousDAO {
     public static List<RendezVous> getRendezVous(String cnie, int idDoctor) {
         return new RendezVousDAO().getRendezVousByPatientAndDoctor(cnie, idDoctor);
@@ -86,8 +89,8 @@ public class RendezVousDAO {
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        pstmt.setDate(1, Date.valueOf(rendezVous.getDateRendezVous())); // LocalDate → SQL Date
-        pstmt.setTime(2, Time.valueOf(rendezVous.getHeure()));          // LocalTime → SQL Time
+        pstmt.setDate(1, Date.valueOf(rendezVous.getDateRendezVous()));
+        pstmt.setTime(2, Time.valueOf(rendezVous.getHeure()));
         pstmt.setString(3, rendezVous.getRaison());
         pstmt.setString(4, rendezVous.getStatut());
         pstmt.setString(5, cniePatient);

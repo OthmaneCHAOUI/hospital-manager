@@ -14,6 +14,9 @@ import model.PatientDAO;
 
 import java.time.LocalDate;
 
+/**
+ * Provides the form used to create a new patient account.
+ */
 public class PatientFormController {
 
     @FXML
@@ -42,7 +45,6 @@ public class PatientFormController {
     public void ajouterPatient() throws SQLException {
         boolean hasError = false;
 
-        // Réinitialiser les styles
         nomField.setStyle("");
         prenomField.setStyle("");
         cnieField.setStyle("");
@@ -77,7 +79,6 @@ public class PatientFormController {
             return;
         }
 
-        // Vérifier unicité CNIE
         if (patientDAO.trouverParCnie(cnieField.getText()) != null) {
             cnieField.clear();
             cnieField.setPromptText("CNIE déjà utilisée");
@@ -86,7 +87,6 @@ public class PatientFormController {
             return;
         }
 
-        // Créer et ajouter le patient
         Patient patient = new Patient(
             nomField.getText(),
             prenomField.getText(),
@@ -97,7 +97,6 @@ public class PatientFormController {
 
         showAlert(Alert.AlertType.INFORMATION, "Succès", "Patient ajouté avec succès.");
 
-        // Réinitialiser le formulaire
         nomField.clear();
         prenomField.clear();
         cnieField.clear();

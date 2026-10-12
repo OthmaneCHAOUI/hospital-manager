@@ -21,6 +21,9 @@ import model.DoctorDAO;
 import model.Patient;
 import model.PatientDAO;
 
+/**
+ * Handles authentication and navigation to doctor or patient views.
+ */
 public class LoginController {
 
     @FXML
@@ -74,9 +77,8 @@ public class LoginController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/patient_dashboard_view.fxml"));
         Parent root = loader.load();
 
-        // Récupération du contrôleur et passage du patient
         PatientDashboardController controller = loader.getController();
-        controller.setPatient(patient); // méthode à créer dans PatientDashboardController
+        controller.setPatient(patient);
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -88,11 +90,10 @@ public class LoginController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/doctor_dashboard_view.fxml"));
         Parent root = loader.load();
 
-        // Récupération du contrôleur et passage du patient
         DoctorDashboardController controller = (DoctorDashboardController) loader.getController();
         controller.setnomDoctor(doctor.getNom());
         controller.setIdDoctor(doctor.getId());
-        controller.setDoctor(doctor);// méthode à créer dans PatientDashboardController
+        controller.setDoctor(doctor);
 
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

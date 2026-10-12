@@ -40,6 +40,9 @@ import javafx.stage.Stage;
 import model.Doctor;
 import model.DoctorDAO;
 
+/**
+ * Displays the doctor dashboard and manages patient lookup and patient records.
+ */
 public class DoctorDashboardController {
 
     @FXML
@@ -104,7 +107,7 @@ public class DoctorDashboardController {
         this.idDoctor = idDoctor;
         try {
             field_doctor.setText(nomDoctor);
-            loadPatients(); // ✅ Chargement des patients ici après que l'id soit défini
+            loadPatients(); // ✅ Load patients here after the id is defined
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -113,7 +116,6 @@ public class DoctorDashboardController {
     @FXML
     public void initialize() {
         try {
-            // Initialisation des colonnes
             column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
             column_prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
             column_date.setCellValueFactory(new PropertyValueFactory<>("dateNaissance"));
@@ -123,7 +125,6 @@ public class DoctorDashboardController {
             column_adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
             column_sexe.setCellValueFactory(new PropertyValueFactory<>("sexe"));
             addActionButtonsToTable();
-            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,17 +138,15 @@ public class DoctorDashboardController {
             return new TableCell<>() {
                 private final Button btnVoir = new Button();
                 private final Button btnSupprimer = new Button();
-                private final HBox pane = new HBox(35); // espacement 10 px
+                private final HBox pane = new HBox(35); // 10px spacing
 
                 {
-                    // Configure le bouton "Voir" avec une image
                     ImageView iconVoir = new ImageView(new Image(getClass().getResourceAsStream("/resources/info.png")));
                     iconVoir.setFitHeight(18);
                     iconVoir.setFitWidth(18);
                     btnVoir.setGraphic(iconVoir);
                     btnVoir.setStyle("-fx-background-color: transparent;");
 
-                    // Configure le bouton "Supprimer" avec une image
                     ImageView iconSupprimer = new ImageView(new Image(getClass().getResourceAsStream("/resources/delete.png")));
                     iconSupprimer.setFitHeight(18);
                     iconSupprimer.setFitWidth(18);
@@ -184,28 +183,24 @@ public class DoctorDashboardController {
 }
 
 public void voirPatient(DoctorPatient patient) {
-    try {
-        // Charger le FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DoctorMTR_view.fxml"));
-        Parent root = loader.load();
+try {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DoctorMTR_view.fxml"));
+    Parent root = loader.load();
 
-        // Récupérer le contrôleur
-        DoctorMTRController controller = loader.getController();
+    DoctorMTRController controller = loader.getController();
 
-        // Passer idDoctor et cnie au contrôleur
-        controller.setDoctorId(idDoctor);
-        controller.setCniePatient(patient.getCnie());
-        controller.setNomPatient(patient.getNom());
-        controller.setPrenomPatient(patient.getPrenom());
+    controller.setDoctorId(idDoctor);
+    controller.setCniePatient(patient.getCnie());
+    controller.setNomPatient(patient.getNom());
+    controller.setPrenomPatient(patient.getPrenom());
 
-        // Créer la nouvelle scène
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+    Stage stage = new Stage();
+    stage.setScene(new Scene(root));
+    stage.show();
 
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+} catch (IOException e) {
+    e.printStackTrace();
+}
 }
 
 
@@ -219,7 +214,7 @@ private void supprimerPatient(DoctorPatient patient) {
         if (response == ButtonType.OK) {
             DoctorPatientDAO.delete(patient.getCnie(), idDoctor);
             try {
-                loadPatients();  // recharge la liste après suppression
+                loadPatients();  // reload the list after deletion
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -268,22 +263,22 @@ public void Ajouter(ActionEvent event) {
     Button btnAjouter = new Button("Ajouter");
     Button btnAnnuler = new Button("Annuler");
 
-    // Espacement entre les éléments dans les HBox
+    // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, tfNom, tfVille);
     HBox hbox2 = new HBox(10, tfPrenom, tfTelephone);
     HBox hbox3 = new HBox(10, dpDateNaissance, tfAdresse);
     HBox hbox4 = new HBox(10, tfCnie, cbSexe);
     HBox hbox5 = new HBox(15, btnAjouter, btnAnnuler);
 
-    // Padding pour chaque HBox (espacement intérieur)
+    // Padding for each HBox (internal spacing)
     hbox1.setPadding(new Insets(5));
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(5));
     hbox4.setPadding(new Insets(5));
     hbox5.setPadding(new Insets(10));
 
-    // Margin (marge extérieure) exemple : on ajoute une marge autour de tfNom et tfVille dans hbox1
-    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // marge droite de 10px
+    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
+    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // right margin of 10px
     HBox.setMargin(tfPrenom, new Insets(0, 10, 0, 0));
     HBox.setMargin(dpDateNaissance, new Insets(0, 10, 0, 0));
     HBox.setMargin(tfCnie, new Insets(0, 10, 0, 0));
@@ -291,10 +286,10 @@ public void Ajouter(ActionEvent event) {
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3, hbox4, hbox5);
 
-    // Padding pour le VBox (espace intérieur tout autour)
+    // Padding for the VBox (internal spacing all around)
     vbox.setPadding(new Insets(20));
 
-    // Bordure grise, solide, coins arrondis 10px, épaisseur 2px
+    // Gray solid border, rounded corners 10px, thickness 2px
     vbox.setBorder(new Border(new BorderStroke(
         Color.GRAY,
         BorderStrokeStyle.SOLID,
@@ -305,7 +300,7 @@ public void Ajouter(ActionEvent event) {
     btnAnnuler.setOnAction(e -> dialogStage.close());
 
     btnAjouter.setOnAction(e -> {
-        // Vérification des champs obligatoires
+        // Check required fields
         if (tfNom.getText().isEmpty() || tfPrenom.getText().isEmpty() || dpDateNaissance.getValue() == null
                 || tfCnie.getText().isEmpty() || cbSexe.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -327,15 +322,15 @@ public void Ajouter(ActionEvent event) {
             patient.setAdresse(tfAdresse.getText());
             patient.setSexe(cbSexe.getValue());
 
-            // ⚠ Vérifie que idDoctor est bien initialisé
+            // ⚠ Verify that idDoctor is properly initialized
             if (idDoctor == 0) {
                 throw new IllegalStateException("Identifiant du médecin non défini.");
             }
 
-            DoctorPatientDAO.inserer(patient, idDoctor); // Appel DAO
+            DoctorPatientDAO.inserer(patient, idDoctor); // DAO call
 
             dialogStage.close();
-            loadPatients(); // Rechargement de la table
+            loadPatients(); // Reload the table
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -410,20 +405,20 @@ public void Ajouter(ActionEvent event) {
     Button btnAjouter = new Button("Modifier");
     Button btnAnnuler = new Button("Annuler");
 
-    // Espacement entre les éléments dans les HBox
+    // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, tfNom, tfNomCabinet);
     HBox hbox2 = new HBox(10, tfPrenom, tfAdresse);
     HBox hbox3 = new HBox(10, tfCnie, tftele);
     HBox hbox4 = new HBox(10, tfSpec, tfmotPasse);
     HBox hbox5 = new HBox(15, btnAjouter, btnAnnuler);
 
-    // Padding pour chaque HBox (espacement intérieur)
+    // Padding for each HBox (internal spacing)
     hbox1.setPadding(new Insets(5));
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (marge extérieure) exemple : on ajoute une marge autour de tfNom et tfVille dans hbox1
-    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // marge droite de 10px
+    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
+    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // right margin of 10px
     HBox.setMargin(tfPrenom, new Insets(0, 10, 0, 0));
     HBox.setMargin(tfCnie, new Insets(0, 10, 0, 0));
     HBox.setMargin(tfSpec, new Insets(0, 10, 0, 0));
@@ -431,10 +426,10 @@ public void Ajouter(ActionEvent event) {
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3,hbox4,hbox5);
 
-    // Padding pour le VBox (espace intérieur tout autour)
+    // Padding for the VBox (internal spacing all around)
     vbox.setPadding(new Insets(20));
 
-    // Bordure grise, solide, coins arrondis 10px, épaisseur 2px
+    // Gray solid border, rounded corners 10px, thickness 2px
     vbox.setBorder(new Border(new BorderStroke(
         Color.GRAY,
         BorderStrokeStyle.SOLID,
@@ -445,7 +440,7 @@ public void Ajouter(ActionEvent event) {
     btnAnnuler.setOnAction(e -> dialogStage.close());
 
     btnAjouter.setOnAction(e -> {
-        // Vérification des champs obligatoires
+        // Check required fields
         if (tfNom.getText().isEmpty() || tfPrenom.getText().isEmpty() ||
                 tfCnie.getText().isEmpty()|| tfSpec.getText().isEmpty()||
                 tfmotPasse.getText().isEmpty() ||tfNomCabinet.getText() .isEmpty()) {

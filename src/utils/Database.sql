@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS cabinet_medical;
 CREATE DATABASE IF NOT EXISTS cabinet_medical;
 USE cabinet_medical;
 
--- Table des docteurs avec compte
+-- Doctors table with account
 CREATE TABLE Doctor (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(30) NOT NULL,
@@ -14,10 +14,10 @@ CREATE TABLE Doctor (
     adresse_cabinet VARCHAR(255),
     mot_de_passe VARCHAR(255) NOT NULL,
     -- email VARCHAR(40),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- pour la date de creation de compte
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- for the account creation date
 ) ENGINE=InnoDB;
 
--- Table des patients avec compte
+-- Patients table with account
 CREATE TABLE Patient (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(30) NOT NULL,
@@ -34,11 +34,11 @@ CREATE TABLE Patient (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
--- Table des patients suivi par docteur (dossier interne du docteur)
+-- Patients followed by doctor table (doctor internal file)
 CREATE TABLE Doctor_Patient (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_doctor INT NOT NULL,
-    -- infos patient
+    -- patient information
     nom VARCHAR(30) NOT NULL,
     prenom VARCHAR(30) NOT NULL,
     cnie VARCHAR(15) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE Doctor_Patient (
     FOREIGN KEY (id_doctor) REFERENCES Doctor(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- Table des rendez-vous
+-- Appointments table
 CREATE TABLE Rendez_vous (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_doctor INT NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE Rendez_vous (
     UNIQUE (date_rendez_vous, cnie_patient, heure)
 ) ENGINE=InnoDB;
 
--- Table des médicaments
+-- Medications table
 CREATE TABLE Medicament (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_doctor INT NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE Medicament (
     UNIQUE (cnie_patient, nom, date_debut, id_doctor)
 ) ENGINE=InnoDB;
 
--- Table des tests médicaux
+-- Medical tests table
 CREATE TABLE Test_Medical (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_doctor INT NOT NULL,

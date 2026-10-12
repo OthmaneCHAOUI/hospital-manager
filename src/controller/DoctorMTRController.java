@@ -45,6 +45,9 @@ import model.RendezVousDAO;
 import model.TestMedical;
 import model.TestMedicalDAO;
 
+/**
+ * Manages the doctor’s patient records for medications, tests, and appointments.
+ */
 public class DoctorMTRController {
 
     @FXML
@@ -173,19 +176,17 @@ public class DoctorMTRController {
     @FXML
     public void initialize() {
         try {
-            // Initialisation des colonnes
             Medicament_column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
             Medicament_column_date.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
             Medicament_column_description.setCellValueFactory(new PropertyValueFactory<>("description"));
             Medicament_column_periode.setCellValueFactory(new PropertyValueFactory<>("periode"));
-            
+
             Test_column_nom.setCellValueFactory(new PropertyValueFactory<>("typeTest"));
             Test_column_date.setCellValueFactory(new PropertyValueFactory<>("dateTest"));
             Test_column_type.setCellValueFactory(new PropertyValueFactory<>("typeDoctor"));
             Test_column_result.setCellValueFactory(new PropertyValueFactory<>("resultat"));
             Test_column_statut.setCellValueFactory(new PropertyValueFactory<>("statut"));
 
-        // Colonnes des rendez-vous
             Rendez_column_date.setCellValueFactory(new PropertyValueFactory<>("dateRendezVous"));
             Rendez_column_heure.setCellValueFactory(new PropertyValueFactory<>("heure"));
             Rendez_column_raison.setCellValueFactory(new PropertyValueFactory<>("raison"));
@@ -202,10 +203,6 @@ public class DoctorMTRController {
             f_rechercheTest.textProperty().addListener((observable, oldValue, newValue) -> {
                filterTestMedical(newValue);
             });
-
-
-
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -377,17 +374,15 @@ public class DoctorMTRController {
             return new TableCell<>() {
                 private final Button btnVoir = new Button();
                 private final Button btnSupprimer = new Button();
-                private final HBox pane = new HBox(35); // espacement 10 px
+                private final HBox pane = new HBox(35);
 
                 {
-                    // Configure le bouton "Voir" avec une image
                     ImageView iconVoir = new ImageView(new Image(getClass().getResourceAsStream("/resources/edit.png")));
                     iconVoir.setFitHeight(18);
                     iconVoir.setFitWidth(18);
                     btnVoir.setGraphic(iconVoir);
                     btnVoir.setStyle("-fx-background-color: transparent;");
 
-                    // Configure le bouton "Supprimer" avec une image
                     ImageView iconSupprimer = new ImageView(new Image(getClass().getResourceAsStream("/resources/delete.png")));
                     iconSupprimer.setFitHeight(18);
                     iconSupprimer.setFitWidth(18);
@@ -429,17 +424,15 @@ public class DoctorMTRController {
             return new TableCell<>() {
                 private final Button btnVoir = new Button();
                 private final Button btnSupprimer = new Button();
-                private final HBox pane = new HBox(35); // espacement 10 px
+                private final HBox pane = new HBox(35);
 
                 {
-                    // Configure le bouton "Voir" avec une image
                     ImageView iconVoir = new ImageView(new Image(getClass().getResourceAsStream("/resources/info.png")));
                     iconVoir.setFitHeight(18);
                     iconVoir.setFitWidth(18);
                     btnVoir.setGraphic(iconVoir);
                     btnVoir.setStyle("-fx-background-color: transparent;");
 
-                    // Configure le bouton "Supprimer" avec une image
                     ImageView iconSupprimer = new ImageView(new Image(getClass().getResourceAsStream("/resources/delete.png")));
                     iconSupprimer.setFitHeight(18);
                     iconSupprimer.setFitWidth(18);
@@ -475,57 +468,55 @@ public class DoctorMTRController {
     Test_column_action.setCellFactory(cellFactory);
 }
     
-    private void addActionButtonsToTableRendezVous() {
-    Callback<TableColumn<RendezVous, Void>, TableCell<RendezVous, Void>> cellFactory = new Callback<>() {
-        @Override
-        public TableCell<RendezVous, Void> call(final TableColumn<RendezVous, Void> param) {
-            return new TableCell<>() {
-                private final Button btnVoir = new Button();
-                private final Button btnSupprimer = new Button();
-                private final HBox pane = new HBox(35); // espacement 10 px
+private void addActionButtonsToTableRendezVous() {
+Callback<TableColumn<RendezVous, Void>, TableCell<RendezVous, Void>> cellFactory = new Callback<>() {
+    @Override
+    public TableCell<RendezVous, Void> call(final TableColumn<RendezVous, Void> param) {
+        return new TableCell<>() {
+            private final Button btnVoir = new Button();
+            private final Button btnSupprimer = new Button();
+            private final HBox pane = new HBox(35);
 
-                {
-                    // Configure le bouton "Voir" avec une image
-                    ImageView iconVoir = new ImageView(new Image(getClass().getResourceAsStream("/resources/info.png")));
-                    iconVoir.setFitHeight(18);
-                    iconVoir.setFitWidth(18);
-                    btnVoir.setGraphic(iconVoir);
-                    btnVoir.setStyle("-fx-background-color: transparent;");
+            {
+                ImageView iconVoir = new ImageView(new Image(getClass().getResourceAsStream("/resources/info.png")));
+                iconVoir.setFitHeight(18);
+                iconVoir.setFitWidth(18);
+                btnVoir.setGraphic(iconVoir);
+                btnVoir.setStyle("-fx-background-color: transparent;");
 
-                    // Configure le bouton "Supprimer" avec une image
-                    ImageView iconSupprimer = new ImageView(new Image(getClass().getResourceAsStream("/resources/delete.png")));
-                    iconSupprimer.setFitHeight(18);
-                    iconSupprimer.setFitWidth(18);
-                    btnSupprimer.setGraphic(iconSupprimer);
-                    btnSupprimer.setStyle("-fx-background-color: transparent;");
+                ImageView iconSupprimer = new ImageView(new Image(getClass().getResourceAsStream("/resources/delete.png")));
+                iconSupprimer.setFitHeight(18);
+                iconSupprimer.setFitWidth(18);
+                btnSupprimer.setGraphic(iconSupprimer);
+                btnSupprimer.setStyle("-fx-background-color: transparent;");
 
-                    pane.getChildren().addAll(btnVoir, btnSupprimer);
+                pane.getChildren().addAll(btnVoir, btnSupprimer);
 
-                    btnVoir.setOnAction(event -> {
-                        RendezVous rendezVous = getTableView().getItems().get(getIndex());
-                        voirRendezVous(rendezVous);
-                    });
+                btnVoir.setOnAction(event -> {
+                    RendezVous rendezVous = getTableView().getItems().get(getIndex());
+                    voirRendezVous(rendezVous);
+                });
 
-                    btnSupprimer.setOnAction(event -> {
-                        RendezVous rendezVous = getTableView().getItems().get(getIndex());
-                        supprimerRendezVous(rendezVous);
-                    });
+                btnSupprimer.setOnAction(event -> {
+                    RendezVous rendezVous = getTableView().getItems().get(getIndex());
+                    supprimerRendezVous(rendezVous);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(pane);
                 }
+            }
+        };
+    }
+};
 
-                @Override
-                protected void updateItem(Void item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        setGraphic(pane);
-                    }
-                }
-            };
-        }
-    };
-
-    Rendez_column_action.setCellFactory(cellFactory);
+Rendez_column_action.setCellFactory(cellFactory);
 }
     
     private void supprimerMedicament(Medicament medicament) {
@@ -536,7 +527,7 @@ public class DoctorMTRController {
     alert.showAndWait().ifPresent(response -> {
         if (response == ButtonType.OK) {
             MedicamentDAO.delete(medicament.getId());
-            loadMedicaments();  // recharge la liste après suppression
+            loadMedicaments();  // reload the list after deletion
         }
     });
 }
@@ -563,27 +554,27 @@ public class DoctorMTRController {
     Button btnAjouter = new Button("Ajouter");
     Button btnAnnuler = new Button("Annuler");
 
-    // Espacement entre les éléments dans les HBox
+    // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, tfNom, dateDedbut);
     HBox hbox2 = new HBox(10, tfperiode, tfDescription);
     HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
-    // Padding pour chaque HBox (espacement intérieur)
+    // Padding for each HBox (internal spacing)
     hbox1.setPadding(new Insets(5));
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (marge extérieure) exemple : on ajoute une marge autour de tfNom et tfVille dans hbox1
-    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // marge droite de 10px
+    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
+    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // right margin of 10px
     HBox.setMargin(tfperiode, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
 
-    // Padding pour le VBox (espace intérieur tout autour)
+    // Padding for the VBox (internal spacing all around)
     vbox.setPadding(new Insets(20));
 
-    // Bordure grise, solide, coins arrondis 10px, épaisseur 2px
+    // Gray solid border, rounded corners 10px, thickness 2px
     vbox.setBorder(new Border(new BorderStroke(
         Color.GRAY,
         BorderStrokeStyle.SOLID,
@@ -594,7 +585,7 @@ public class DoctorMTRController {
     btnAnnuler.setOnAction(e -> dialogStage.close());
 
     btnAjouter.setOnAction(e -> {
-        // Vérification des champs obligatoires
+        // Check required fields
         if (tfNom.getText().isEmpty() || dateDedbut.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Champs manquants");
@@ -612,9 +603,9 @@ public class DoctorMTRController {
             newmedicament.setDescription(tfDescription.getText());
             newmedicament.setId(medicament.getId());
 
-            MedicamentDAO.editerMedicament(medicament); // Appel DAO
+            MedicamentDAO.editerMedicament(medicament); // DAO call
             dialogStage.close();
-            loadMedicaments(); // Rechargement de la table
+            loadMedicaments(); // Reload the table
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -647,7 +638,7 @@ public class DoctorMTRController {
     alert.showAndWait().ifPresent(response -> {
         if (response == ButtonType.OK) {
             TestMedicalDAO.delete(testMedical.getId());
-            loadTestMedical();  // recharge la liste après suppression
+            loadTestMedical();  // reload the list after deletion
         }
     });
 }
@@ -678,27 +669,27 @@ public class DoctorMTRController {
     Button btnAjouter = new Button("Modifier");
     Button btnAnnuler = new Button("Annuler");
 
-    // Espacement entre les éléments dans les HBox
+    // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, tfNom, dateDedbut);
     HBox hbox2 = new HBox(10, tfResultat, cbStatut,cbType);
     HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
-    // Padding pour chaque HBox (espacement intérieur)
+    // Padding for each HBox (internal spacing)
     hbox1.setPadding(new Insets(5));
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (marge extérieure) exemple : on ajoute une marge autour de tfNom et tfVille dans hbox1
-    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // marge droite de 10px
+    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
+    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // right margin of 10px
     HBox.setMargin(tfResultat, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
 
-    // Padding pour le VBox (espace intérieur tout autour)
+    // Padding for the VBox (internal spacing all around)
     vbox.setPadding(new Insets(20));
 
-    // Bordure grise, solide, coins arrondis 10px, épaisseur 2px
+    // Gray solid border, rounded corners 10px, thickness 2px
     vbox.setBorder(new Border(new BorderStroke(
         Color.GRAY,
         BorderStrokeStyle.SOLID,
@@ -709,7 +700,7 @@ public class DoctorMTRController {
     btnAnnuler.setOnAction(e -> dialogStage.close());
 
     btnAjouter.setOnAction(e -> {
-        // Vérification des champs obligatoires
+        // Check required fields
         if (tfNom.getText().isEmpty() || dateDedbut.getValue() == null || cbStatut.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Champs manquants");
@@ -728,9 +719,9 @@ public class DoctorMTRController {
             newtestMedical.setTypeDoctor(cbType.getValue());
             newtestMedical.setId(testMedical.getId());
 
-            TestMedicalDAO.editerTest(newtestMedical); // Appel DAO
+            TestMedicalDAO.editerTest(newtestMedical); // DAO call
             dialogStage.close();
-            loadTestMedical(); // Rechargement de la table
+            loadTestMedical(); // Reload the table
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -764,7 +755,7 @@ public class DoctorMTRController {
     alert.showAndWait().ifPresent(response -> {
         if (response == ButtonType.OK) {
             RendezVousDAO.delete(rendezVous.getId());
-            loadRendezVous();  // recharge la liste après suppression
+            loadRendezVous();  // reload the list after deletion
         }
     });
 }
@@ -792,27 +783,27 @@ public class DoctorMTRController {
     Button btnAjouter = new Button("Ajouter");
     Button btnAnnuler = new Button("Annuler");
 
-    // Espacement entre les éléments dans les HBox
+    // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, date, tfHeure);
     HBox hbox2 = new HBox(10, tfRaisont, cbStatut);
     HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
-    // Padding pour chaque HBox (espacement intérieur)
+    // Padding for each HBox (internal spacing)
     hbox1.setPadding(new Insets(5));
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (marge extérieure) exemple : on ajoute une marge autour de tfNom et tfVille dans hbox1
-    HBox.setMargin(date, new Insets(0, 10, 0, 0));  // marge droite de 10px
+    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
+    HBox.setMargin(date, new Insets(0, 10, 0, 0));  // right margin of 10px
     HBox.setMargin(tfRaisont, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
 
-    // Padding pour le VBox (espace intérieur tout autour)
+    // Padding for the VBox (internal spacing all around)
     vbox.setPadding(new Insets(20));
 
-    // Bordure grise, solide, coins arrondis 10px, épaisseur 2px
+    // Gray solid border, rounded corners 10px, thickness 2px
     vbox.setBorder(new Border(new BorderStroke(
         Color.GRAY,
         BorderStrokeStyle.SOLID,
@@ -823,7 +814,7 @@ public class DoctorMTRController {
     btnAnnuler.setOnAction(e -> dialogStage.close());
 
     btnAjouter.setOnAction(e -> {
-        // Vérification des champs obligatoires
+        // Check required fields
         if (date.getValue() == null || cbStatut.getValue() == null || tfHeure.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Champs manquants");
@@ -893,27 +884,27 @@ public class DoctorMTRController {
     Button btnAjouter = new Button("Ajouter");
     Button btnAnnuler = new Button("Annuler");
 
-    // Espacement entre les éléments dans les HBox
+    // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, tfNom, dateDedbut);
     HBox hbox2 = new HBox(10, tfperiode, tfDescription);
     HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
-    // Padding pour chaque HBox (espacement intérieur)
+    // Padding for each HBox (internal spacing)
     hbox1.setPadding(new Insets(5));
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (marge extérieure) exemple : on ajoute une marge autour de tfNom et tfVille dans hbox1
-    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // marge droite de 10px
+    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
+    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // right margin of 10px
     HBox.setMargin(tfperiode, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
 
-    // Padding pour le VBox (espace intérieur tout autour)
+    // Padding for the VBox (internal spacing all around)
     vbox.setPadding(new Insets(20));
 
-    // Bordure grise, solide, coins arrondis 10px, épaisseur 2px
+    // Gray solid border, rounded corners 10px, thickness 2px
     vbox.setBorder(new Border(new BorderStroke(
         Color.GRAY,
         BorderStrokeStyle.SOLID,
@@ -924,7 +915,7 @@ public class DoctorMTRController {
     btnAnnuler.setOnAction(e -> dialogStage.close());
 
     btnAjouter.setOnAction(e -> {
-        // Vérification des champs obligatoires
+        // Check required fields
         if (tfNom.getText().isEmpty() || dateDedbut.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Champs manquants");
@@ -941,9 +932,9 @@ public class DoctorMTRController {
             medicament.setPeriode(Integer.parseInt(tfperiode.getText()));
             medicament.setDescription(tfDescription.getText());
 
-            MedicamentDAO.inserer(medicament,cniePatient, idDoctor); // Appel DAO
+            MedicamentDAO.inserer(medicament,cniePatient, idDoctor); // DAO call
             dialogStage.close();
-            loadMedicaments(); // Rechargement de la table
+            loadMedicaments(); // Reload the table
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -991,27 +982,27 @@ public class DoctorMTRController {
     Button btnAjouter = new Button("Ajouter");
     Button btnAnnuler = new Button("Annuler");
 
-    // Espacement entre les éléments dans les HBox
+    // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, tfNom, dateDedbut);
     HBox hbox2 = new HBox(10, tfResultat, cbStatut,cbType);
     HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
-    // Padding pour chaque HBox (espacement intérieur)
+    // Padding for each HBox (internal spacing)
     hbox1.setPadding(new Insets(5));
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (marge extérieure) exemple : on ajoute une marge autour de tfNom et tfVille dans hbox1
-    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // marge droite de 10px
+    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
+    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // right margin of 10px
     HBox.setMargin(tfResultat, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
 
-    // Padding pour le VBox (espace intérieur tout autour)
+    // Padding for the VBox (internal spacing all around)
     vbox.setPadding(new Insets(20));
 
-    // Bordure grise, solide, coins arrondis 10px, épaisseur 2px
+    // Gray solid border, rounded corners 10px, thickness 2px
     vbox.setBorder(new Border(new BorderStroke(
         Color.GRAY,
         BorderStrokeStyle.SOLID,
@@ -1022,7 +1013,7 @@ public class DoctorMTRController {
     btnAnnuler.setOnAction(e -> dialogStage.close());
 
     btnAjouter.setOnAction(e -> {
-        // Vérification des champs obligatoires
+        // Check required fields
         if (tfNom.getText().isEmpty() || dateDedbut.getValue() == null || cbStatut.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Champs manquants");
@@ -1040,9 +1031,9 @@ public class DoctorMTRController {
             testMedical.setStatut(cbStatut.getValue());
             testMedical.setTypeDoctor(cbType.getValue());
 
-            TestMedicalDAO.inserer(testMedical,cniePatient, idDoctor); // Appel DAO
+            TestMedicalDAO.inserer(testMedical,cniePatient, idDoctor); // DAO call
             dialogStage.close();
-            loadTestMedical(); // Rechargement de la table
+            loadTestMedical(); // Reload the table
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -1087,27 +1078,27 @@ public class DoctorMTRController {
     Button btnAjouter = new Button("Ajouter");
     Button btnAnnuler = new Button("Annuler");
 
-    // Espacement entre les éléments dans les HBox
+    // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, date, tfHeure);
     HBox hbox2 = new HBox(10, tfRaisont, cbStatut);
     HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
-    // Padding pour chaque HBox (espacement intérieur)
+    // Padding for each HBox (internal spacing)
     hbox1.setPadding(new Insets(5));
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (marge extérieure) exemple : on ajoute une marge autour de tfNom et tfVille dans hbox1
-    HBox.setMargin(date, new Insets(0, 10, 0, 0));  // marge droite de 10px
+    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
+    HBox.setMargin(date, new Insets(0, 10, 0, 0));  // right margin of 10px
     HBox.setMargin(tfRaisont, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
 
-    // Padding pour le VBox (espace intérieur tout autour)
+    // Padding for the VBox (internal spacing all around)
     vbox.setPadding(new Insets(20));
 
-    // Bordure grise, solide, coins arrondis 10px, épaisseur 2px
+    // Gray solid border, rounded corners 10px, thickness 2px
     vbox.setBorder(new Border(new BorderStroke(
         Color.GRAY,
         BorderStrokeStyle.SOLID,
@@ -1118,7 +1109,7 @@ public class DoctorMTRController {
     btnAnnuler.setOnAction(e -> dialogStage.close());
 
     btnAjouter.setOnAction(e -> {
-        // Vérification des champs obligatoires
+        // Check required fields
         if (date.getValue() == null || cbStatut.getValue() == null || tfHeure.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Champs manquants");
@@ -1135,9 +1126,9 @@ public class DoctorMTRController {
             rendezVous.setHeure(LocalTime.parse(tfHeure.getText()));
             rendezVous.setStatut(cbStatut.getValue());
 
-            RendezVousDAO.inserer(rendezVous,cniePatient, idDoctor); // Appel DAO
+            RendezVousDAO.inserer(rendezVous,cniePatient, idDoctor); // DAO call
             dialogStage.close();
-            loadRendezVous(); // Rechargement de la table
+            loadRendezVous(); // Reload the table
 
         } catch (SQLException ex) {
             ex.printStackTrace();

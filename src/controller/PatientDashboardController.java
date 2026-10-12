@@ -20,6 +20,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
+/**
+ * Displays patient information and keeps the medical records panels synchronized with the selected doctor.
+ */
 public class PatientDashboardController {
     @FXML
     private AnchorPane profilePane;
@@ -76,7 +79,6 @@ public class PatientDashboardController {
                 });
                 doctorMenu.getItems().add(item);
             }
-            // Charge les médicaments d'un des docteurs au démarrage (si existant)
             if (!doctorMenu.getItems().isEmpty()) {
                 currentDoctor = DoctorPatientDAO.getDoctorsByPatientCnie(patient.getCnie()).get(0);
                 doctorMenu.setText(currentDoctor.getNom() + " " + currentDoctor.getPrenom());
@@ -182,11 +184,9 @@ public class PatientDashboardController {
 
     @FXML
     public void showProfileEdit(MouseEvent event) {
-        // Activer et afficher la fenêtre
         profilePane.setVisible(true);
         profilePane.setDisable(false);
 
-        // Remplir les champs avec les données actuelles du patient
         nomField.setText(patient.getNom());
         prenomField.setText(patient.getPrenom());
         villeField.setText(patient.getVille());
@@ -211,7 +211,6 @@ public class PatientDashboardController {
 
             new PatientDAO().updatePatient(patient);
             usernameLabel.setText(patient.getNom());
-            // Activer et afficher la fenêtre
             profilePane.setDisable(true);
             profilePane.setVisible(false);
             loadMedicamentsTable();
@@ -223,6 +222,6 @@ public class PatientDashboardController {
     public void handleSexeSelection(ActionEvent event) {
         MenuItem item = (MenuItem) event.getSource();
         selectedSexe = item.getText();
-        sexeMenu.setText(selectedSexe); // Affiche le choix dans le menu
+        sexeMenu.setText(selectedSexe);
     }
 }

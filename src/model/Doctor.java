@@ -1,8 +1,7 @@
 package model;
 
 /**
- *
- * @author BENDAMOU
+ * Represents a doctor profile in the medical management application.
  */
 public class Doctor {
     private int id;

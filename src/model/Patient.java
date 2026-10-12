@@ -2,6 +2,9 @@ package model;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a patient record and the personal information tied to it.
+ */
 public class Patient {
     private int id;
     private String nom, prenom, cnie, motDePasse, ville, telephone, adresse, sexe, compteCree, email;
@@ -86,7 +89,6 @@ public class Patient {
 
     public void setAge(int age) {
         if (dateNaissance != null) {
-            // Met à jour la date de naissance en fonction de l'âge donné (approximatif, au 1er janvier)
             this.dateNaissance = java.time.LocalDate.now().minusYears(age);
         }
     }

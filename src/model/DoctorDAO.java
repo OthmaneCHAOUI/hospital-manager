@@ -4,6 +4,9 @@ import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Manages doctor persistence and queries against the clinic database.
+ */
 public class DoctorDAO {
     
     public static int inserer(Doctor doctor) throws SQLException{
@@ -94,7 +97,6 @@ public class DoctorDAO {
         return doctors ;
     }
 
-    // DoctorDAO.java
     public static List<Doctor> getDoctorsByPatient(String cnie) throws SQLException {
         List<Doctor> doctors = new ArrayList<>();
         String sql = "SELECT d.* FROM doctor d " +
