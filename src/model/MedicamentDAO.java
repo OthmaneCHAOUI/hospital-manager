@@ -55,7 +55,7 @@ public class MedicamentDAO
     }
 }
      public static void editerMedicament(Medicament medicament) throws SQLException{
-        String sql = "UPDATE Medicament SET nom=?, dateDebut=?, description=?,periode=?  WHERE id=?";
+        String sql = "UPDATE Medicament SET nom=?, date_debut=?, description=?,periode=?  WHERE id=?";
         try (Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 

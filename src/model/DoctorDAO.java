@@ -32,10 +32,12 @@ public class DoctorDAO {
         } else {
             System.out.println("Échec de l'ajout du Doctor.");
         }
-        }catch (SQLIntegrityConstraintViolationException e) {
-            System.out.println("Erreur : Valeur unique déjà utilisée.");
         }catch(SQLException e) {
-            e.printStackTrace();
+            if ("23505".equals(e.getSQLState())) {
+                System.out.println("Erreur : Valeur unique déjà utilisée.");
+            } else {
+                e.printStackTrace();
+            }
         }
         return 0;
     }
@@ -100,8 +102,8 @@ public class DoctorDAO {
     public static List<Doctor> getDoctorsByPatient(String cnie) throws SQLException {
         List<Doctor> doctors = new ArrayList<>();
         String sql = "SELECT d.* FROM doctor d " +
-                    "JOIN traitement t ON d.id = t.doctor_id " +
-                    "WHERE t.patient_cnie = ?";
+                    "JOIN Doctor_Patient dp ON d.id = dp.id_doctor " +
+                    "WHERE dp.cnie = ?";
         try (Connection conn = DBConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, cnie);
