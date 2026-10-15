@@ -49,7 +49,7 @@
                         <Insets bottom="30.0" />
                      </VBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Votre santé, notre priorité" textFill="WHITE">
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Your health, our priority" textFill="WHITE">
                      <font>
                         <Font name="Agency FB Bold" size="20.0" />
                      </font>
@@ -58,12 +58,12 @@
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="1">
                <children>
-                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="104.0" prefWidth="466.0" style="-fx-text-fill: limegreen;" text="Espace de Connexion">
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="104.0" prefWidth="466.0" style="-fx-text-fill: limegreen;" text="Login">
                      <font>
                         <Font name="Arial Bold" size="35.0" />
                      </font>
                   </Label>
-                  <Label fx:id="label_incorrect" opacity="0.0" text="password ou cnie incorrect" textFill="#db3232de">
+                  <Label fx:id="label_incorrect" opacity="0.0" text="Incorrect password or national ID" textFill="#db3232de">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -76,7 +76,7 @@
                         <Insets bottom="30.0" />
                      </VBox.margin>
                   </TextField>
-                  <PasswordField fx:id="f_password" maxWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="Mot de pass" styleClass="field">
+                  <PasswordField fx:id="f_password" maxWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="Password" styleClass="field">
                      <VBox.margin>
                         <Insets bottom="30.0" />
                      </VBox.margin>
@@ -91,14 +91,14 @@
                               <ToggleGroup fx:id="type" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="rd_doctor" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Médecin" textFill="LIMEGREEN" toggleGroup="$type">
+                        <RadioButton fx:id="rd_doctor" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Doctor" textFill="LIMEGREEN" toggleGroup="$type">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </RadioButton>
                      </children>
                   </HBox>
-                  <Button fx:id="btn_connexion" mnemonicParsing="false" onAction="#ButtonConnexion" prefHeight="50.0" prefWidth="100.0" styleClass="connexion-button" text="Connexion" />
+                  <Button fx:id="btn_connexion" mnemonicParsing="false" onAction="#ButtonConnexion" prefHeight="50.0" prefWidth="100.0" styleClass="connexion-button" text="Login" />
                   <GridPane alignment="CENTER_RIGHT" prefHeight="215.0" prefWidth="466.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" />
@@ -110,7 +110,7 @@
                      <children>
                         <StackPane alignment="BOTTOM_RIGHT" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <children>
-                              <Hyperlink fx:id="hyper_doctor" alignment="CENTER_RIGHT" onAction="#GoToFormDocteur" text="Creer compte Médecin">
+                              <Hyperlink fx:id="hyper_doctor" alignment="CENTER_RIGHT" onAction="#GoToFormDocteur" text="Create doctor account">
                                  <StackPane.margin>
                                     <Insets bottom="20.0" right="10.0" />
                                  </StackPane.margin>
@@ -122,7 +122,7 @@
                         </StackPane>
                         <StackPane alignment="BOTTOM_LEFT" prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <Hyperlink fx:id="hyper_patient" onAction="#GoToFormPatient" text="Creer compte Patient">
+                              <Hyperlink fx:id="hyper_patient" onAction="#GoToFormPatient" text="Create patient account">
                                  <StackPane.margin>
                                     <Insets bottom="20.0" left="10.0" />
                                  </StackPane.margin>

@@ -207,9 +207,9 @@ try {
 
 private void supprimerPatient(DoctorPatient patient) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Confirmation suppression");
+    alert.setTitle("Delete confirmation");
     alert.setHeaderText(null);
-    alert.setContentText("Voulez-vous vraiment supprimer le patient " + patient.getNom() + " ?");
+    alert.setContentText("Are you sure you want to delete the patient " + patient.getNom() + "?");
     alert.showAndWait().ifPresent(response -> {
         if (response == ButtonType.OK) {
             DoctorPatientDAO.delete(patient.getCnie(), idDoctor);
@@ -231,37 +231,37 @@ private void supprimerPatient(DoctorPatient patient) {
 @FXML
 public void Ajouter(ActionEvent event) {
     Stage dialogStage = new Stage();
-    dialogStage.setTitle("Ajouter un patient");
+    dialogStage.setTitle("Add a patient");
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
     TextField tfNom = new TextField();
-    tfNom.setPromptText("Nom");
+    tfNom.setPromptText("Name");
 
     TextField tfPrenom = new TextField();
-    tfPrenom.setPromptText("Prénom");
+    tfPrenom.setPromptText("First name");
 
     DatePicker dpDateNaissance = new DatePicker();
-    dpDateNaissance.setPromptText("Date de naissance");
+    dpDateNaissance.setPromptText("Birth date");
 
     TextField tfCnie = new TextField();
     tfCnie.setPromptText("CNI");
 
     TextField tfVille = new TextField();
-    tfVille.setPromptText("Ville");
+    tfVille.setPromptText("City");
 
     TextField tfTelephone = new TextField();
-    tfTelephone.setPromptText("Téléphone");
+    tfTelephone.setPromptText("Phone");
 
     TextField tfAdresse = new TextField();
-    tfAdresse.setPromptText("Adresse");
+    tfAdresse.setPromptText("Address");
 
     ComboBox<String> cbSexe = new ComboBox<>();
     cbSexe.getItems().addAll("M", "F");
-    cbSexe.setPromptText("Sexe");
+    cbSexe.setPromptText("Gender");
 
-    Button btnAjouter = new Button("Ajouter");
-    Button btnAnnuler = new Button("Annuler");
+    Button btnAjouter = new Button("Add");
+    Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, tfNom, tfVille);
@@ -304,9 +304,9 @@ public void Ajouter(ActionEvent event) {
         if (tfNom.getText().isEmpty() || tfPrenom.getText().isEmpty() || dpDateNaissance.getValue() == null
                 || tfCnie.getText().isEmpty() || cbSexe.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Champs manquants");
+            alert.setTitle("Missing fields");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs obligatoires (Nom, Prénom, Date, CNI, Sexe).");
+            alert.setContentText("Please fill in all required fields (name, first name, date, national ID, gender).");
             alert.showAndWait();
             return;
         }
@@ -324,7 +324,7 @@ public void Ajouter(ActionEvent event) {
 
             // ⚠ Verify that idDoctor is properly initialized
             if (idDoctor == 0) {
-                throw new IllegalStateException("Identifiant du médecin non défini.");
+                throw new IllegalStateException("Doctor ID is not initialized.");
             }
 
             DoctorPatientDAO.inserer(patient, idDoctor); // DAO call
@@ -335,16 +335,16 @@ public void Ajouter(ActionEvent event) {
         } catch (SQLException ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur SQL");
-            alert.setHeaderText("Erreur lors de l'ajout du patient");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("SQL error");
+            alert.setHeaderText("Error adding patient");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         } catch (Exception ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur inattendue");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("Error");
+            alert.setHeaderText("Unexpected error");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         }
     });
@@ -357,7 +357,7 @@ public void Ajouter(ActionEvent event) {
 
     @FXML
     void Exporter(ActionEvent event) {
-        System.out.println("Exporter les données (fonction non implémentée)");
+        System.out.println("Export data (feature not implemented)");
     }
     private Doctor currentDoctor ;
     public void setDoctor(Doctor doctor){
@@ -366,24 +366,24 @@ public void Ajouter(ActionEvent event) {
     @FXML
     void Parametre(ActionEvent event) {
         Stage dialogStage = new Stage();
-    dialogStage.setTitle("Modifier Votre info");
+    dialogStage.setTitle("Edit your information");
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
     TextField tfNom = new TextField();
-    tfNom.setPromptText("Nom");
+    tfNom.setPromptText("Name");
     tfNom.setText(currentDoctor.getNom());
     
     TextField tfNomCabinet = new TextField();
-    tfNomCabinet.setPromptText("Nom de cabinet");
+    tfNomCabinet.setPromptText("Clinic name");
     tfNomCabinet.setText(currentDoctor.getNomCabinet());
     
     TextField tfPrenom = new TextField();
-    tfPrenom.setPromptText("Prenom");
+    tfPrenom.setPromptText("First name");
     tfPrenom.setText(currentDoctor.getPrenom());
     
     TextField tfAdresse = new TextField();
-    tfAdresse.setPromptText("Adresse de Cabinet");
+    tfAdresse.setPromptText("Clinic address");
     tfAdresse.setText(currentDoctor.getAdresseCabinet());
 
     TextField tfCnie = new TextField();
@@ -391,19 +391,19 @@ public void Ajouter(ActionEvent event) {
     tfCnie.setText(currentDoctor.getCnie());
 
     TextField tftele = new TextField();
-    tftele.setPromptText("Téléphone");
+    tftele.setPromptText("Phone");
     tftele.setText(currentDoctor.getTelephone());
     
     TextField tfSpec = new TextField();
-    tfSpec.setPromptText("Spécialité");
+    tfSpec.setPromptText("Specialty");
     tfSpec.setText(currentDoctor.getSpecialite());
     
     TextField tfmotPasse = new TextField();
-    tfmotPasse.setPromptText("Mot de passe");
+    tfmotPasse.setPromptText("Password");
     tfmotPasse.setText(currentDoctor.getMotDePasse());
 
-    Button btnAjouter = new Button("Modifier");
-    Button btnAnnuler = new Button("Annuler");
+    Button btnAjouter = new Button("Update");
+    Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, tfNom, tfNomCabinet);
@@ -445,9 +445,9 @@ public void Ajouter(ActionEvent event) {
                 tfCnie.getText().isEmpty()|| tfSpec.getText().isEmpty()||
                 tfmotPasse.getText().isEmpty() ||tfNomCabinet.getText() .isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Champs manquants");
+            alert.setTitle("Missing fields");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs obligatoires (Nom ,Prenom , Nom de Cabinet , CNIE ,Spécialité, Mot de passe ");
+            alert.setContentText("Please fill in all required fields (name, first name, clinic name, national ID, specialty, password).");
             alert.showAndWait();
             return;
         }
@@ -465,22 +465,22 @@ public void Ajouter(ActionEvent event) {
             newdoctor.setId(idDoctor);
             field_doctor.setText(tfNom.getText());
 
-            DoctorDAO.update(newdoctor); // Appel DAO
+            DoctorDAO.update(newdoctor); // DAO call
             dialogStage.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur SQL");
-            alert.setHeaderText("Erreur lors de l'ajout du medicament");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("SQL error");
+            alert.setHeaderText("Error updating doctor information");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         } catch (Exception ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur inattendue");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("Error");
+            alert.setHeaderText("Unexpected error");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         }
     });

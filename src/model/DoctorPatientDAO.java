@@ -53,7 +53,7 @@ public class DoctorPatientDAO {
 
             pstmt.executeUpdate();
 
-            System.out.println("Patient ajouté avec succès !");
+            System.out.println("Patient added successfully!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -102,9 +102,9 @@ public class DoctorPatientDAO {
             int rowsUpdated = pstmt.executeUpdate();
 
             if (rowsUpdated > 0) {
-                System.out.println("Le patient a été changé avec succès pour ce médecin.");
+                System.out.println("The patient was reassigned to this doctor successfully.");
             } else {
-                System.out.println("Aucun patient trouvé avec cette CNIE et cet ID médecin.");
+                System.out.println("No patient was found with this national ID and doctor ID.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,9 +121,9 @@ public class DoctorPatientDAO {
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Le patient a été supprimé avec succès pour ce médecin.");
+                System.out.println("The patient was removed from this doctor successfully.");
             } else {
-                System.out.println("Aucun patient trouvé avec cette CNIE et cet ID médecin.");
+                System.out.println("No patient was found with this national ID and doctor ID.");
             }
 
         } catch (SQLException e) {

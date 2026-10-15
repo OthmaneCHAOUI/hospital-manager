@@ -49,9 +49,9 @@ public class TestMedicalDAO {
         int rowsAffected = pstmt.executeUpdate();
 
         if (rowsAffected > 0) {
-            System.out.println("Le TestMedicale a été supprimé avec succès pour ce patient.");
+            System.out.println("The medical test was deleted successfully for this patient.");
         } else {
-            System.out.println("il y'a erreur ressayer");
+            System.out.println("An error occurred; please try again.");
         }
 
     } catch (SQLException e) {
@@ -73,9 +73,9 @@ public class TestMedicalDAO {
             int rowsUpdated = pstmt.executeUpdate();
 
             if (rowsUpdated > 0) {
-                System.out.println("Le patient a été changé avec succès pour ce médecin.");
+                System.out.println("The patient was reassigned to this doctor successfully.");
             } else {
-                System.out.println("Aucun patient trouvé avec cette CNIE et cet ID médecin.");
+                System.out.println("No patient was found with this national ID and doctor ID.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,9 +98,9 @@ public class TestMedicalDAO {
         int rowsInserted = pstmt.executeUpdate();
 
         if (rowsInserted > 0) {
-            System.out.println("Test médical ajouté avec succès !");
+            System.out.println("Medical test added successfully!");
         } else {
-            System.out.println("Échec de l'ajout du test médical.");
+            System.out.println("Failed to add medical test.");
         }
 
     } catch (SQLException e) {

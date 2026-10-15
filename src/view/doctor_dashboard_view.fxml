@@ -51,7 +51,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="772.0" GridPane.columnIndex="1">
                      <children>
-                        <Text opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" text="Bonjour, DR  ">
+                        <Text opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello, DR  ">
                            <font>
                               <Font name="Sitka Banner Bold" size="30.0" />
                            </font>
@@ -79,7 +79,7 @@
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="6.0" minWidth="1200.0" prefHeight="200.0" prefWidth="1200.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des patients">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient list">
                            <font>
                               <Font name="Sitka Banner Bold" size="38.0" />
                            </font>
@@ -91,7 +91,7 @@
                            <children>
                               <AnchorPane prefHeight="55.0" prefWidth="1202.0">
                                  <children>
-                                    <Button fx:id="btn_ajouter" layoutX="288.0" layoutY="8.0" mnemonicParsing="false" onAction="#Ajouter" prefHeight="31.0" prefWidth="125.0" style="-fx-background-color: limegreen; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="btn" text="  Ajouter">
+                                    <Button fx:id="btn_ajouter" layoutX="288.0" layoutY="8.0" mnemonicParsing="false" onAction="#Ajouter" prefHeight="31.0" prefWidth="125.0" style="-fx-background-color: limegreen; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="btn" text="  Add">
                                        <graphic>
                                           <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -134,14 +134,14 @@
                         <TableView fx:id="table_patient" maxHeight="1.7976931348623157E308" maxWidth="1450.0" minHeight="410.0" prefHeight="410.0" prefWidth="1170.0">
                           <columns>
                               <TableColumn fx:id="column_id" maxWidth="50.39999008178711" minWidth="40.79998779296875" prefWidth="50.39999008178711" text="ID" />
-                            <TableColumn fx:id="column_nom" maxWidth="150.0" minWidth="120.0" prefWidth="140.79998779296875" text="Nom" />
-                            <TableColumn fx:id="column_prenom" maxWidth="150.0" minWidth="94.39997863769531" prefWidth="150.0" text="Prenom" />
-                              <TableColumn fx:id="column_date" maxWidth="176.80007934570312" minWidth="120.0" prefWidth="176.80007934570312" text="Date_Naissance" />
+                            <TableColumn fx:id="column_nom" maxWidth="150.0" minWidth="120.0" prefWidth="140.79998779296875" text="Name" />
+                            <TableColumn fx:id="column_prenom" maxWidth="150.0" minWidth="94.39997863769531" prefWidth="150.0" text="First name" />
+                              <TableColumn fx:id="column_date" maxWidth="176.80007934570312" minWidth="120.0" prefWidth="176.80007934570312" text="Birth date" />
                               <TableColumn fx:id="column_cnie" maxWidth="150.0" minWidth="112.79998779296875" prefWidth="133.59991455078125" text="CNIE" />
-                              <TableColumn fx:id="column_ville" maxWidth="1.7976931348623157E308" minWidth="109.60003662109375" prefWidth="110.4000244140625" text="Ville" />
-                              <TableColumn fx:id="column_adresse" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="167.199951171875" text="Adresse" />
-                              <TableColumn fx:id="column_tele" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="133.5999755859375" text="Téléphone" />
-                              <TableColumn fx:id="column_sexe" maxWidth="1.7976931348623157E308" minWidth="49.60003662109375" prefWidth="49.60003662109375" text="Sexe" />
+                              <TableColumn fx:id="column_ville" maxWidth="1.7976931348623157E308" minWidth="109.60003662109375" prefWidth="110.4000244140625" text="City" />
+                              <TableColumn fx:id="column_adresse" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="167.199951171875" text="Address" />
+                              <TableColumn fx:id="column_tele" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="133.5999755859375" text="Phone" />
+                              <TableColumn fx:id="column_sexe" maxWidth="1.7976931348623157E308" minWidth="49.60003662109375" prefWidth="49.60003662109375" text="Gender" />
                               <TableColumn fx:id="column_action" maxWidth="150.0" minWidth="120.0" prefWidth="120.0" text="Action" />
                           </columns>
                            <VBox.margin>

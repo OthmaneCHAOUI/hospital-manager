@@ -67,37 +67,37 @@ public class DoctorFormController {
         boolean hasError = false;
 
         if (f_nom.getText().trim().isEmpty()) {
-            f_nom.setPromptText("Nom est obligatoire");
+            f_nom.setPromptText("Name is required");
             f_nom.setStyle("-fx-prompt-text-fill: red;");
             f_nom.getStyleClass().add("field-error");
             hasError = true;
         }
         if (f_prenom.getText().trim().isEmpty()) {
-            f_prenom.setPromptText("Prenom est obligatoire");
+            f_prenom.setPromptText("First name is required");
             f_prenom.setStyle("-fx-prompt-text-fill: red;");
             f_prenom.getStyleClass().add("field-error");
             hasError = true;
         }
         if (f_specialite.getText().trim().isEmpty()) {
-            f_specialite.setPromptText("Spécialité est obligatoire");
+            f_specialite.setPromptText("Specialty is required");
             f_specialite.setStyle("-fx-prompt-text-fill: red;");
             f_specialite.getStyleClass().add("field-error");
             hasError = true;
         }
         if (f_motdepass.getText().trim().isEmpty()) {
-            f_motdepass.setPromptText("Mot de pass est obligatoire");
+            f_motdepass.setPromptText("Password is required");
             f_motdepass.setStyle("-fx-prompt-text-fill: red;");
             f_motdepass.getStyleClass().add("field-error");
             hasError = true;
         }
         if (f_cnie.getText().trim().isEmpty()) {
-            f_cnie.setPromptText("CNIE est obligatoire");
+            f_cnie.setPromptText("National ID is required");
             f_cnie.setStyle("-fx-prompt-text-fill: red;");
             f_cnie.getStyleClass().add("field-error");
             hasError = true;
         }
         if (f_nom_cabinet.getText().trim().isEmpty()) {
-            f_nom_cabinet.setPromptText("Nom de cabinet est obligatoire");
+            f_nom_cabinet.setPromptText("Clinic name is required");
             f_nom_cabinet.setStyle("-fx-prompt-text-fill: red;");
             f_nom_cabinet.getStyleClass().add("field-error");
             hasError = true;
@@ -123,7 +123,7 @@ public class DoctorFormController {
 
         if (etat == 1) {
             label_error_reussi.setStyle("-fx-opacity: 1.0; -fx-text-fill: green;");
-            label_error_reussi.setText("Compte créé avec succès !");
+            label_error_reussi.setText("Account created successfully!");
 
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(e -> {
@@ -141,10 +141,10 @@ public class DoctorFormController {
             pause.play();
         } else if (etat == -1) {
             label_error_reussi.setStyle("-fx-opacity: 1.0; -fx-text-fill: red;");
-            label_error_reussi.setText("Un compte existe déjà avec ce CNIE.");
+            label_error_reussi.setText("An account already exists with this national ID.");
         } else {
             label_error_reussi.setStyle("-fx-opacity: 1.0; -fx-text-fill: red;");
-            label_error_reussi.setText("Erreur lors de la création du compte. Veuillez réessayer.");
+            label_error_reussi.setText("Error creating the account. Please try again.");
         }
     }
 }

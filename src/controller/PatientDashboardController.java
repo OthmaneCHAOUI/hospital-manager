@@ -94,16 +94,16 @@ public class PatientDashboardController {
             List<Medicament> list = new MedicamentDAO().getMedicamentsByPatientAndDoctor(patient.getCnie(), currentDoctor.getId());
             TableView<Medicament> table = new TableView<>();
 
-            TableColumn<Medicament, String> colNom = new TableColumn<>("Nom");
+            TableColumn<Medicament, String> colNom = new TableColumn<>("Name");
             colNom.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNom()));
 
             TableColumn<Medicament, String> colDescription = new TableColumn<>("Description");
             colDescription.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDescription()));
 
-            TableColumn<Medicament, String> colDateDebut = new TableColumn<>("Date Début");
+            TableColumn<Medicament, String> colDateDebut = new TableColumn<>("Start date");
             colDateDebut.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateDebut().toString()));
 
-            TableColumn<Medicament, String> colPeriode = new TableColumn<>("Période (jours)");
+            TableColumn<Medicament, String> colPeriode = new TableColumn<>("Period (days)");
             colPeriode.setCellValueFactory(c -> new SimpleStringProperty(String.valueOf(c.getValue().getPeriode())));
 
             table.getColumns().addAll(colNom, colDescription, colDateDebut, colPeriode);
@@ -120,19 +120,19 @@ public class PatientDashboardController {
             List<TestMedical> list = new TestMedicalDAO().getTestsByPatientAndDoctor(patient.getCnie(), currentDoctor.getId());
             TableView<TestMedical> table = new TableView<>();
 
-            TableColumn<TestMedical, String> colType = new TableColumn<>("Type de Test");
+            TableColumn<TestMedical, String> colType = new TableColumn<>("Test type");
             colType.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTypeTest()));
 
-            TableColumn<TestMedical, String> colResultat = new TableColumn<>("Résultat");
+            TableColumn<TestMedical, String> colResultat = new TableColumn<>("Result");
             colResultat.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getResultat()));
 
-            TableColumn<TestMedical, String> colDate = new TableColumn<>("Date du Test");
+            TableColumn<TestMedical, String> colDate = new TableColumn<>("Test date");
             colDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTest().toString()));
 
-            TableColumn<TestMedical, String> colTypeDoctor = new TableColumn<>("Type Docteur");
+            TableColumn<TestMedical, String> colTypeDoctor = new TableColumn<>("Doctor type");
             colTypeDoctor.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTypeDoctor()));
 
-            TableColumn<TestMedical, String> colStatut = new TableColumn<>("Statut");
+            TableColumn<TestMedical, String> colStatut = new TableColumn<>("Status");
             colStatut.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getStatut()));
 
             table.getColumns().addAll(colType, colResultat, colDate, colTypeDoctor, colStatut);
@@ -152,13 +152,13 @@ public class PatientDashboardController {
             TableColumn<RendezVous, String> colDate = new TableColumn<>("Date");
             colDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateRendezVous().toString()));
 
-            TableColumn<RendezVous, String> colHeure = new TableColumn<>("Heure");
+            TableColumn<RendezVous, String> colHeure = new TableColumn<>("Time");
             colHeure.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getHeure().toString()));
 
-            TableColumn<RendezVous, String> colRaison = new TableColumn<>("Raison");
+            TableColumn<RendezVous, String> colRaison = new TableColumn<>("Reason");
             colRaison.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getRaison()));
 
-            TableColumn<RendezVous, String> colStatut = new TableColumn<>("Statut");
+            TableColumn<RendezVous, String> colStatut = new TableColumn<>("Status");
             colStatut.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getStatut()));
 
             table.getColumns().addAll(colDate, colHeure, colRaison, colStatut);

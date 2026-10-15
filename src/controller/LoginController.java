@@ -106,12 +106,12 @@ public class LoginController {
     public void ButtonConnexion(ActionEvent event) throws SQLException, IOException{
         if(f_cnie.getText().trim().isEmpty() || f_password.getText().trim().isEmpty() || type.getSelectedToggle() == null){ 
             if (f_cnie.getText().trim().isEmpty()) {
-                f_cnie.setPromptText("CNIE est obligatoire");
+                f_cnie.setPromptText("National ID is required");
                 f_cnie.setStyle("-fx-prompt-text-fill : red");
                 f_cnie.getStyleClass().add("field-error");
             }
             if (f_password.getText().trim().isEmpty()) {
-                f_password.setPromptText("Password est obligatoire");
+                f_password.setPromptText("Password is required");
                 f_password.setStyle("-fx-prompt-text-fill : red");
                 f_password.getStyleClass().add("field-error");
             }
@@ -124,19 +124,19 @@ public class LoginController {
             if(rd_doctor.isSelected()){
                 Doctor doctor = DoctorDAO.checkDoctorByCniePassword(f_cnie.getText(), f_password.getText());
                 if(doctor != null){
-                          System.out.println("Connexion reussi : Bienvenue Dr."+doctor.getNom()+" "+doctor.getPrenom());
+                          System.out.println("Login successful: Welcome Dr."+doctor.getNom()+" "+doctor.getPrenom());
                           goToDoctorDashboard(event,doctor);
                 }else{
-                        System.out.println("Echec de connexion");
+                        System.out.println("Login failed");
                         label_incorrect.setStyle("-fx-opacity : 1.0");
                 }
             }else{
                 Patient patient = PatientDAO.checkPatientByCniePassword(f_cnie.getText(), f_password.getText());
                 if(patient != null){
-                          System.out.println("Connexion reussi : Bienvenue "+patient.getNom()+" "+patient.getPrenom());
+                          System.out.println("Login successful: Welcome "+patient.getNom()+" "+patient.getPrenom());
                           goToPatientDashboard(event, patient);
                 }else{
-                        System.out.println("Echec de connexion");
+                        System.out.println("Login failed");
                         label_incorrect.setStyle("-fx-opacity : 1.0");
                 }
             }

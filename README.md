@@ -1,114 +1,114 @@
 # hospital-manager
 
-> Application de bureau de gestion d'un cabinet médical, développée en JavaFX avec une base de données PostgreSQL.
+> Desktop application for managing a medical practice, developed with JavaFX and a PostgreSQL database.
 
-## Aperçu
+## Overview
 
-Le dépôt `hospital-manager` contient une application de bureau destinée à faciliter la gestion des informations médicales et administratives d'un cabinet médical.
+The `hospital-manager` repository contains a desktop application designed to simplify the management of a medical practice's medical and administrative information.
 
-L'application propose des interfaces distinctes pour les médecins et les patients. Elle s'appuie sur JavaFX pour l'interface graphique et PostgreSQL pour le stockage des données.
+The application provides separate interfaces for doctors and patients. It uses JavaFX for the graphical interface and PostgreSQL for data storage.
 
-Le projet a été développé dans le cadre d'un projet informatique et met en pratique la programmation orientée objet, la conception d'interfaces graphiques, l'accès aux bases de données relationnelles et l'organisation d'une application Java.
+The project was developed as part of a computer science project and applies object-oriented programming, graphical interface design, relational database access, and Java application organization.
 
-## Fonctionnalités
+## Features
 
-### Gestion des médecins
+### Doctor management
 
-- Consultation et gestion des informations des médecins.
-- Interfaces dédiées aux fonctionnalités du médecin.
-- Accès aux informations des patients suivis.
+- View and manage doctor information.
+- Interfaces dedicated to doctor features.
+- Access information about monitored patients.
 
-### Gestion des patients
+### Patient management
 
-- Gestion des informations personnelles des patients.
-- Connexion à un compte patient.
-- Consultation d'un tableau de bord personnel.
-- Consultation des médecins associés au patient.
+- Manage patients' personal information.
+- Log in to a patient account.
+- View a personal dashboard.
+- View the doctors associated with the patient.
 
-### Suivi médical
+### Medical monitoring
 
-- Gestion des rendez-vous médicaux.
-- Gestion des médicaments et des traitements.
-- Gestion des tests médicaux.
-- Accès aux informations de suivi médical depuis les interfaces prévues à cet effet.
+- Manage medical appointments.
+- Manage medications and treatments.
+- Manage medical tests.
+- Access medical monitoring information from the interfaces provided for this purpose.
 
-### Interface graphique
+### Graphical interface
 
-- Formulaires de connexion et de gestion des utilisateurs.
-- Tableaux de bord dédiés aux médecins et aux patients.
-- Interfaces FXML et feuilles de style CSS.
-- Plusieurs ressources graphiques sont stockées dans `src/resources/` et utilisées par les interfaces.
+- Login and user management forms.
+- Dashboards dedicated to doctors and patients.
+- FXML interfaces and CSS stylesheets.
+- Several graphical resources are stored in `src/resources/` and used by the interfaces.
 
-## Technologies utilisées
+## Tech stack
 
-| Composant | Technologie |
+| Component | Technology |
 |---|---|
-| Langage | Java |
-| Interface graphique | JavaFX |
-| Description des interfaces | FXML |
-| Styles graphiques | CSS |
-| Base de données | PostgreSQL |
-| Connectivité SQL | JDBC / PostgreSQL JDBC Driver |
-| Gestion de projet et dépendances | Maven |
-| Conception des interfaces | Scene Builder |
-| Environnement de développement | Visual Studio Code |
+| Language | Java |
+| Graphical interface | JavaFX |
+| Interface descriptions | FXML |
+| Graphical styles | CSS |
+| Database | PostgreSQL |
+| SQL connectivity | JDBC / PostgreSQL JDBC Driver |
+| Project and dependency management | Maven |
+| Interface design | Scene Builder |
+| Development environment | Visual Studio Code & IntelliJ IDEA |
 
 ## Architecture
 
-L'application suit une organisation inspirée du modèle MVC (*Model-View-Controller*), avec une séparation entre les interfaces, les contrôleurs et les données.
+The application follows an organization inspired by the MVC (*Model-View-Controller*) pattern, with separate interfaces, controllers, and data layers.
 
 ```text
-                  Utilisateur
-                       |
-                       v
-                Vue JavaFX / FXML
-                       |
-                       v
-                  Contrôleur
-                       |
-                       v
-                  Modèle / DAO
-                       |
-                       v
-                  JDBC / PostgreSQL
-                       |
-                       v
-                  Base de données
+                  User
+                   |
+                   v
+            JavaFX / FXML view
+                   |
+                   v
+               Controller
+                   |
+                   v
+                Model / DAO
+                   |
+                   v
+              JDBC / PostgreSQL
+                   |
+                   v
+                Database
 ```
 
-- **View (`view/`)** : contient les interfaces FXML.
-- **Controller (`controller/`)** : gère les interactions entre l'utilisateur et l'application.
-- **Model (`model/`)** : contient les objets métier, les classes d'accès aux données (DAO) et la connexion à la base de données.
-- **Style (`style/`)** : contient les feuilles de style CSS.
-- **Resources (`resources/`)** : contient les icônes et les images utilisées par l'interface.
-- **Utils (`utils/`)** : contient notamment le script SQL de la base de données.
+- **View (`view/`)**: contains the FXML interfaces.
+- **Controller (`controller/`)**: handles interactions between the user and the application.
+- **Model (`model/`)**: contains business objects, data access classes (DAO), and the database connection.
+- **Style (`style/`)**: contains CSS stylesheets.
+- **Resources (`resources/`)**: contains the icons and images used by the interface.
+- **Utils (`utils/`)**: contains, among other things, the database SQL script.
 
-Cette organisation facilite la séparation des responsabilités entre l'interface graphique, le traitement des interactions et la persistance des données.
+This organization facilitates the separation of responsibilities between the graphical interface, interaction processing, and data persistence.
 
-## Prérequis
+## Requirements
 
-Avant d'installer le projet, assurez-vous de disposer des éléments suivants :
+Before installing the project, make sure you have the following:
 
-- Un JDK 21.
+- JDK 21.
 - Maven.
-- Un serveur PostgreSQL.
-- Visual Studio Code ou un autre environnement compatible avec Java.
-- Scene Builder, si vous souhaitez modifier visuellement les interfaces FXML.
+- A PostgreSQL server.
+- Visual Studio Code or another Java-compatible development environment.
+- Scene Builder, if you want to visually edit the FXML interfaces.
 
-Le projet utilise le pilote JDBC PostgreSQL pour établir la connexion entre Java et PostgreSQL. Maven résout les dépendances nécessaires à la compilation et à l'exécution.
+The project uses the PostgreSQL JDBC driver to connect Java and PostgreSQL. Maven resolves the required dependencies for compilation and execution.
 
 ## Installation
 
-### 1. Cloner le dépôt
+### 1. Clone the repository
 
 ```bash
-git clone <URL_DU_DEPOT>
+git clone <REPOSITORY_URL>
 cd hospital-manager
 ```
 
-Remplacez `<URL_DU_DEPOT>` par l'URL réelle du dépôt Git.
+Replace `<REPOSITORY_URL>` with the actual Git repository URL.
 
-### 2. Vérifier les outils
+### 2. Check the tools
 
 ```bash
 java -version
@@ -118,101 +118,101 @@ psql --version
 pg_isready
 ```
 
-Vérifiez que les versions installées sont compatibles avec celles déclarées dans `pom.xml`.
-`pg_isready` vérifie que le serveur PostgreSQL répond. S'il n'est pas démarré sous Linux, démarrez-le avec `sudo systemctl start postgresql`.
+Check that the installed versions are compatible with those declared in `pom.xml`.
+`pg_isready` checks whether the PostgreSQL server is responding. If it is not running on Linux, start it with `sudo systemctl start postgresql`.
 
-### 3. Préparer la base de données
+### 3. Prepare the database
 
-Le script SQL du projet se trouve dans :
+The project's SQL script is located at:
 
 ```text
 src/utils/Database.sql
 ```
 
-Vous devez créer un rôle PostgreSQL et la base de données avant de lancer l'application. Sur Linux, les commandes suivantes créent le rôle `medical_center` et demandent son mot de passe, puis créent une base vide dont ce rôle est propriétaire :
+You must create a PostgreSQL role and database before starting the application. On Linux, the following commands create the `medical_center` role and prompt for its password, then create an empty `hospital-manager` database owned by that role:
 
 ```bash
 sudo -u postgres createuser --pwprompt medical_center
-sudo -u postgres createdb --owner=medical_center hospital_manager
+sudo -u postgres createdb --owner=medical_center hospital-manager
 ```
 
-Conservez le mot de passe choisi pour `medical_center`. Ensuite, depuis la racine du projet, créez les tables dans la base. `psql` demandera le mot de passe du rôle :
+Keep the password chosen for `medical_center`. Then, from the project root, create the tables in the database. `psql` will request the role password:
 
 ```bash
-psql -h localhost -p 5432 -U medical_center -d hospital_manager -W \
+psql -h localhost -p 5432 -U medical_center -d hospital-manager -W \
   --single-transaction -v ON_ERROR_STOP=1 \
   -f src/utils/Database.sql
 ```
 
-Ce script initialise les tables d'une base vide. Il ne supprime pas la base, ne crée pas le rôle et ne copie pas les données d'une ancienne base MySQL. Ne le relancez pas sur une base déjà initialisée : les tables existent déjà et la création échouera. Pour migrer les données MySQL existantes, suivez une procédure d'export/import distincte et vérifiez les données avant le basculement.
+This script initializes the tables in an empty database. It does not drop the database, create the role, or copy data from an old MySQL database. Do not run it again on an already initialized database: the tables already exist and creation will fail. To migrate existing MySQL data, follow a separate export/import procedure and verify the data before switching over.
 
-### 4. Configurer la connexion à PostgreSQL
+### 4. Configure the PostgreSQL connection
 
-L'application ne demande pas le nom d'utilisateur ni le mot de passe de PostgreSQL dans une boîte de dialogue. La classe `src/model/DBConnection.java` lit ces valeurs dans les variables d'environnement au démarrage :
+The application does not request the PostgreSQL username or password in a dialog box. The `src/model/DBConnection.java` class reads these values from environment variables at startup:
 
-| Variable | Valeur par défaut / exigence |
+| Variable | Default value / requirement |
 |---|---|
-| `DB_URL` | `jdbc:postgresql://localhost:5432/hospital_manager` |
-| `DB_USER` | Obligatoire : rôle PostgreSQL |
-| `DB_PASSWORD` | Obligatoire : mot de passe du rôle (peut être vide si votre PostgreSQL l'autorise) |
+| `DB_URL` | `jdbc:postgresql://localhost:5432/hospital-manager` |
+| `DB_USER` | Required: PostgreSQL role |
+| `DB_PASSWORD` | Required: role password (may be empty if your PostgreSQL configuration allows it) |
 
-Définissez les variables dans le même terminal que celui utilisé pour démarrer l'application. L'exemple suivant demande le mot de passe sans l'afficher, puis lance l'application :
+Define the variables in the same terminal used to start the application. The following example prompts for the password without displaying it, then starts the application:
 
 ```bash
-export DB_URL='jdbc:postgresql://localhost:5432/hospital_manager'
+export DB_URL='jdbc:postgresql://localhost:5432/hospital-manager'
 export DB_USER='medical_center'
 read -rsp "PostgreSQL password: " DB_PASSWORD; echo
 export DB_PASSWORD
 mvn javafx:run
 ```
 
-Les variables définies de cette façon ne sont disponibles que dans ce terminal et ses processus enfants; redéfinissez-les dans un nouveau terminal. Vous pouvez aussi configurer ces variables dans le profil d'exécution de votre IDE. Ne publiez pas de véritables identifiants dans le dépôt Git.
+Variables defined this way are available only in that terminal and its child processes; define them again in a new terminal. You can also configure these variables in your IDE's run configuration. Do not publish real credentials in the Git repository.
 
-### 5. Résoudre les dépendances et compiler
+### 5. Resolve dependencies and compile
 
-À la racine du projet, exécutez :
+From the project root, run:
 
 ```bash
 mvn clean compile
 ```
 
-Cette commande nettoie les fichiers générés par Maven puis compile le projet.
+This command removes Maven-generated files and then compiles the project.
 
-Si la compilation échoue, vérifiez la configuration de JavaFX, les dépendances dans `pom.xml` et l'organisation des répertoires sources.
+If compilation fails, check the JavaFX configuration, the dependencies in `pom.xml`, and the source directory layout.
 
 ## Configuration
 
-Le fichier `pom.xml` déclare JavaFX 21.0.2, le pilote JDBC PostgreSQL et le plugin Maven JavaFX configuré pour lancer `main.Main`.
+The `pom.xml` file declares JavaFX 21.0.2, the PostgreSQL JDBC driver, and the Maven JavaFX plugin configured to launch `main.Main`.
 
-Le pilote JDBC est résolu par Maven; il n'est pas nécessaire d'ajouter manuellement un JAR au classpath.
+Maven resolves the JDBC driver; you do not need to add a JAR manually to the classpath.
 
-Pour un environnement de développement sous VS Code, les configurations propres à l'éditeur peuvent être placées dans `.vscode/`.
+For a development environment using VS Code, editor-specific configurations can be placed in `.vscode/`.
 
-## Utilisation
+## Usage
 
-Après avoir configuré la base de données et compilé le projet :
+After configuring the database and compiling the project:
 
-1. Lancez l'application depuis la classe principale `main.Main`.
-2. Accédez à l'interface de connexion.
-3. Connectez-vous avec un compte correspondant au rôle souhaité.
-4. Utilisez le tableau de bord correspondant pour accéder aux fonctionnalités disponibles.
-5. Consultez ou gérez les informations accessibles selon les fonctionnalités implémentées.
+1. Start the application from the `main.Main` main class.
+2. Open the login interface.
+3. Log in with an account matching the desired role.
+4. Use the corresponding dashboard to access the available features.
+5. View or manage the information available through the implemented features.
 
-Si vous avez déjà défini `DB_USER` et `DB_PASSWORD` dans le terminal conformément à l'étape précédente, lancez l'application avec Maven :
+If you have already defined `DB_USER` and `DB_PASSWORD` in the terminal according to the previous step, start the application with:
 
 ```bash
 mvn javafx:run
 ```
 
-### Accéder aux données PostgreSQL
+### Accessing PostgreSQL data
 
-Vous pouvez utiliser le client en ligne de commande `psql` pour vous connecter à la base :
+You can use the `psql` command-line client to connect to the database:
 
 ```bash
-psql -h localhost -p 5432 -U medical_center -d hospital_manager -W
+psql -h localhost -p 5432 -U medical_center -d hospital-manager -W
 ```
 
-Après avoir saisi le mot de passe, utilisez `\dt` pour lister les tables, puis des requêtes SQL pour consulter les enregistrements :
+After entering the password, use `\dt` to list the tables, then run SQL queries to view records:
 
 ```sql
 \dt
@@ -220,70 +220,70 @@ SELECT * FROM patient;
 SELECT * FROM doctor;
 ```
 
-Les noms de tables non entourés de guillemets sont convertis en minuscules par PostgreSQL. pgAdmin est une interface graphique optionnelle pour parcourir le même serveur et les mêmes tables; il n'est pas nécessaire pour utiliser l'application.
+Table names not enclosed in quotation marks are converted to lowercase by PostgreSQL. pgAdmin is an optional graphical interface for browsing the same server and tables; it is not required to use the application.
 
 ## Tests
 
-Le dépôt présenté ne contient pas de répertoire de tests identifié dans son arborescence.
+The repository does not contain a test directory identified in its tree.
 
-Pour le moment, vérifiez manuellement les principaux scénarios :
+For now, manually check the main scenarios:
 
-- démarrage de l'application ;
-- connexion à la base de données ;
-- authentification des utilisateurs ;
-- navigation entre les interfaces ;
-- consultation et modification des données ;
-- gestion des erreurs de connexion et des entrées invalides.
+- application startup;
+- database connection;
+- user authentication;
+- navigation between interfaces;
+- viewing and editing data;
+- handling connection errors and invalid input.
 
-L'ajout de tests automatisés permettrait de fiabiliser davantage les opérations d'accès aux données et les principales règles métier.
+Adding automated tests would further improve the reliability of data access operations and the main business rules.
 
-## Structure du projet
+## Project structure
 
 ```text
 hospital-manager/
 ├── src/
-│   ├── controller/   # Contrôleurs JavaFX
-│   ├── main/         # Point d'entrée de l'application
-│   ├── model/        # Modèles, DAO et connexion SQL
-│   ├── resources/    # Icônes et images
-│   ├── style/        # Feuilles de style CSS
-│   ├── utils/        # Script SQL
-│   └── view/         # Interfaces FXML
-├── lib/              # Bibliothèques externes
-├── bin/              # Classes compilées (générées)
-├── target/           # Fichiers générés par Maven
-├── pom.xml            # Configuration Maven
-├── LICENSE            # Licence du projet
-└── README.md          # Documentation
+│   ├── controller/   # JavaFX controllers
+│   ├── main/         # Application entry point
+│   ├── model/        # Models, DAOs, and SQL connection
+│   ├── resources/    # Icons and images
+│   ├── style/        # CSS stylesheets
+│   ├── utils/        # SQL script
+│   └── view/         # FXML interfaces
+├── lib/              # External libraries
+├── bin/              # Compiled classes (generated)
+├── target/           # Maven-generated files
+├── pom.xml           # Maven configuration
+├── LICENSE           # Project license
+└── README.md         # Documentation
 ```
 
-Les répertoires `bin/` et `target/` contiennent des fichiers générés. Les fichiers sources à maintenir se trouvent dans `src/`.
+The `bin/` and `target/` directories contain generated files. The source files to maintain are located in `src/`.
 
-## Pistes d'amélioration
+## Potential improvements
 
-Les évolutions suivantes pourraient être envisagées en fonction de l'état actuel du projet :
+The following changes could be considered depending on the current state of the project:
 
-- Ajouter un outil de migration de données automatisé depuis MySQL.
-- Renforcer la gestion des erreurs et la validation des formulaires.
-- Ajouter des tests automatisés pour les DAO et les fonctionnalités métier.
-- Améliorer la gestion sécurisée des mots de passe.
-- Documenter le schéma relationnel de la base de données.
-- Ajouter des captures d'écran des interfaces principales.
-- Mettre en place une procédure de compilation et de vérification automatisée avec GitHub Actions.
-- ajouter le packaging pour des differentes OS
+- Add an automated data migration tool from MySQL.
+- Strengthen error handling and form validation.
+- Add automated tests for DAOs and business features.
+- Improve secure password handling.
+- Document the database relational schema.
+- Add screenshots of the main interfaces.
+- Set up an automated build and verification workflow with GitHub Actions.
+- Add packaging for different operating systems.
 
-## Contribuer
+## Contributing
 
-Les contributions, signalements de bugs et suggestions sont les bienvenus.
+Contributions, bug reports, and suggestions are welcome.
 
-1. Forkez le dépôt.
-2. Créez une branche pour vos modifications.
-3. Faites et testez vos changements.
-4. Validez votre travail avec un message descriptif.
-5. Ouvrez une demande de tirage (pull request) en décrivant les modifications.
+1. Fork the repository.
+2. Create a branch for your changes.
+3. Make and test your changes.
+4. Commit your work with a descriptive message.
+5. Open a pull request describing the changes.
 
-Si un fichier `CONTRIBUTING.md` est ajouté plus tard, référez-vous à ce fichier pour des directives détaillées de contribution.
+If a `CONTRIBUTING.md` file is added later, refer to it for detailed contribution guidelines.
 
-## Licence
+## License
 
-Consultez le fichier [LICENSE](LICENSE) pour connaître les conditions de réutilisation, de modification et de distribution du projet.
+See the [LICENSE](LICENSE) file for the project's reuse, modification, and distribution terms.

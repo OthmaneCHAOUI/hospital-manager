@@ -51,25 +51,25 @@ public class PatientFormController {
         motDePassField.setStyle("");
 
         if (nomField.getText().trim().isEmpty()) {
-            nomField.setPromptText("Nom est obligatoire");
+            nomField.setPromptText("Name is required");
             nomField.setStyle("-fx-prompt-text-fill: red;");
             nomField.getStyleClass().add("field-error");
             hasError = true;
         }
         if (prenomField.getText().trim().isEmpty()) {
-            prenomField.setPromptText("Prénom est obligatoire");
+            prenomField.setPromptText("First name is required");
             prenomField.setStyle("-fx-prompt-text-fill: red;");
             prenomField.getStyleClass().add("field-error");
             hasError = true;
         }
         if (cnieField.getText().trim().isEmpty()) {
-            cnieField.setPromptText("CNIE est obligatoire");
+            cnieField.setPromptText("National ID is required");
             cnieField.setStyle("-fx-prompt-text-fill: red;");
             cnieField.getStyleClass().add("field-error");
             hasError = true;
         }
         if (motDePassField.getText().trim().isEmpty()) {
-            motDePassField.setPromptText("Mot de passe est obligatoire");
+            motDePassField.setPromptText("Password is required");
             motDePassField.setStyle("-fx-prompt-text-fill: red;");
             motDePassField.getStyleClass().add("field-error");
             hasError = true;
@@ -81,7 +81,7 @@ public class PatientFormController {
 
         if (patientDAO.trouverParCnie(cnieField.getText()) != null) {
             cnieField.clear();
-            cnieField.setPromptText("CNIE déjà utilisée");
+            cnieField.setPromptText("National ID already in use");
             cnieField.setStyle("-fx-prompt-text-fill: red;");
             cnieField.getStyleClass().add("field-error");
             return;
@@ -95,7 +95,7 @@ public class PatientFormController {
         );
         patientDAO.ajouterPatient(patient);
 
-        showAlert(Alert.AlertType.INFORMATION, "Succès", "Patient ajouté avec succès.");
+        showAlert(Alert.AlertType.INFORMATION, "Success", "Patient added successfully.");
 
         nomField.clear();
         prenomField.clear();

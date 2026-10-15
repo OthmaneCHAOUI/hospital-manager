@@ -27,14 +27,14 @@ public class DoctorDAO {
             int rowsInserted = stmt.executeUpdate();
 
         if (rowsInserted > 0) {
-            System.out.println("Doctor ajouté avec succès !");
+            System.out.println("Doctor added successfully!");
             return 1 ;
         } else {
-            System.out.println("Échec de l'ajout du Doctor.");
+            System.out.println("Failed to add doctor.");
         }
         }catch(SQLException e) {
             if ("23505".equals(e.getSQLState())) {
-                System.out.println("Erreur : Valeur unique déjà utilisée.");
+                System.out.println("Error: This unique value is already in use.");
             } else {
                 e.printStackTrace();
             }
@@ -140,10 +140,10 @@ public class DoctorDAO {
             int rowsUpdated = stmt.executeUpdate();
             
             if (rowsUpdated > 0) {
-                System.out.println("Doctor mis à jour avec succès !");
+                System.out.println("Doctor updated successfully!");
                 return 1;
             } else {
-                System.out.println("Échec de la mise à jour.");
+                System.out.println("Update failed.");
             }
         } catch (SQLException e) {
             e.printStackTrace();

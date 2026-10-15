@@ -15,7 +15,7 @@ public class PatientDAO
 
             int rs = pstmt.executeUpdate();
             if(rs > 0){
-                System.out.println("patient ajouter avec succee");
+                System.out.println("Patient added successfully");
             }
         }
         catch(SQLException e){

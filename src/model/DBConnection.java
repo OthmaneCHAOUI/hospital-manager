@@ -8,7 +8,7 @@ import java.sql.DriverManager;
  * Provides the shared database connection used by the application.
  */
 public class DBConnection {
-    private static final String DEFAULT_URL = "jdbc:postgresql://localhost:5432/cabinet_medical";
+    private static final String DEFAULT_URL = "jdbc:postgresql://localhost:5432/hospital-manager";
 
     private DBConnection() {}
 

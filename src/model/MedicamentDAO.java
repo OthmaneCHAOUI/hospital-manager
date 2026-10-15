@@ -45,9 +45,9 @@ public class MedicamentDAO
         int rowsAffected = pstmt.executeUpdate();
 
         if (rowsAffected > 0) {
-            System.out.println("Le Medicament a été supprimé avec succès pour ce patient.");
+            System.out.println("The medication was deleted successfully for this patient.");
         } else {
-            System.out.println("il y'a erreur ressayer");
+            System.out.println("An error occurred; please try again.");
         }
 
     } catch (SQLException e) {
@@ -68,9 +68,9 @@ public class MedicamentDAO
             int rowsUpdated = pstmt.executeUpdate();
 
             if (rowsUpdated > 0) {
-                System.out.println("Le patient a été changé avec succès pour ce médecin.");
+                System.out.println("The patient was reassigned to this doctor successfully.");
             } else {
-                System.out.println("Aucun patient trouvé avec cette CNIE et cet ID médecin.");
+                System.out.println("No patient was found with this national ID and doctor ID.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,9 +92,9 @@ public class MedicamentDAO
         int rowsInserted = pstmt.executeUpdate();
 
         if (rowsInserted > 0) {
-            System.out.println("Médicament inséré avec succès.");
+            System.out.println("Medication inserted successfully.");
         } else {
-            System.out.println("Échec de l'insertion du médicament.");
+            System.out.println("Failed to insert medication.");
         }
 
     } catch (SQLException e) {

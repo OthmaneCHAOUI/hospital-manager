@@ -51,8 +51,8 @@ CREATE TABLE Rendez_vous (
     date_rendez_vous DATE NOT NULL,
     heure TIME,
     raison VARCHAR(255),
-    statut VARCHAR(20) DEFAULT 'à venir'
-        CHECK (statut IN ('à venir', 'présent', 'absent')),
+    statut VARCHAR(20) DEFAULT 'upcoming'
+        CHECK (statut IN ('upcoming', 'present', 'absent')),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_doctor) REFERENCES Doctor(id) ON DELETE CASCADE,
     UNIQUE (date_rendez_vous, cnie_patient, heure)
@@ -80,7 +80,7 @@ CREATE TABLE Test_Medical (
     date_test DATE NOT NULL,
     type_doctor VARCHAR(20) NOT NULL CHECK (type_doctor IN ('interne', 'externe')),
     statut VARCHAR(20) DEFAULT 'en attente'
-        CHECK (statut IN ('en attente', 'effectué')),
+        CHECK (statut IN ('pending', 'completed')),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_doctor) REFERENCES Doctor(id) ON DELETE CASCADE
 );

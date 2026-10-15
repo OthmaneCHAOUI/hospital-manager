@@ -58,7 +58,7 @@
          <children>
             <HBox alignment="BOTTOM_CENTER" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Text fill="LIMEGREEN" strokeType="OUTSIDE" strokeWidth="0.0" text="Creer Compte Médecin" textAlignment="CENTER" wrappingWidth="651.2334289550781" HBox.hgrow="ALWAYS">
+                  <Text fill="LIMEGREEN" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Doctor Account" textAlignment="CENTER" wrappingWidth="651.2334289550781" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="37.0" />
                      </font>
@@ -76,7 +76,7 @@
                <children>
                   <StackPane prefHeight="45.0" prefWidth="650.0">
                      <children>
-                        <Label fx:id="label_error_reussi" alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="650.0" opacity="0.0" prefHeight="18.0" prefWidth="650.0" text="Erreur lors de la création du compte. Veuillez réessayer." textAlignment="CENTER" StackPane.alignment="CENTER">
+                        <Label fx:id="label_error_reussi" alignment="CENTER" maxWidth="1.7976931348623157E308" minWidth="650.0" opacity="0.0" prefHeight="18.0" prefWidth="650.0" text="Error creating the account. Please try again." textAlignment="CENTER" StackPane.alignment="CENTER">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
@@ -98,10 +98,10 @@
                      <children>
                         <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="30.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <TextField fx:id="f_nom" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Nom" style="-fx-prompt-text-fill: #df6c6c;" styleClass="field" />
-                              <TextField fx:id="f_prenom" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Prenom" style="-fx-prompt-text-fill: #df6c6c;" styleClass="field" />
+                              <TextField fx:id="f_nom" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Name" style="-fx-prompt-text-fill: #df6c6c;" styleClass="field" />
+                              <TextField fx:id="f_prenom" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="First name" style="-fx-prompt-text-fill: #df6c6c;" styleClass="field" />
                               <TextField fx:id="f_cnie" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="CNIE" style="-fx-prompt-text-fill: #df6c6c;" styleClass="field" />
-                              <TextField fx:id="f_specialite" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Spécialité" style="-fx-prompt-text-fill: #df6c6c;" styleClass="field" />
+                              <TextField fx:id="f_specialite" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Specialty" style="-fx-prompt-text-fill: #df6c6c;" styleClass="field" />
                            </children>
                            <HBox.margin>
                               <Insets />
@@ -109,9 +109,9 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="30.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <TextField fx:id="f_nom_cabinet" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Nom de cabinet" style="-fx-prompt-text-fill: #df6c6c;" styleClass="field" />
-                              <TextField fx:id="f_addresse" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Adresse de cabinet" styleClass="field" />
-                              <TextField fx:id="f_telephone" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Téléphone" styleClass="field" />
+                              <TextField fx:id="f_nom_cabinet" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Clinic name" style="-fx-prompt-text-fill: #df6c6c;" styleClass="field" />
+                              <TextField fx:id="f_addresse" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Clinic address" styleClass="field" />
+                              <TextField fx:id="f_telephone" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Phone" styleClass="field" />
                               <TextField fx:id="f_motdepass" maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Mot de passe" style="-fx-prompt-text-fill: #df6c6c;" styleClass="field" />
                            </children>
                            <HBox.margin>
@@ -128,7 +128,7 @@
          <children>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="650.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="btn_cree" mnemonicParsing="false" onAction="#ButtonCree" prefHeight="41.0" prefWidth="152.0" styleClass="btn" text="Cree Compte" textFill="#3291f0cf">
+                  <Button fx:id="btn_cree" mnemonicParsing="false" onAction="#ButtonCree" prefHeight="41.0" prefWidth="152.0" styleClass="btn" text="Create Account" textFill="#3291f0cf">
                      <font>
                         <Font name="Yu Gothic UI Semibold" size="12.0" />
                      </font>

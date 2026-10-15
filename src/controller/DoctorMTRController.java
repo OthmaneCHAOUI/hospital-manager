@@ -521,9 +521,9 @@ Rendez_column_action.setCellFactory(cellFactory);
     
     private void supprimerMedicament(Medicament medicament) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Confirmation suppression");
+    alert.setTitle("Delete confirmation");
     alert.setHeaderText(null);
-    alert.setContentText("Voulez-vous vraiment supprimer le medicament " + medicament.getNom() + " ?");
+    alert.setContentText("Are you sure you want to delete the medication " + medicament.getNom() + "?");
     alert.showAndWait().ifPresent(response -> {
         if (response == ButtonType.OK) {
             MedicamentDAO.delete(medicament.getId());
@@ -535,7 +535,7 @@ Rendez_column_action.setCellFactory(cellFactory);
     private void voirMedicament(Medicament medicament){
         
         Stage dialogStage = new Stage();
-    dialogStage.setTitle("Modifier le Medicament de "+""+nomPatient);
+    dialogStage.setTitle("Edit medication for "+""+nomPatient);
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
@@ -551,8 +551,8 @@ Rendez_column_action.setCellFactory(cellFactory);
     TextField tfDescription = new TextField();
     tfDescription.setText(medicament.getDescription());
 
-    Button btnAjouter = new Button("Ajouter");
-    Button btnAnnuler = new Button("Annuler");
+    Button btnAjouter = new Button("Add");
+    Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, tfNom, dateDedbut);
@@ -588,9 +588,9 @@ Rendez_column_action.setCellFactory(cellFactory);
         // Check required fields
         if (tfNom.getText().isEmpty() || dateDedbut.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Champs manquants");
+            alert.setTitle("Missing fields");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs obligatoires (Nom, Date de Dedbut).");
+            alert.setContentText("Please fill in all required fields (name, start date).");
             alert.showAndWait();
             return;
         }
@@ -610,16 +610,16 @@ Rendez_column_action.setCellFactory(cellFactory);
         } catch (SQLException ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur SQL");
-            alert.setHeaderText("Erreur lors de l'ajout du medicament");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("SQL error");
+            alert.setHeaderText("Error adding medication");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         } catch (Exception ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur inattendue");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("Error");
+            alert.setHeaderText("Unexpected error");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         }
     });
@@ -632,9 +632,9 @@ Rendez_column_action.setCellFactory(cellFactory);
     
     private void supprimerTestMedical(TestMedical testMedical) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Confirmation suppression");
+    alert.setTitle("Delete confirmation");
     alert.setHeaderText(null);
-    alert.setContentText("Voulez-vous vraiment supprimer le TestMedicale " + testMedical.getTypeTest() + " ?");
+    alert.setContentText("Are you sure you want to delete the medical test " + testMedical.getTypeTest() + "?");
     alert.showAndWait().ifPresent(response -> {
         if (response == ButtonType.OK) {
             TestMedicalDAO.delete(testMedical.getId());
@@ -646,7 +646,7 @@ Rendez_column_action.setCellFactory(cellFactory);
     private void voirTestMedical(TestMedical testMedical){
         
          Stage dialogStage = new Stage();
-    dialogStage.setTitle("Modifier le TestMedicale de "+""+nomPatient);
+    dialogStage.setTitle("Edit medical test for "+""+nomPatient);
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
@@ -660,14 +660,14 @@ Rendez_column_action.setCellFactory(cellFactory);
     tfResultat.setText(testMedical.getResultat());
 
     ComboBox<String> cbStatut = new ComboBox<>();
-    cbStatut.getItems().addAll("en attente", "effectué");
+    cbStatut.getItems().addAll("pending", "completed");
     cbStatut.setValue(testMedical.getStatut());
     ComboBox<String> cbType = new ComboBox<>();
     cbType.getItems().addAll("interne", "externe");
     cbType.setValue(testMedical.getTypeDoctor());
 
-    Button btnAjouter = new Button("Modifier");
-    Button btnAnnuler = new Button("Annuler");
+    Button btnAjouter = new Button("Update");
+    Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, tfNom, dateDedbut);
@@ -703,9 +703,9 @@ Rendez_column_action.setCellFactory(cellFactory);
         // Check required fields
         if (tfNom.getText().isEmpty() || dateDedbut.getValue() == null || cbStatut.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Champs manquants");
+            alert.setTitle("Missing fields");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs obligatoires (Nom, Date de Test et Statut).");
+            alert.setContentText("Please fill in all required fields (name, test date, and status).");
             alert.showAndWait();
             return;
         }
@@ -726,16 +726,16 @@ Rendez_column_action.setCellFactory(cellFactory);
         } catch (SQLException ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur SQL");
-            alert.setHeaderText("Erreur lors de l'ajout du medicament");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("SQL error");
+            alert.setHeaderText("Error adding medical test");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         } catch (Exception ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur inattendue");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("Error");
+            alert.setHeaderText("Unexpected error");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         }
     });
@@ -749,9 +749,9 @@ Rendez_column_action.setCellFactory(cellFactory);
     
     private void supprimerRendezVous(RendezVous rendezVous) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Confirmation suppression");
+    alert.setTitle("Delete confirmation");
     alert.setHeaderText(null);
-    alert.setContentText("Voulez-vous vraiment supprimer ce rendezVous de DATE : " + rendezVous.getDateRendezVous() + " ?");
+    alert.setContentText("Are you sure you want to delete the appointment dated " + rendezVous.getDateRendezVous() + "?");
     alert.showAndWait().ifPresent(response -> {
         if (response == ButtonType.OK) {
             RendezVousDAO.delete(rendezVous.getId());
@@ -763,7 +763,7 @@ Rendez_column_action.setCellFactory(cellFactory);
     private void voirRendezVous(RendezVous rendezVous){
         
         Stage dialogStage = new Stage();
-    dialogStage.setTitle("Modifier le RendezVous de "+""+nomPatient);
+    dialogStage.setTitle("Edit appointment for "+""+nomPatient);
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
@@ -777,11 +777,11 @@ Rendez_column_action.setCellFactory(cellFactory);
     tfHeure.setText(String.valueOf(rendezVous.getHeure()));
 
     ComboBox<String> cbStatut = new ComboBox<>();
-    cbStatut.getItems().addAll("absent", "à venir","présent");
+    cbStatut.getItems().addAll("absent", "upcoming", "present");
     cbStatut.setValue(rendezVous.getStatut());
 
-    Button btnAjouter = new Button("Ajouter");
-    Button btnAnnuler = new Button("Annuler");
+    Button btnAjouter = new Button("Add");
+    Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, date, tfHeure);
@@ -817,9 +817,9 @@ Rendez_column_action.setCellFactory(cellFactory);
         // Check required fields
         if (date.getValue() == null || cbStatut.getValue() == null || tfHeure.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Champs manquants");
+            alert.setTitle("Missing fields");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs obligatoires (Date , Heure et Statut).");
+            alert.setContentText("Please fill in all required fields (date, time, and status).");
             alert.showAndWait();
             return;
         }
@@ -832,23 +832,23 @@ Rendez_column_action.setCellFactory(cellFactory);
             newrendezVous.setStatut(cbStatut.getValue());
             newrendezVous.setId(rendezVous.getId());
 
-            RendezVousDAO.editerTest(rendezVous); // Appel DAO
+            RendezVousDAO.editerTest(rendezVous); // DAO call
             dialogStage.close();
             loadRendezVous(); // Rechargement de la table
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur SQL");
-            alert.setHeaderText("Erreur lors de la modification du RendezVous");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("SQL error");
+            alert.setHeaderText("Error updating appointment");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         } catch (Exception ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur inattendue");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("Error");
+            alert.setHeaderText("Unexpected error");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         }
     });
@@ -865,24 +865,24 @@ Rendez_column_action.setCellFactory(cellFactory);
        
        if(inter == 1){
     Stage dialogStage = new Stage();
-    dialogStage.setTitle("Ajouter un Medicament");
+    dialogStage.setTitle("Add medication");
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
     TextField tfNom = new TextField();
-    tfNom.setPromptText("Nom");
+    tfNom.setPromptText("Name");
 
     DatePicker dateDedbut = new DatePicker();
-    dateDedbut.setPromptText("Date de Debut");
+    dateDedbut.setPromptText("Start date");
 
     TextField tfperiode = new TextField();
-    tfperiode.setPromptText("Periode(entier)");
+    tfperiode.setPromptText("Period (integer)");
 
     TextField tfDescription = new TextField();
     tfDescription.setPromptText("Description");
 
-    Button btnAjouter = new Button("Ajouter");
-    Button btnAnnuler = new Button("Annuler");
+    Button btnAjouter = new Button("Add");
+    Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, tfNom, dateDedbut);
@@ -918,9 +918,9 @@ Rendez_column_action.setCellFactory(cellFactory);
         // Check required fields
         if (tfNom.getText().isEmpty() || dateDedbut.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Champs manquants");
+            alert.setTitle("Missing fields");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs obligatoires (Nom, Date de Dedbut).");
+            alert.setContentText("Please fill in all required fields (name, start date).");
             alert.showAndWait();
             return;
         }
@@ -939,16 +939,16 @@ Rendez_column_action.setCellFactory(cellFactory);
         } catch (SQLException ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur SQL");
-            alert.setHeaderText("Erreur lors de l'ajout du medicament");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("SQL error");
+            alert.setHeaderText("Error adding medication");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         } catch (Exception ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur inattendue");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("Error");
+            alert.setHeaderText("Unexpected error");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         }
     });
@@ -959,28 +959,28 @@ Rendez_column_action.setCellFactory(cellFactory);
        }
        else if(inter == 2){
            Stage dialogStage = new Stage();
-    dialogStage.setTitle("Ajouter un TestMedicale");
+    dialogStage.setTitle("Add medical test");
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
     TextField tfNom = new TextField();
-    tfNom.setPromptText("Nom");
+    tfNom.setPromptText("Name");
 
     DatePicker dateDedbut = new DatePicker();
-    dateDedbut.setPromptText("Date de Test");
+    dateDedbut.setPromptText("Test date");
 
     TextField tfResultat = new TextField();
-    tfResultat.setPromptText("Resultat");
+    tfResultat.setPromptText("Result");
 
     ComboBox<String> cbStatut = new ComboBox<>();
-    cbStatut.getItems().addAll("en attente", "effectué");
-    cbStatut.setPromptText("Statut");
+    cbStatut.getItems().addAll("pending", "completed");
+    cbStatut.setPromptText("Status");
     ComboBox<String> cbType = new ComboBox<>();
     cbType.getItems().addAll("interne", "externe");
-    cbType.setPromptText("Type de Doctor");
+    cbType.setPromptText("Doctor type");
 
-    Button btnAjouter = new Button("Ajouter");
-    Button btnAnnuler = new Button("Annuler");
+    Button btnAjouter = new Button("Add");
+    Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, tfNom, dateDedbut);
@@ -1016,9 +1016,9 @@ Rendez_column_action.setCellFactory(cellFactory);
         // Check required fields
         if (tfNom.getText().isEmpty() || dateDedbut.getValue() == null || cbStatut.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Champs manquants");
+            alert.setTitle("Missing fields");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs obligatoires (Nom, Date de Test et Statut).");
+            alert.setContentText("Please fill in all required fields (name, test date, and status).");
             alert.showAndWait();
             return;
         }
@@ -1038,16 +1038,16 @@ Rendez_column_action.setCellFactory(cellFactory);
         } catch (SQLException ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur SQL");
-            alert.setHeaderText("Erreur lors de l'ajout du medicament");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("SQL error");
+            alert.setHeaderText("Error adding medical test");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         } catch (Exception ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur inattendue");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("Error");
+            alert.setHeaderText("Unexpected error");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         }
     });
@@ -1058,25 +1058,25 @@ Rendez_column_action.setCellFactory(cellFactory);
        }
        else{
            Stage dialogStage = new Stage();
-    dialogStage.setTitle("Ajouter un RendezVous");
+    dialogStage.setTitle("Add appointment");
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
 
     DatePicker date = new DatePicker();
-    date.setPromptText("Date de RendezVous");
+    date.setPromptText("Appointment date");
 
     TextField tfRaisont = new TextField();
-    tfRaisont.setPromptText("Raison");
+    tfRaisont.setPromptText("Reason");
     TextField tfHeure = new TextField();
-    tfHeure.setPromptText("Heure (format x:x)");
+    tfHeure.setPromptText("Time (format x:x)");
 
     ComboBox<String> cbStatut = new ComboBox<>();
-    cbStatut.getItems().addAll("absent", "à venir","présent");
-    cbStatut.setPromptText("Statut");
+    cbStatut.getItems().addAll("absent", "upcoming", "present");
+    cbStatut.setPromptText("Status");
 
-    Button btnAjouter = new Button("Ajouter");
-    Button btnAnnuler = new Button("Annuler");
+    Button btnAjouter = new Button("Add");
+    Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
     HBox hbox1 = new HBox(10, date, tfHeure);
@@ -1112,9 +1112,9 @@ Rendez_column_action.setCellFactory(cellFactory);
         // Check required fields
         if (date.getValue() == null || cbStatut.getValue() == null || tfHeure.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Champs manquants");
+            alert.setTitle("Missing fields");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs obligatoires (Date , Heure et Statut).");
+            alert.setContentText("Please fill in all required fields (date, time, and status).");
             alert.showAndWait();
             return;
         }
@@ -1133,16 +1133,16 @@ Rendez_column_action.setCellFactory(cellFactory);
         } catch (SQLException ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur SQL");
-            alert.setHeaderText("Erreur lors de l'ajout du RendezVous");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("SQL error");
+            alert.setHeaderText("Error adding appointment");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         } catch (Exception ex) {
             ex.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Erreur inattendue");
-            alert.setContentText("Détails : " + ex.getMessage());
+            alert.setTitle("Error");
+            alert.setHeaderText("Unexpected error");
+            alert.setContentText("Details: " + ex.getMessage());
             alert.showAndWait();
         }
     });
