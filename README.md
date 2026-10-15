@@ -129,17 +129,17 @@ Le script SQL du projet se trouve dans :
 src/utils/Database.sql
 ```
 
-Vous devez créer un rôle PostgreSQL et la base de données avant de lancer l'application. Sur Linux, les commandes suivantes créent le rôle `hospital_app` et demandent son mot de passe, puis créent une base vide dont ce rôle est propriétaire :
+Vous devez créer un rôle PostgreSQL et la base de données avant de lancer l'application. Sur Linux, les commandes suivantes créent le rôle `medical_center` et demandent son mot de passe, puis créent une base vide dont ce rôle est propriétaire :
 
 ```bash
-sudo -u postgres createuser --pwprompt hospital_app
-sudo -u postgres createdb --owner=hospital_app cabinet_medical
+sudo -u postgres createuser --pwprompt medical_center
+sudo -u postgres createdb --owner=medical_center hospital_manager
 ```
 
-Conservez le mot de passe choisi pour `hospital_app`. Ensuite, depuis la racine du projet, créez les tables dans la base. `psql` demandera le mot de passe du rôle :
+Conservez le mot de passe choisi pour `medical_center`. Ensuite, depuis la racine du projet, créez les tables dans la base. `psql` demandera le mot de passe du rôle :
 
 ```bash
-psql -h localhost -p 5432 -U hospital_app -d cabinet_medical -W \
+psql -h localhost -p 5432 -U medical_center -d hospital_manager -W \
   --single-transaction -v ON_ERROR_STOP=1 \
   -f src/utils/Database.sql
 ```
@@ -152,15 +152,15 @@ L'application ne demande pas le nom d'utilisateur ni le mot de passe de PostgreS
 
 | Variable | Valeur par défaut / exigence |
 |---|---|
-| `DB_URL` | `jdbc:postgresql://localhost:5432/cabinet_medical` |
+| `DB_URL` | `jdbc:postgresql://localhost:5432/hospital_manager` |
 | `DB_USER` | Obligatoire : rôle PostgreSQL |
 | `DB_PASSWORD` | Obligatoire : mot de passe du rôle (peut être vide si votre PostgreSQL l'autorise) |
 
 Définissez les variables dans le même terminal que celui utilisé pour démarrer l'application. L'exemple suivant demande le mot de passe sans l'afficher, puis lance l'application :
 
 ```bash
-export DB_URL='jdbc:postgresql://localhost:5432/cabinet_medical'
-export DB_USER='hospital_app'
+export DB_URL='jdbc:postgresql://localhost:5432/hospital_manager'
+export DB_USER='medical_center'
 read -rsp "PostgreSQL password: " DB_PASSWORD; echo
 export DB_PASSWORD
 mvn javafx:run
@@ -209,7 +209,7 @@ mvn javafx:run
 Vous pouvez utiliser le client en ligne de commande `psql` pour vous connecter à la base :
 
 ```bash
-psql -h localhost -p 5432 -U hospital_app -d cabinet_medical -W
+psql -h localhost -p 5432 -U medical_center -d hospital_manager -W
 ```
 
 Après avoir saisi le mot de passe, utilisez `\dt` pour lister les tables, puis des requêtes SQL pour consulter les enregistrements :
@@ -270,6 +270,7 @@ Les évolutions suivantes pourraient être envisagées en fonction de l'état ac
 - Documenter le schéma relationnel de la base de données.
 - Ajouter des captures d'écran des interfaces principales.
 - Mettre en place une procédure de compilation et de vérification automatisée avec GitHub Actions.
+- ajouter le packaging pour des differentes OS
 
 ## Contribuer
 

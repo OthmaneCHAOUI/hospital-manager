@@ -2,14 +2,15 @@
 bin/
 out/
 target/
+build/
 
 # IDE (Eclipse / IntelliJ / NetBeans)
 .classpath
 .project
 .settings/
 *.iml
+.idea/
 nbproject/
-build/
 dist/
 
 # OS
@@ -19,3 +20,6 @@ Thumbs.db
 # VSCode — garder launch/tasks, ignorer les chemins locaux si besoin
 .vscode/*
 lib/*
+
+# future upgrades
+TODO.md
