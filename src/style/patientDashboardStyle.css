@@ -1,37 +1,104 @@
-.fields {
+.dashboard-page {
+    -fx-background-color: #f6f8fa;
+    -fx-font-family: "System";
+}
+
+.top-bar {
+    -fx-background-color: #0d1117;
+    -fx-padding: 0 20px;
+}
+
+.top-bar Label,
+.top-bar Hyperlink,
+.top-bar MenuButton {
+    -fx-text-fill: #f0f6fc;
+}
+
+.top-bar .menu-button {
     -fx-background-color: transparent;
-    -fx-border-color: limegreen;
-    -fx-border-width: 0 0 2 0;
-    -fx-border-radius: 0;
-    -fx-padding: 6px 6px 6px 12px;
-    -fx-pref-width: 200;
-    -fx-opacity: 1;
 }
 
-.labels{
-    -fx-text-fill: black;
-    -fx-opacity: 1;
+.top-bar .menu-button:hover,
+.top-bar .hyperlink:hover {
+    -fx-background-color: #21262d;
+}
+
+.profile-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8px;
+    -fx-border-color: #d0d7de;
+    -fx-border-radius: 8px;
+    -fx-padding: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(31, 35, 40, 0.12), 12, 0.15, 0, 3);
+}
+
+.profile-form {
+    -fx-background-color: #ffffff;
+}
+
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d0d7de;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f6f8fa;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-border-color: #d8dee4;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #57606a;
     -fx-font-weight: bold;
-    -fx-font-size: 20;
 }
 
-.quit-icon:hover{
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+.table-row-cell:selected {
+    -fx-background-color: #ddf4ff;
+}
+
+.fields {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d0d7de;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 12px;
+}
+
+.fields:focused {
+    -fx-border-color: #0969da;
+    -fx-border-width: 2px;
+}
+
+.labels {
+    -fx-text-fill: #1f2328;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
 }
 
 .enregi-button {
-    -fx-background-color: limegreen;
+    -fx-background-color: #1f883d;
+    -fx-background-radius: 6px;
     -fx-text-fill: white;
-    -fx-opacity: 1;
-    -fx-pref-height: 40;
-    -fx-pref-width: 100;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 16px;
     -fx-cursor: hand;
 }
 
 .enregi-button:hover {
-    -fx-background-color: dodgerblue;
-    -fx-text-fill: white;
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+    -fx-background-color: #1a7f37;
+}
+
+.quit-icon {
+    -fx-cursor: hand;
+}
+
+.quit-icon:hover {
+    -fx-opacity: 0.7;
 }

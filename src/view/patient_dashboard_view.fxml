@@ -23,11 +23,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="888.0" stylesheets="@../style/patientDashboardStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientDashboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="622.0" prefWidth="888.0" styleClass="dashboard-page" stylesheets="@../style/patientDashboardStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientDashboardController">
     <children>
         <VBox fx:id="mainVBox" layoutX="193.0" layoutY="61.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="692.0" style="-fx-background-color: limegreen;">
+                <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="692.0" styleClass="top-bar">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="0.0" prefWidth="150.0" />
                         <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="339.0" />
@@ -76,7 +76,7 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="384.0" spacing="40.0" GridPane.columnIndex="1">
                             <children>
-                                <MenuButton fx:id="doctorMenu" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Doctor" textFill="WHITE">
+                                <MenuButton fx:id="doctorMenu" mnemonicParsing="false" text="Doctor" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
@@ -118,7 +118,7 @@
          <children>
             <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" style="-fx-background-color: eeeeee; -fx-background-radius: 10;">
+                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="profile-card">
                      <children>
                         <StackPane alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="499.0">
                            <children>
@@ -135,7 +135,7 @@
                               <Insets right="10.0" />
                            </VBox.margin>
                         </StackPane>
-                        <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="451.0" prefWidth="665.0" style="-fx-background-color: white;">
+                        <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="451.0" prefWidth="665.0" styleClass="profile-form">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="304.0" minWidth="172.0" prefWidth="251.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="195.0" prefWidth="248.0" />

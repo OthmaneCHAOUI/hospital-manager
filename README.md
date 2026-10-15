@@ -129,19 +129,19 @@ The project's SQL script is located at:
 src/utils/Database.sql
 ```
 
-You must create a PostgreSQL role and database before starting the application. On Linux, the following commands create the `medical_center` role and prompt for its password, then create an empty `hospital-manager` database owned by that role:
+You must create a PostgreSQL role and database before starting the application. On Linux, the following commands create the `medical_center` role and prompt for its password, then create an empty `hospital_manager` database owned by that role:
 
 ```bash
 sudo -u postgres createuser --pwprompt medical_center
-sudo -u postgres createdb --owner=medical_center hospital-manager
+sudo -u postgres createdb --owner=medical_center hospital_manager
 ```
 
 Keep the password chosen for `medical_center`. Then, from the project root, create the tables in the database. `psql` will request the role password:
 
 ```bash
-psql -h localhost -p 5432 -U medical_center -d hospital-manager -W \
+psql -h localhost -p 5432 -U medical_center -d hospital_manager -W \
   --single-transaction -v ON_ERROR_STOP=1 \
-  -f src/utils/Database.sql
+  -f src/utils/database.sql
 ```
 
 This script initializes the tables in an empty database. It does not drop the database, create the role, or copy data from an old MySQL database. Do not run it again on an already initialized database: the tables already exist and creation will fail. To migrate existing MySQL data, follow a separate export/import procedure and verify the data before switching over.
@@ -152,14 +152,14 @@ The application does not request the PostgreSQL username or password in a dialog
 
 | Variable | Default value / requirement |
 |---|---|
-| `DB_URL` | `jdbc:postgresql://localhost:5432/hospital-manager` |
+| `DB_URL` | `jdbc:postgresql://localhost:5432/hospital_manager` |
 | `DB_USER` | Required: PostgreSQL role |
 | `DB_PASSWORD` | Required: role password (may be empty if your PostgreSQL configuration allows it) |
 
 Define the variables in the same terminal used to start the application. The following example prompts for the password without displaying it, then starts the application:
 
 ```bash
-export DB_URL='jdbc:postgresql://localhost:5432/hospital-manager'
+export DB_URL='jdbc:postgresql://localhost:5432/hospital_manager'
 export DB_USER='medical_center'
 read -rsp "PostgreSQL password: " DB_PASSWORD; echo
 export DB_PASSWORD
@@ -209,7 +209,7 @@ mvn javafx:run
 You can use the `psql` command-line client to connect to the database:
 
 ```bash
-psql -h localhost -p 5432 -U medical_center -d hospital-manager -W
+psql -h localhost -p 5432 -U medical_center -d hospital_manager -W
 ```
 
 After entering the password, use `\dt` to list the tables, then run SQL queries to view records:

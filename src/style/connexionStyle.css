@@ -1,42 +1,86 @@
+.auth-page {
+    -fx-background-color: #f6f8fa;
+    -fx-font-family: "System";
+}
+
+.brand-panel {
+    -fx-background-color: #0d1117;
+    -fx-padding: 32;
+}
+
+.brand-panel Label {
+    -fx-text-fill: #f0f6fc;
+}
+
+.login-panel {
+    -fx-background-color: #ffffff;
+    -fx-padding: 40 64;
+}
+
+.login-title {
+    -fx-text-fill: #1f2328;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+}
+
 .field {
-    -fx-background-color: transparent;
-    -fx-border-color: limegreen;
-    -fx-font-size: 15;
-    -fx-border-width: 0 0 2px 0;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d0d7de;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px 12px;
+    -fx-font-size: 14px;
+}
+
+.field:focused {
+    -fx-border-color: #0969da;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(9, 105, 218, 0.18), 6, 0.2, 0, 0);
+}
+
+.radio-button {
+    -fx-text-fill: #57606a;
+    -fx-cursor: hand;
+}
+
+.radio-button:selected {
+    -fx-text-fill: #1f2328;
 }
 
 .radio-button .radio {
-    -fx-border-color: limegreen;
+    -fx-border-color: #8c959f;
     -fx-border-radius: 50%;
-    -fx-border-width: 2px;
-    -fx-padding: 3;
-    -fx-cursor: hand;
+    -fx-border-width: 1px;
+    -fx-padding: 3px;
 }
 
 .radio-button:selected .radio {
-    -fx-border-color: dodgerblue;
+    -fx-border-color: #0969da;
 }
 
-.connexion-button{
-    -fx-background-color: limegreen;
-    -fx-border-radius: 10px;
+.connexion-button {
+    -fx-background-color: #1f883d;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
     -fx-text-fill: white;
-    -fx-font-size: 17;
-    -fx-pref-height: 40;
-    -fx-pref-width: 120;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
     -fx-cursor: hand;
 }
 
-.connexion-button:hover{
-    -fx-background-color: dodgerblue;
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+.connexion-button:hover {
+    -fx-background-color: #1a7f37;
 }
 
-.hyperlink{
-    -fx-text-fill: black;
+.hyperlink {
+    -fx-text-fill: #0969da;
     -fx-cursor: hand;
-    -fx-font-size: 15;
-    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+}
+
+.hyperlink:hover {
+    -fx-underline: true;
 }
