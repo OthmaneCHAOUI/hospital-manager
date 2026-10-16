@@ -82,7 +82,7 @@
     -fx-font-size: 14px;
 }
 
-.enregi-button {
+.save-button {
     -fx-background-color: #1f883d;
     -fx-background-radius: 6px;
     -fx-text-fill: white;
@@ -91,7 +91,7 @@
     -fx-cursor: hand;
 }
 
-.enregi-button:hover {
+.save-button:hover {
     -fx-background-color: #1a7f37;
 }
 

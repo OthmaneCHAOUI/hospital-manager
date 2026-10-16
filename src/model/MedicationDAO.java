@@ -4,40 +4,40 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedicamentDAO
+public class MedicationDAO
 {
-    public static List<Medicament> getMedicaments(String cniePatient, int idDoctor) {
-        return new MedicamentDAO().getMedicamentsByPatientAndDoctor(cniePatient, idDoctor);
+    public static List<Medication> getMedications(String nationalIdPatient, int idDoctor) {
+        return new MedicationDAO().getMedicationsByPatientAndDoctor(nationalIdPatient, idDoctor);
     }
-    
-    public List<Medicament> getMedicamentsByPatientAndDoctor(String cniePatient, int idDoctor) {
-        List<Medicament> medicaments = new ArrayList<>();
-        String query = "SELECT * FROM Medicament WHERE cnie_patient = ? AND id_doctor = ?";
+
+    public List<Medication> getMedicationsByPatientAndDoctor(String nationalIdPatient, int idDoctor) {
+        List<Medication> medications = new ArrayList<>();
+        String query = "SELECT * FROM Medication WHERE patient_national_id = ? AND id_doctor = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, cniePatient);
+            pstmt.setString(1, nationalIdPatient);
             pstmt.setInt(2, idDoctor);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                Medicament m = new Medicament(
+                Medication m = new Medication(
                     rs.getInt("id"),
                     rs.getInt("id_doctor"),
-                    rs.getString("cnie_patient"),
-                    rs.getString("nom"),
-                    rs.getDate("date_debut").toLocalDate(),
-                    rs.getInt("periode"),
+                    rs.getString("patient_national_id"),
+                    rs.getString("name"),
+                    rs.getDate("start_date").toLocalDate(),
+                    rs.getInt("duration"),
                     rs.getString("description")
                 );
-                medicaments.add(m);
+                medications.add(m);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return medicaments;
+        return medications;
     }
-    
+
      public static void delete(int id) {
-    String sql = "DELETE FROM Medicament WHERE id = ?";
+    String sql = "DELETE FROM Medication WHERE id = ?";
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -54,17 +54,17 @@ public class MedicamentDAO
         e.printStackTrace();
     }
 }
-     public static void editerMedicament(Medicament medicament) throws SQLException{
-        String sql = "UPDATE Medicament SET nom=?, date_debut=?, description=?,periode=?  WHERE id=?";
+     public static void editMedication(Medication medication) throws SQLException{
+        String sql = "UPDATE Medication SET name=?, start_date=?, description=?,duration=?  WHERE id=?";
         try (Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, medicament.getNom());
-            pstmt.setDate(2, java.sql.Date.valueOf(medicament.getDateDebut()));
-            pstmt.setString(3, medicament.getDescription());
-            pstmt.setInt(4, medicament.getPeriode());
-            pstmt.setInt(5, medicament.getId());
-            
+            pstmt.setString(1, medication.getName());
+            pstmt.setDate(2, java.sql.Date.valueOf(medication.getStartDate()));
+            pstmt.setString(3, medication.getDescription());
+            pstmt.setInt(4, medication.getDuration());
+            pstmt.setInt(5, medication.getId());
+
             int rowsUpdated = pstmt.executeUpdate();
 
             if (rowsUpdated > 0) {
@@ -76,17 +76,17 @@ public class MedicamentDAO
             e.printStackTrace();
         }
     }
-    public static void inserer(Medicament medicament, String cniePatient, int idDoctor) throws SQLException {
-    String sql = "INSERT INTO Medicament (nom, date_debut, periode, description, cnie_patient, id_doctor) VALUES (?, ?, ?, ?, ?, ?)";
+    public static void insert(Medication medication, String nationalIdPatient, int idDoctor) throws SQLException {
+    String sql = "INSERT INTO Medication (name, start_date, duration, description, patient_national_id, id_doctor) VALUES (?, ?, ?, ?, ?, ?)";
 
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        pstmt.setString(1, medicament.getNom());
-        pstmt.setDate(2, java.sql.Date.valueOf(medicament.getDateDebut()));
-        pstmt.setInt(3, medicament.getPeriode());
-        pstmt.setString(4, medicament.getDescription());
-        pstmt.setString(5, cniePatient);
+        pstmt.setString(1, medication.getName());
+        pstmt.setDate(2, java.sql.Date.valueOf(medication.getStartDate()));
+        pstmt.setInt(3, medication.getDuration());
+        pstmt.setString(4, medication.getDescription());
+        pstmt.setString(5, nationalIdPatient);
         pstmt.setInt(6, idDoctor);
 
         int rowsInserted = pstmt.executeUpdate();

@@ -12,27 +12,25 @@ import javafx.fxml.FXMLLoader;
 import model.Patient;
 import model.PatientDAO;
 
-import java.time.LocalDate;
-
 /**
  * Provides the form used to create a new patient account.
  */
 public class PatientFormController {
 
     @FXML
-    private TextField nomField;
+    private TextField nameField;
 
     @FXML
-    private TextField prenomField;
+    private TextField firstNameField;
 
     @FXML
-    private TextField cnieField;
+    private TextField nationalIdField;
 
     @FXML
-    private PasswordField motDePassField;
+    private PasswordField passwordField;
 
     @FXML
-    private Button creerButton;
+    private Button createButton;
 
     private PatientDAO patientDAO;
 
@@ -42,36 +40,36 @@ public class PatientFormController {
     }
 
     @FXML
-    public void ajouterPatient() throws SQLException {
+    public void addPatient() throws SQLException {
         boolean hasError = false;
 
-        nomField.setStyle("");
-        prenomField.setStyle("");
-        cnieField.setStyle("");
-        motDePassField.setStyle("");
+        nameField.setStyle("");
+        firstNameField.setStyle("");
+        nationalIdField.setStyle("");
+        passwordField.setStyle("");
 
-        if (nomField.getText().trim().isEmpty()) {
-            nomField.setPromptText("Name is required");
-            nomField.setStyle("-fx-prompt-text-fill: red;");
-            nomField.getStyleClass().add("field-error");
+        if (nameField.getText().trim().isEmpty()) {
+            nameField.setPromptText("Name is required");
+            nameField.setStyle("-fx-prompt-text-fill: red;");
+            nameField.getStyleClass().add("field-error");
             hasError = true;
         }
-        if (prenomField.getText().trim().isEmpty()) {
-            prenomField.setPromptText("First name is required");
-            prenomField.setStyle("-fx-prompt-text-fill: red;");
-            prenomField.getStyleClass().add("field-error");
+        if (firstNameField.getText().trim().isEmpty()) {
+            firstNameField.setPromptText("First name is required");
+            firstNameField.setStyle("-fx-prompt-text-fill: red;");
+            firstNameField.getStyleClass().add("field-error");
             hasError = true;
         }
-        if (cnieField.getText().trim().isEmpty()) {
-            cnieField.setPromptText("National ID is required");
-            cnieField.setStyle("-fx-prompt-text-fill: red;");
-            cnieField.getStyleClass().add("field-error");
+        if (nationalIdField.getText().trim().isEmpty()) {
+            nationalIdField.setPromptText("National ID is required");
+            nationalIdField.setStyle("-fx-prompt-text-fill: red;");
+            nationalIdField.getStyleClass().add("field-error");
             hasError = true;
         }
-        if (motDePassField.getText().trim().isEmpty()) {
-            motDePassField.setPromptText("Password is required");
-            motDePassField.setStyle("-fx-prompt-text-fill: red;");
-            motDePassField.getStyleClass().add("field-error");
+        if (passwordField.getText().trim().isEmpty()) {
+            passwordField.setPromptText("Password is required");
+            passwordField.setStyle("-fx-prompt-text-fill: red;");
+            passwordField.getStyleClass().add("field-error");
             hasError = true;
         }
 
@@ -79,28 +77,28 @@ public class PatientFormController {
             return;
         }
 
-        if (patientDAO.trouverParCnie(cnieField.getText()) != null) {
-            cnieField.clear();
-            cnieField.setPromptText("National ID already in use");
-            cnieField.setStyle("-fx-prompt-text-fill: red;");
-            cnieField.getStyleClass().add("field-error");
+        if (patientDAO.trouverParCnie(nationalIdField.getText()) != null) {
+            nationalIdField.clear();
+            nationalIdField.setPromptText("National ID already in use");
+            nationalIdField.setStyle("-fx-prompt-text-fill: red;");
+            nationalIdField.getStyleClass().add("field-error");
             return;
         }
 
         Patient patient = new Patient(
-            nomField.getText(),
-            prenomField.getText(),
-            cnieField.getText(),
-            motDePassField.getText()
+            nameField.getText(),
+            firstNameField.getText(),
+            nationalIdField.getText(),
+            passwordField.getText()
         );
-        patientDAO.ajouterPatient(patient);
+        patientDAO.addPatient(patient);
 
         showAlert(Alert.AlertType.INFORMATION, "Success", "Patient added successfully.");
 
-        nomField.clear();
-        prenomField.clear();
-        cnieField.clear();
-        motDePassField.clear();
+        nameField.clear();
+        firstNameField.clear();
+        nationalIdField.clear();
+        passwordField.clear();
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {
@@ -112,8 +110,8 @@ public class PatientFormController {
     }
 
     @FXML
-    public void allerVersLoginView(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/connexion_view.fxml"));
+    public void goToLoginView(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/login_view.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

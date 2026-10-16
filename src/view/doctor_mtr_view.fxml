@@ -57,7 +57,7 @@
                                     <Font name="Sitka Banner Bold" size="30.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="nomPrenomPatient" fill="#eeeeee" opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient name">
+                              <Text fx:id="patientName" fill="#eeeeee" opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient name">
                                  <font>
                                     <Font name="Sitka Banner Bold" size="24.0" />
                                  </font>
@@ -76,7 +76,7 @@
                         </HBox>
                      </children>
                   </GridPane>
-                  <AnchorPane fx:id="interfaceMedicament" prefHeight="616.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
+                  <AnchorPane fx:id="interfaceMedication" prefHeight="616.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
                      <children>
                         <VBox alignment="TOP_CENTER" minWidth="1200.0" prefHeight="200.0" prefWidth="1200.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -92,7 +92,7 @@
                                  <children>
                                     <AnchorPane prefHeight="55.0" prefWidth="1202.0">
                                        <children>
-                                          <Button fx:id="btn_ajouterMedicament" layoutX="22.0" layoutY="8.0" mnemonicParsing="false" onAction="#Ajouter" prefHeight="36.0" prefWidth="119.0" styleClass="btn" text="  Add">
+                                          <Button fx:id="addMedicationButton" layoutX="22.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleAdd" prefHeight="36.0" prefWidth="119.0" styleClass="btn" text="  Add">
                                              <graphic>
                                                 <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -101,7 +101,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <Button layoutX="985.0" layoutY="12.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="13.0" styleClass="btn_chercher">
+                                          <Button layoutX="985.0" layoutY="12.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="13.0" styleClass="search-button">
                                              <graphic>
                                                 <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" styleClass="icon_chercher">
                                                    <image>
@@ -117,22 +117,22 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <TextField fx:id="f_rechercheMedicament" layoutX="1006.0" layoutY="10.0" onAction="#Recherche" prefHeight="31.0" prefWidth="170.0" promptText="Search medication" styleClass="field" AnchorPane.rightAnchor="44.0">
+                                          <TextField fx:id="medicationSearchField" layoutX="1006.0" layoutY="10.0" onAction="#handleSearch" prefHeight="31.0" prefWidth="170.0" promptText="Search medication" styleClass="field" AnchorPane.rightAnchor="44.0">
                                              <opaqueInsets>
                                                 <Insets left="50.0" />
                                              </opaqueInsets>
                                           </TextField>
-                                          <Button fx:id="btn_medicament" layoutX="410.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToMedicament" prefHeight="34.0" prefWidth="118.0" styleClass="btn" text="Medication">
+                                          <Button fx:id="medicationsButton" layoutX="410.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToMedication" prefHeight="34.0" prefWidth="118.0" styleClass="btn" text="Medication">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="btn_test" layoutX="538.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToTest" prefHeight="34.0" prefWidth="125.0" styleClass="btn" text="Medical test">
+                                          <Button fx:id="testsButton" layoutX="538.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToMedicalTest" prefHeight="34.0" prefWidth="125.0" styleClass="btn" text="Medical test">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="btn_rendezvous" layoutX="673.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToRendezVous" prefHeight="34.0" prefWidth="118.0" styleClass="btn" text="Appointments">
+                                          <Button fx:id="appointmentsButton" layoutX="673.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToAppointment" prefHeight="34.0" prefWidth="118.0" styleClass="btn" text="Appointments">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
@@ -141,14 +141,14 @@
                                     </AnchorPane>
                                  </children>
                               </HBox>
-                              <TableView fx:id="table_patientM" maxHeight="1.7976931348623157E308" maxWidth="1450.0" minHeight="410.0" prefHeight="410.0" prefWidth="1170.0">
+                              <TableView fx:id="medicationTable" maxHeight="1.7976931348623157E308" maxWidth="1450.0" minHeight="410.0" prefHeight="410.0" prefWidth="1170.0">
                                 <columns>
-                                    <TableColumn fx:id="Medicament_column_id" maxWidth="50.39999008178711" minWidth="40.79998779296875" prefWidth="50.39999008178711" text="ID" />
-                                  <TableColumn fx:id="Medicament_column_nom" maxWidth="252.79999160766602" minWidth="120.0" prefWidth="252.79999160766602" text="Name" />
-                                  <TableColumn fx:id="Medicament_column_date" maxWidth="150.0" minWidth="48.0" prefWidth="109.60003662109375" text="Start date" />
-                                    <TableColumn fx:id="Medicament_column_periode" maxWidth="230.39999389648438" minWidth="120.0" prefWidth="172.80001831054688" text="Period" />
-                                    <TableColumn fx:id="Medicament_column_description" maxWidth="1.7976931348623157E308" minWidth="112.79998779296875" prefWidth="469.60009765625" text="Description " />
-                                    <TableColumn fx:id="Medicament_column_action" maxWidth="200.0" minWidth="106.4000244140625" prefWidth="106.4000244140625" text="Action" />
+                                    <TableColumn fx:id="Medication_column_id" maxWidth="50.39999008178711" minWidth="40.79998779296875" prefWidth="50.39999008178711" text="ID" />
+                                  <TableColumn fx:id="Medication_column_name" maxWidth="252.79999160766602" minWidth="120.0" prefWidth="252.79999160766602" text="Name" />
+                                  <TableColumn fx:id="Medication_column_date" maxWidth="150.0" minWidth="48.0" prefWidth="109.60003662109375" text="Start date" />
+                                    <TableColumn fx:id="Medication_column_duration" maxWidth="230.39999389648438" minWidth="120.0" prefWidth="172.80001831054688" text="Period" />
+                                    <TableColumn fx:id="Medication_column_description" maxWidth="1.7976931348623157E308" minWidth="112.79998779296875" prefWidth="469.60009765625" text="Description " />
+                                    <TableColumn fx:id="Medication_column_action" maxWidth="200.0" minWidth="106.4000244140625" prefWidth="106.4000244140625" text="Action" />
                                 </columns>
                                  <VBox.margin>
                                     <Insets left="15.0" right="15.0" />
@@ -180,7 +180,7 @@
                                  <children>
                                     <AnchorPane prefHeight="55.0" prefWidth="1202.0">
                                        <children>
-                                          <Button fx:id="btn_ajouterMedicament2" layoutX="22.0" layoutY="8.0" mnemonicParsing="false" onAction="#Ajouter" prefHeight="36.0" prefWidth="119.0" styleClass="btn" text="  Add">
+                                          <Button fx:id="addMedicationButton2" layoutX="22.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleAdd" prefHeight="36.0" prefWidth="119.0" styleClass="btn" text="  Add">
                                              <graphic>
                                                 <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -189,7 +189,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <Button layoutX="985.0" layoutY="12.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="13.0" styleClass="btn_chercher">
+                                          <Button layoutX="985.0" layoutY="12.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="13.0" styleClass="search-button">
                                              <graphic>
                                                 <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" styleClass="icon_chercher">
                                                    <image>
@@ -205,22 +205,22 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <TextField fx:id="f_rechercheMedicament2" layoutX="1006.0" layoutY="10.0" onAction="#Recherche" prefHeight="31.0" prefWidth="170.0" promptText="Search medication" styleClass="field" AnchorPane.rightAnchor="44.0">
+                                          <TextField fx:id="medicationSearchField2" layoutX="1006.0" layoutY="10.0" onAction="#handleSearch" prefHeight="31.0" prefWidth="170.0" promptText="Search medication" styleClass="field" AnchorPane.rightAnchor="44.0">
                                              <opaqueInsets>
                                                 <Insets left="50.0" />
                                              </opaqueInsets>
                                           </TextField>
-                                          <Button fx:id="btn_medicament2" layoutX="410.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToMedicament" prefHeight="34.0" prefWidth="118.0" styleClass="btn" text="Medication">
+                                          <Button fx:id="medicationsButton2" layoutX="410.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToMedication" prefHeight="34.0" prefWidth="118.0" styleClass="btn" text="Medication">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="btn_test2" layoutX="538.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToTest" prefHeight="34.0" prefWidth="125.0" styleClass="btn" text="Medical test">
+                                          <Button fx:id="testsButton2" layoutX="538.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToMedicalTest" prefHeight="34.0" prefWidth="125.0" styleClass="btn" text="Medical test">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="btn_rendezvous2" layoutX="673.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToRendezVous" prefHeight="34.0" prefWidth="118.0" styleClass="btn" text="Appointments">
+                                          <Button fx:id="appointmentsButton2" layoutX="673.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToAppointment" prefHeight="34.0" prefWidth="118.0" styleClass="btn" text="Appointments">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
@@ -229,14 +229,14 @@
                                     </AnchorPane>
                                  </children>
                               </HBox>
-                              <TableView fx:id="table_patientT" maxHeight="1.7976931348623157E308" maxWidth="1450.0" minHeight="410.0" prefHeight="410.0" prefWidth="1170.0">
+                              <TableView fx:id="medicalTestTable" maxHeight="1.7976931348623157E308" maxWidth="1450.0" minHeight="410.0" prefHeight="410.0" prefWidth="1170.0">
                                  <columns>
                                     <TableColumn fx:id="Test_column_id" maxWidth="50.39999008178711" minWidth="40.79998779296875" prefWidth="50.39999008178711" text="ID" />
-                                    <TableColumn fx:id="Test_column_nom" maxWidth="252.79999160766602" minWidth="120.0" prefWidth="230.4000244140625" text="Name" />
+                                    <TableColumn fx:id="Test_column_name" maxWidth="252.79999160766602" minWidth="120.0" prefWidth="230.4000244140625" text="Name" />
                                     <TableColumn fx:id="Test_column_result" maxWidth="397.5999298095703" minWidth="48.0" prefWidth="361.5999755859375" text="Result" />
-                                    <TableColumn fx:id="Test_column_date" maxWidth="366.3999938964844" minWidth="34.4000244140625" prefWidth="156.00006103515625" text="Date_Test" />
+                                    <TableColumn fx:id="Test_column_date" maxWidth="366.3999938964844" minWidth="34.4000244140625" prefWidth="156.00006103515625" text="Test date" />
                                     <TableColumn fx:id="Test_column_type" maxWidth="1.7976931348623157E308" minWidth="112.79998779296875" prefWidth="127.99993896484375" text="Doctor type" />
-                                    <TableColumn fx:id="Test_column_statut" maxWidth="1.7976931348623157E308" minWidth="112.79998779296875" prefWidth="140.800048828125" text="Status" />
+                                    <TableColumn fx:id="Test_column_status" maxWidth="1.7976931348623157E308" minWidth="112.79998779296875" prefWidth="140.800048828125" text="Status" />
                                     <TableColumn fx:id="Test_column_action" maxWidth="200.0" minWidth="106.4000244140625" prefWidth="106.4000244140625" text="Action" />
                                  </columns>
                                  <VBox.margin>
@@ -253,7 +253,7 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="interfaceRendezVous" layoutX="20.0" layoutY="20.0" prefHeight="616.0" prefWidth="1200.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
+                  <AnchorPane fx:id="interfaceAppointment" layoutX="20.0" layoutY="20.0" prefHeight="616.0" prefWidth="1200.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
                      <children>
                         <VBox alignment="TOP_CENTER" minWidth="1200.0" prefHeight="200.0" prefWidth="1200.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -269,7 +269,7 @@
                                  <children>
                                     <AnchorPane prefHeight="55.0" prefWidth="1202.0">
                                        <children>
-                                          <Button fx:id="btn_ajouterMedicament1" layoutX="22.0" layoutY="8.0" mnemonicParsing="false" onAction="#Ajouter" prefHeight="36.0" prefWidth="119.0" styleClass="btn" text=" Add">
+                                          <Button fx:id="addMedicationButton1" layoutX="22.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleAdd" prefHeight="36.0" prefWidth="119.0" styleClass="btn" text=" Add">
                                              <graphic>
                                                 <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -278,7 +278,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <Button layoutX="985.0" layoutY="12.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="13.0" styleClass="btn_chercher">
+                                          <Button layoutX="985.0" layoutY="12.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="13.0" styleClass="search-button">
                                              <graphic>
                                                 <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" styleClass="icon_chercher">
                                                    <image>
@@ -294,22 +294,22 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <TextField fx:id="f_rechercheMedicament1" layoutX="1006.0" layoutY="10.0" onAction="#Recherche" prefHeight="31.0" prefWidth="170.0" promptText="Search medication" styleClass="field" AnchorPane.rightAnchor="44.0">
+                                          <TextField fx:id="medicationSearchField1" layoutX="1006.0" layoutY="10.0" onAction="#handleSearch" prefHeight="31.0" prefWidth="170.0" promptText="Search medication" styleClass="field" AnchorPane.rightAnchor="44.0">
                                              <opaqueInsets>
                                                 <Insets left="50.0" />
                                              </opaqueInsets>
                                           </TextField>
-                                          <Button fx:id="btn_medicament1" layoutX="410.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToMedicament" prefHeight="34.0" prefWidth="118.0" styleClass="btn" text="Medication">
+                                          <Button fx:id="medicationsButton1" layoutX="410.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToMedication" prefHeight="34.0" prefWidth="118.0" styleClass="btn" text="Medication">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="btn_test1" layoutX="538.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToTest" prefHeight="34.0" prefWidth="125.0" styleClass="btn" text="Medical test">
+                                          <Button fx:id="testsButton1" layoutX="538.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToMedicalTest" prefHeight="34.0" prefWidth="125.0" styleClass="btn" text="Medical test">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
                                           </Button>
-                                          <Button fx:id="btn_rendezvous1" layoutX="673.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToRendezVous" prefHeight="34.0" prefWidth="118.0" styleClass="btn" text="Appointments">
+                                          <Button fx:id="appointmentsButton1" layoutX="673.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchToAppointment" prefHeight="34.0" prefWidth="118.0" styleClass="btn" text="Appointments">
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
@@ -318,14 +318,14 @@
                                     </AnchorPane>
                                  </children>
                               </HBox>
-                              <TableView fx:id="table_patientR" maxHeight="1.7976931348623157E308" maxWidth="1450.0" minHeight="410.0" prefHeight="410.0" prefWidth="1170.0">
+                              <TableView fx:id="appointmentTable" maxHeight="1.7976931348623157E308" maxWidth="1450.0" minHeight="410.0" prefHeight="410.0" prefWidth="1170.0">
                                  <columns>
-                                    <TableColumn fx:id="Rendez_column_id" maxWidth="50.39999008178711" minWidth="40.79998779296875" prefWidth="50.39999008178711" text="ID" />
-                                    <TableColumn fx:id="Rendez_column_date" maxWidth="252.79999160766602" minWidth="120.0" prefWidth="217.59997940063477" text="Date" />
-                                    <TableColumn fx:id="Rendez_column_heure" maxWidth="397.5999298095703" minWidth="48.0" prefWidth="229.5999755859375" text="Time " />
-                                    <TableColumn fx:id="Rendez_column_raison" maxWidth="404.00006103515625" minWidth="34.4000244140625" prefWidth="404.00006103515625" text="Reason " />
-                                    <TableColumn fx:id="Rendez_column_statut" maxWidth="1.7976931348623157E308" minWidth="112.79998779296875" prefWidth="140.800048828125" text="Status" />
-                                    <TableColumn fx:id="Rendez_column_action" maxWidth="200.0" minWidth="106.4000244140625" prefWidth="106.4000244140625" text="Action" />
+                                    <TableColumn fx:id="Appointment_column_id" maxWidth="50.39999008178711" minWidth="40.79998779296875" prefWidth="50.39999008178711" text="ID" />
+                                    <TableColumn fx:id="Appointment_column_date" maxWidth="252.79999160766602" minWidth="120.0" prefWidth="217.59997940063477" text="Date" />
+                                    <TableColumn fx:id="Appointment_column_time" maxWidth="397.5999298095703" minWidth="48.0" prefWidth="229.5999755859375" text="Time " />
+                                    <TableColumn fx:id="Appointment_column_reason" maxWidth="404.00006103515625" minWidth="34.4000244140625" prefWidth="404.00006103515625" text="Reason " />
+                                    <TableColumn fx:id="Appointment_column_status" maxWidth="1.7976931348623157E308" minWidth="112.79998779296875" prefWidth="140.800048828125" text="Status" />
+                                    <TableColumn fx:id="Appointment_column_action" maxWidth="200.0" minWidth="106.4000244140625" prefWidth="106.4000244140625" text="Action" />
                                  </columns>
                                  <VBox.margin>
                                     <Insets left="15.0" right="15.0" />

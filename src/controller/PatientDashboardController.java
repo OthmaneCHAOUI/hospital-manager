@@ -1,24 +1,17 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.*;
 import javafx.beans.property.SimpleStringProperty;
 
-import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 
 /**
  * Displays patient information and keeps the medical records panels synchronized with the selected doctor.
@@ -35,21 +28,21 @@ public class PatientDashboardController {
     @FXML
     private MenuButton doctorMenu;
     @FXML
-    private Hyperlink linkMedicaments;
+    private Hyperlink linkMedications;
     @FXML
     private Hyperlink linkTests;
     @FXML
-    private Hyperlink linkRendezvous;
+    private Hyperlink linkAppointments;
 
-    @FXML private TextField nomField;
-    @FXML private TextField prenomField;
-    @FXML private TextField villeField;
+    @FXML private TextField nameField;
+    @FXML private TextField firstNameField;
+    @FXML private TextField cityField;
     @FXML private TextField emailField;
-    @FXML private TextField telephoneField;
-    @FXML private TextField adresseField;
-    @FXML private DatePicker dateNaissancePicker;
-    @FXML private MenuButton sexeMenu;
-    @FXML private PasswordField motDePasseField;
+    @FXML private TextField phoneField;
+    @FXML private TextField addressField;
+    @FXML private DatePicker birthDatePicker;
+    @FXML private MenuButton genderMenu;
+    @FXML private PasswordField passwordField;
     @FXML private Button saveButton;
     @FXML private ImageView closeIcon;
 
@@ -59,54 +52,54 @@ public class PatientDashboardController {
     private Doctor currentDoctor;
 
     public void initialize() {
-        linkMedicaments.setOnAction(e -> loadMedicamentsTable());
+        linkMedications.setOnAction(e -> loadMedicationsTable());
         linkTests.setOnAction(e -> loadTestsTable());
-        linkRendezvous.setOnAction(e -> loadRendezVousTable());
+        linkAppointments.setOnAction(e -> loadAppointmentTable());
         profileImage.setOnMouseClicked(this::showProfileEdit);
         usernameLabel.setOnMouseClicked(this::showProfileEdit);
     }
 
     public void setPatient(Patient patient) {
         this.patient = patient;
-        usernameLabel.setText(patient.getNom() + " " + patient.getPrenom());
+        usernameLabel.setText(patient.getName() + " " + patient.getFirstName());
         try {
-            for (Doctor doc : DoctorPatientDAO.getDoctorsByPatientCnie(patient.getCnie())) {
-                MenuItem item = new MenuItem(doc.getNom() + " " + doc.getPrenom());
+            for (Doctor doc : DoctorPatientDAO.getDoctorsByPatientNationalId(patient.getNationalId())) {
+                MenuItem item = new MenuItem(doc.getName() + " " + doc.getFirstName());
                 item.setOnAction(e -> {
                     currentDoctor = doc;
-                    loadMedicamentsTable();
-                    doctorMenu.setText(currentDoctor.getNom() + " " + currentDoctor.getPrenom());
+                    loadMedicationsTable();
+                    doctorMenu.setText(currentDoctor.getName() + " " + currentDoctor.getFirstName());
                 });
                 doctorMenu.getItems().add(item);
             }
             if (!doctorMenu.getItems().isEmpty()) {
-                currentDoctor = DoctorPatientDAO.getDoctorsByPatientCnie(patient.getCnie()).get(0);
-                doctorMenu.setText(currentDoctor.getNom() + " " + currentDoctor.getPrenom());
-                loadMedicamentsTable();
+                currentDoctor = DoctorPatientDAO.getDoctorsByPatientNationalId(patient.getNationalId()).get(0);
+                doctorMenu.setText(currentDoctor.getName() + " " + currentDoctor.getFirstName());
+                loadMedicationsTable();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
-    public void loadMedicamentsTable() {
+
+    public void loadMedicationsTable() {
         try {
-            List<Medicament> list = new MedicamentDAO().getMedicamentsByPatientAndDoctor(patient.getCnie(), currentDoctor.getId());
-            TableView<Medicament> table = new TableView<>();
+            List<Medication> list = new MedicationDAO().getMedicationsByPatientAndDoctor(patient.getNationalId(), currentDoctor.getId());
+            TableView<Medication> table = new TableView<>();
 
-            TableColumn<Medicament, String> colNom = new TableColumn<>("Name");
-            colNom.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNom()));
+            TableColumn<Medication, String> colName = new TableColumn<>("Name");
+            colName.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getName()));
 
-            TableColumn<Medicament, String> colDescription = new TableColumn<>("Description");
+            TableColumn<Medication, String> colDescription = new TableColumn<>("Description");
             colDescription.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDescription()));
 
-            TableColumn<Medicament, String> colDateDebut = new TableColumn<>("Start date");
-            colDateDebut.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateDebut().toString()));
+            TableColumn<Medication, String> colDateDebut = new TableColumn<>("Start date");
+            colDateDebut.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getStartDate().toString()));
 
-            TableColumn<Medicament, String> colPeriode = new TableColumn<>("Period (days)");
-            colPeriode.setCellValueFactory(c -> new SimpleStringProperty(String.valueOf(c.getValue().getPeriode())));
+            TableColumn<Medication, String> colPeriode = new TableColumn<>("Period (days)");
+            colPeriode.setCellValueFactory(c -> new SimpleStringProperty(String.valueOf(c.getValue().getDuration())));
 
-            table.getColumns().addAll(colNom, colDescription, colDateDebut, colPeriode);
+            // table.getColumns().addAll(colName, colDescription, colDateDebut, colPeriode);
             table.getItems().addAll(list);
 
             refreshTable(table);
@@ -117,25 +110,25 @@ public class PatientDashboardController {
 
     public void loadTestsTable() {
         try {
-            List<TestMedical> list = new TestMedicalDAO().getTestsByPatientAndDoctor(patient.getCnie(), currentDoctor.getId());
-            TableView<TestMedical> table = new TableView<>();
+            List<MedicalTest> list = new MedicalTestDAO().getTestsByPatientAndDoctor(patient.getNationalId(), currentDoctor.getId());
+            TableView<MedicalTest> table = new TableView<>();
 
-            TableColumn<TestMedical, String> colType = new TableColumn<>("Test type");
-            colType.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTypeTest()));
+            TableColumn<MedicalTest, String> colType = new TableColumn<>("Test type");
+            colType.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTestType()));
 
-            TableColumn<TestMedical, String> colResultat = new TableColumn<>("Result");
-            colResultat.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getResultat()));
+            TableColumn<MedicalTest, String> colResult = new TableColumn<>("Result");
+            colResult.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getResult()));
 
-            TableColumn<TestMedical, String> colDate = new TableColumn<>("Test date");
-            colDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTest().toString()));
+            TableColumn<MedicalTest, String> colDate = new TableColumn<>("Test date");
+            colDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTestDate().toString()));
 
-            TableColumn<TestMedical, String> colTypeDoctor = new TableColumn<>("Doctor type");
-            colTypeDoctor.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTypeDoctor()));
+            TableColumn<MedicalTest, String> colDoctorType = new TableColumn<>("Doctor type");
+            colDoctorType.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDoctorType()));
 
-            TableColumn<TestMedical, String> colStatut = new TableColumn<>("Status");
-            colStatut.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getStatut()));
+            TableColumn<MedicalTest, String> colStatus = new TableColumn<>("Status");
+            colStatus.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getStatus()));
 
-            table.getColumns().addAll(colType, colResultat, colDate, colTypeDoctor, colStatut);
+            // table.getColumns().addAll(colType, colResult, colDate, colDoctorType, colStatus);
             table.getItems().addAll(list);
 
             refreshTable(table);
@@ -144,24 +137,24 @@ public class PatientDashboardController {
         }
     }
 
-    public void loadRendezVousTable() {
+    public void loadAppointmentTable() {
         try {
-            List<RendezVous> list = new RendezVousDAO().getRendezVousByPatientAndDoctor(patient.getCnie(), currentDoctor.getId());
-            TableView<RendezVous> table = new TableView<>();
+            List<Appointment> list = new AppointmentDAO().getAppointmentByPatientAndDoctor(patient.getNationalId(), currentDoctor.getId());
+            TableView<Appointment> table = new TableView<>();
 
-            TableColumn<RendezVous, String> colDate = new TableColumn<>("Date");
-            colDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateRendezVous().toString()));
+            TableColumn<Appointment, String> colDate = new TableColumn<>("Date");
+            colDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateAppointment().toString()));
 
-            TableColumn<RendezVous, String> colHeure = new TableColumn<>("Time");
-            colHeure.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getHeure().toString()));
+            TableColumn<Appointment, String> colHeure = new TableColumn<>("Time");
+            colHeure.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTime().toString()));
 
-            TableColumn<RendezVous, String> colRaison = new TableColumn<>("Reason");
-            colRaison.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getRaison()));
+            TableColumn<Appointment, String> colRaison = new TableColumn<>("Reason");
+            colRaison.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getReason()));
 
-            TableColumn<RendezVous, String> colStatut = new TableColumn<>("Status");
-            colStatut.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getStatut()));
+            TableColumn<Appointment, String> colStatus = new TableColumn<>("Status");
+            colStatus.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getStatus()));
 
-            table.getColumns().addAll(colDate, colHeure, colRaison, colStatut);
+            // table.getColumns().addAll(colDate, colHeure, colRaison, colStatus);
             table.getItems().addAll(list);
 
             refreshTable(table);
@@ -187,41 +180,41 @@ public class PatientDashboardController {
         profilePane.setVisible(true);
         profilePane.setDisable(false);
 
-        nomField.setText(patient.getNom());
-        prenomField.setText(patient.getPrenom());
-        villeField.setText(patient.getVille());
+        nameField.setText(patient.getName());
+        firstNameField.setText(patient.getFirstName());
+        cityField.setText(patient.getCity());
         emailField.setText(patient.getEmail());
-        telephoneField.setText(patient.getTelephone());
-        adresseField.setText(patient.getAdresse());
-        dateNaissancePicker.setValue(patient.getDateNaissance());
-        selectedSexe = patient.getSexe();
-        sexeMenu.setText(selectedSexe);
-        motDePasseField.setText(patient.getMotDePasse());
+        phoneField.setText(patient.getPhone());
+        addressField.setText(patient.getAddress());
+        birthDatePicker.setValue(patient.getDateNaissance());
+        selectedSexe = patient.getGender();
+        genderMenu.setText(selectedSexe);
+        passwordField.setText(patient.getPassword());
 
         saveButton.setOnAction(e -> {
-            patient.setNom(nomField.getText());
-            patient.setPrenom(prenomField.getText());
-            patient.setVille(villeField.getText());
+            patient.setName(nameField.getText());
+            patient.setFirstName(firstNameField.getText());
+            patient.setCity(cityField.getText());
             patient.setEmail(emailField.getText());
-            patient.setTelephone(telephoneField.getText());
-            patient.setAdresse(adresseField.getText());
-            patient.setDateNaissance(dateNaissancePicker.getValue());
-            patient.setSexe(selectedSexe);
-            patient.setMotDePasse(motDePasseField.getText());
+            patient.setPhone(phoneField.getText());
+            patient.setAddress(addressField.getText());
+            patient.setDateNaissance(birthDatePicker.getValue());
+            patient.setGender(selectedSexe);
+            patient.setPassword(passwordField.getText());
 
             new PatientDAO().updatePatient(patient);
-            usernameLabel.setText(patient.getNom());
+            usernameLabel.setText(patient.getName());
             profilePane.setDisable(true);
             profilePane.setVisible(false);
-            loadMedicamentsTable();
+            loadMedicationsTable();
         });
 
     }
 
     @FXML
-    public void handleSexeSelection(ActionEvent event) {
+    public void handleGenderSelection(ActionEvent event) {
         MenuItem item = (MenuItem) event.getSource();
         selectedSexe = item.getText();
-        sexeMenu.setText(selectedSexe);
+        genderMenu.setText(selectedSexe);
     }
 }

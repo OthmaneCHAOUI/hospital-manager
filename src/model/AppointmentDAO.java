@@ -7,44 +7,44 @@ import java.util.List;
 /**
  * Handles appointment read and write operations for the clinic application.
  */
-public class RendezVousDAO {
-    public static List<RendezVous> getRendezVous(String cnie, int idDoctor) {
-        return new RendezVousDAO().getRendezVousByPatientAndDoctor(cnie, idDoctor);
+public class AppointmentDAO {
+    public static List<Appointment> getAppointment(String nationalId, int idDoctor) {
+        return new AppointmentDAO().getAppointmentByPatientAndDoctor(nationalId, idDoctor);
     }
-    
-    public List<RendezVous> getRendezVousByPatientAndDoctor(String cnie, int idDoctor) {
-        List<RendezVous> rdvs = new ArrayList<>();
-        String sql = "SELECT * FROM Rendez_vous WHERE cnie_patient = ? AND id_doctor = ?";
+
+    public List<Appointment> getAppointmentByPatientAndDoctor(String nationalId, int idDoctor) {
+        List<Appointment> appointments = new ArrayList<>();
+        String sql = "SELECT * FROM Appointment WHERE patient_national_id = ? AND id_doctor = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, cnie);
+            stmt.setString(1, nationalId);
             stmt.setInt(2, idDoctor);
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                RendezVous r = new RendezVous(
+                Appointment r = new Appointment(
                     rs.getInt("id"),
                     rs.getInt("id_doctor"),
-                    rs.getString("cnie_patient"),
-                    rs.getDate("date_rendez_vous").toLocalDate(),
-                    rs.getTime("heure").toLocalTime(),
-                    rs.getString("raison"),
-                    rs.getString("statut")
+                    rs.getString("patient_national_id"),
+                    rs.getDate("appointment_date").toLocalDate(),
+                    rs.getTime("time").toLocalTime(),
+                    rs.getString("reason"),
+                    rs.getString("status")
                 );
-                rdvs.add(r);
+                appointments.add(r);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return rdvs;
+        return appointments;
     }
-    
-    
+
+
     public static void delete(int id) {
-    String sql = "DELETE FROM Rendez_vous WHERE id = ?";
+    String sql = "DELETE FROM Appointment WHERE id = ?";
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -61,17 +61,17 @@ public class RendezVousDAO {
         e.printStackTrace();
     }
 }
-     public static void editerTest(RendezVous rendezVous)  throws SQLException{
-        String sql = "UPDATE Rendez_vous SET date_rendez_vous=? , heure=? , raison=? , statut=?  WHERE id=?";
+     public static void editTest(Appointment appointment)  throws SQLException{
+        String sql = "UPDATE Appointment SET appointment_date=? , time=? , reason=? , status=?  WHERE id=?";
         try (Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setDate(1, java.sql.Date.valueOf(rendezVous.getDateRendezVous()));
-            pstmt.setTime(2, java.sql.Time.valueOf(rendezVous.getHeure()));
-            pstmt.setString(3, rendezVous.getRaison());
-            pstmt.setString(4, rendezVous.getStatut());
-            pstmt.setInt(5, rendezVous.getId());
-            
+            pstmt.setDate(1, java.sql.Date.valueOf(appointment.getDateAppointment()));
+            pstmt.setTime(2, java.sql.Time.valueOf(appointment.getTime()));
+            pstmt.setString(3, appointment.getReason());
+            pstmt.setString(4, appointment.getStatus());
+            pstmt.setInt(5, appointment.getId());
+
             int rowsUpdated = pstmt.executeUpdate();
 
             if (rowsUpdated > 0) {
@@ -83,17 +83,17 @@ public class RendezVousDAO {
             e.printStackTrace();
         }
     }
-    public static void inserer(RendezVous rendezVous, String cniePatient, int idDoctor) throws SQLException {
-    String sql = "INSERT INTO Rendez_vous (date_rendez_vous, heure, raison, statut, cnie_patient, id_doctor) VALUES (?, ?, ?, ?, ?, ?)";
+    public static void insert(Appointment appointment, String nationalIdPatient, int idDoctor) throws SQLException {
+    String sql = "INSERT INTO Appointment (appointment_date, time, reason, status, patient_national_id, id_doctor) VALUES (?, ?, ?, ?, ?, ?)";
 
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        pstmt.setDate(1, Date.valueOf(rendezVous.getDateRendezVous()));
-        pstmt.setTime(2, Time.valueOf(rendezVous.getHeure()));
-        pstmt.setString(3, rendezVous.getRaison());
-        pstmt.setString(4, rendezVous.getStatut());
-        pstmt.setString(5, cniePatient);
+        pstmt.setDate(1, Date.valueOf(appointment.getDateAppointment()));
+        pstmt.setTime(2, Time.valueOf(appointment.getTime()));
+        pstmt.setString(3, appointment.getReason());
+        pstmt.setString(4, appointment.getStatus());
+        pstmt.setString(5, nationalIdPatient);
         pstmt.setInt(6, idDoctor);
 
         int rowsInserted = pstmt.executeUpdate();

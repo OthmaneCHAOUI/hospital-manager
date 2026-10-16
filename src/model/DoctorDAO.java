@@ -8,22 +8,22 @@ import java.util.ArrayList;
  * Manages doctor persistence and queries against the clinic database.
  */
 public class DoctorDAO {
-    
-    public static int inserer(Doctor doctor) throws SQLException{
-        String sql = "INSERT INTO doctor(nom,prenom,cnie,specialite,nom_cabinet,telephone,adresse_cabinet,mot_de_passe) VALUES (?,?,?,?,?,?,?,?)";
-        
+
+    public static int insert(Doctor doctor) throws SQLException{
+        String sql = "INSERT INTO doctor(name,firstName,nationalId,specialty,clinic_name,phone,clinic_address,password) VALUES (?,?,?,?,?,?,?,?)";
+
         try(Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)){
-            
-            stmt.setString(1, doctor.getNom());
-            stmt.setString(2, doctor.getPrenom());
-            stmt.setString(3, doctor.getCnie());
-            stmt.setString(4, doctor.getSpecialite());
-            stmt.setString(5, doctor.getNomCabinet());
-            stmt.setString(6, doctor.getTelephone());
-            stmt.setString(7, doctor.getAdresseCabinet());
-            stmt.setString(8, doctor.getMotDePasse());
-            
+
+            stmt.setString(1, doctor.getName());
+            stmt.setString(2, doctor.getFirstName());
+            stmt.setString(3, doctor.getNationalId());
+            stmt.setString(4, doctor.getSpecialty());
+            stmt.setString(5, doctor.getClinicName());
+            stmt.setString(6, doctor.getPhone());
+            stmt.setString(7, doctor.getClinicAddress());
+            stmt.setString(8, doctor.getPassword());
+
             int rowsInserted = stmt.executeUpdate();
 
         if (rowsInserted > 0) {
@@ -42,28 +42,28 @@ public class DoctorDAO {
         return 0;
     }
 
-    public static Doctor checkDoctorByCniePassword(String cnie,String password) throws SQLException{
-        String sql = "SELECT * FROM doctor WHERE cnie = ? AND mot_de_passe = ? ";
+    public static Doctor checkDoctorByCniePassword(String nationalId,String password) throws SQLException{
+        String sql = "SELECT * FROM doctor WHERE nationalId = ? AND password = ? ";
         Doctor doctor = null;
-        
+
         try(Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)){
-            
-            stmt.setString(1, cnie);
+
+            stmt.setString(1, nationalId);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
-            
+
             if(rs.next()){
                doctor = new Doctor();
                doctor.setId(rs.getInt("id"));
-               doctor.setNom(rs.getString("nom"));
-               doctor.setPrenom(rs.getString("prenom"));
-               doctor.setCnie(rs.getString("cnie"));
-               doctor.setSpecialite(rs.getString("specialite"));
-               doctor.setNomCabinet(rs.getString("nom_cabinet"));
-               doctor.setTelephone(rs.getString("telephone"));
-               doctor.setAdresseCabinet(rs.getString("adresse_cabinet"));
-               doctor.setMotDePasse(rs.getString("mot_de_passe"));
+               doctor.setName(rs.getString("name"));
+               doctor.setFirstName(rs.getString("firstName"));
+               doctor.setNationalId(rs.getString("nationalId"));
+               doctor.setSpecialty(rs.getString("specialty"));
+               doctor.setClinicName(rs.getString("clinic_name"));
+               doctor.setPhone(rs.getString("phone"));
+               doctor.setClinicAddress(rs.getString("clinic_address"));
+               doctor.setPassword(rs.getString("password"));
             }
         }catch(SQLException e){
             e.printStackTrace();
@@ -74,46 +74,46 @@ public class DoctorDAO {
     public static List<Doctor> getAllDoctors() throws SQLException{
         List<Doctor> doctors = new ArrayList<>();
         String sql = "SELECT * FROM doctor";
-        
+
         try(Connection conn = DBConnection.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)){
-           
+
             while (rs.next()){
                 Doctor doctor = new Doctor();
                 doctor.setId(rs.getInt("id"));
-                doctor.setNom(rs.getString("nom"));
-                doctor.setPrenom(rs.getString("prenom"));
-                doctor.setCnie(rs.getString("cnie"));
-                doctor.setSpecialite(rs.getString("specialite"));
-                doctor.setNomCabinet(rs.getString("nom_cabinet"));
-                doctor.setTelephone(rs.getString("telephone"));
-                doctor.setAdresseCabinet(rs.getString("adresse_cabinet"));
-                doctor.setMotDePasse(rs.getString("mot_de_passe"));
+                doctor.setName(rs.getString("name"));
+                doctor.setFirstName(rs.getString("firstName"));
+                doctor.setNationalId(rs.getString("nationalId"));
+                doctor.setSpecialty(rs.getString("specialty"));
+                doctor.setClinicName(rs.getString("clinic_name"));
+                doctor.setPhone(rs.getString("phone"));
+                doctor.setClinicAddress(rs.getString("clinic_address"));
+                doctor.setPassword(rs.getString("password"));
                 doctors.add(doctor);
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
-        
+
         return doctors ;
     }
 
-    public static List<Doctor> getDoctorsByPatient(String cnie) throws SQLException {
+    public static List<Doctor> getDoctorsByPatient(String nationalId) throws SQLException {
         List<Doctor> doctors = new ArrayList<>();
         String sql = "SELECT d.* FROM doctor d " +
-                    "JOIN Doctor_Patient dp ON d.id = dp.id_doctor " +
-                    "WHERE dp.cnie = ?";
+                    "JOIN DoctorPatient dp ON d.id = dp.id_doctor " +
+                    "WHERE dp.nationalId = ?";
         try (Connection conn = DBConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, cnie);
+            stmt.setString(1, nationalId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Doctor doc = new Doctor(
                     rs.getInt("id"),
-                    rs.getString("nom"),
-                    rs.getString("prenom"),
-                    rs.getString("specialite")
+                    rs.getString("name"),
+                    rs.getString("firstName"),
+                    rs.getString("specialty")
                 );
                 doctors.add(doc);
             }
@@ -122,23 +122,23 @@ public class DoctorDAO {
     }
 
     public static int update(Doctor doctor) throws SQLException {
-        String sql = "UPDATE doctor SET nom = ?, prenom = ?, cnie = ?, specialite = ?, nom_cabinet = ?, telephone = ?, adresse_cabinet = ?, mot_de_passe = ? WHERE id = ?";
-        
+        String sql = "UPDATE doctor SET name = ?, firstName = ?, nationalId = ?, specialty = ?, clinic_name = ?, phone = ?, clinic_address = ?, password = ? WHERE id = ?";
+
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
-            stmt.setString(1, doctor.getNom());
-            stmt.setString(2, doctor.getPrenom());
-            stmt.setString(3, doctor.getCnie());
-            stmt.setString(4, doctor.getSpecialite());
-            stmt.setString(5, doctor.getNomCabinet());
-            stmt.setString(6, doctor.getTelephone());
-            stmt.setString(7, doctor.getAdresseCabinet());
-            stmt.setString(8, doctor.getMotDePasse());
+
+            stmt.setString(1, doctor.getName());
+            stmt.setString(2, doctor.getFirstName());
+            stmt.setString(3, doctor.getNationalId());
+            stmt.setString(4, doctor.getSpecialty());
+            stmt.setString(5, doctor.getClinicName());
+            stmt.setString(6, doctor.getPhone());
+            stmt.setString(7, doctor.getClinicAddress());
+            stmt.setString(8, doctor.getPassword());
             stmt.setInt(9, doctor.getId());
 
             int rowsUpdated = stmt.executeUpdate();
-            
+
             if (rowsUpdated > 0) {
                 System.out.println("Doctor updated successfully!");
                 return 1;

@@ -4,32 +4,32 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestMedicalDAO {
-    public static List<TestMedical> getTests(String cnie, int idDoctor) {
-        return new TestMedicalDAO().getTestsByPatientAndDoctor(cnie, idDoctor);
+public class MedicalTestDAO {
+    public static List<MedicalTest> getTests(String nationalId, int idDoctor) {
+        return new MedicalTestDAO().getTestsByPatientAndDoctor(nationalId, idDoctor);
     }
-    
-    public List<TestMedical> getTestsByPatientAndDoctor(String cnie, int idDoctor) {
-        List<TestMedical> tests = new ArrayList<>();
-        String sql = "SELECT * FROM Test_Medical WHERE cnie_patient = ? AND id_doctor = ?";
+
+    public List<MedicalTest> getTestsByPatientAndDoctor(String nationalId, int idDoctor) {
+        List<MedicalTest> tests = new ArrayList<>();
+        String sql = "SELECT * FROM MedicalTest WHERE patient_national_id = ? AND id_doctor = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, cnie);
+            stmt.setString(1, nationalId);
             stmt.setInt(2, idDoctor);
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                TestMedical t = new TestMedical(
+                MedicalTest t = new MedicalTest(
                     rs.getInt("id"),
                     rs.getInt("id_doctor"),
-                    rs.getString("cnie_patient"),
-                    rs.getString("type_test"),
-                    rs.getString("resultat"),
-                    rs.getDate("date_test").toLocalDate(),
-                    rs.getString("type_doctor"),
-                    rs.getString("statut")
+                    rs.getString("patient_national_id"),
+                    rs.getString("test_type"),
+                    rs.getString("result"),
+                    rs.getDate("test_date").toLocalDate(),
+                    rs.getString("doctor_type"),
+                    rs.getString("status")
                 );
                 tests.add(t);
             }
@@ -39,9 +39,9 @@ public class TestMedicalDAO {
 
         return tests;
     }
-    
+
      public static void delete(int id) {
-    String sql = "DELETE FROM test_medical WHERE id = ?";
+    String sql = "DELETE FROM MedicalTest WHERE id = ?";
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -58,18 +58,18 @@ public class TestMedicalDAO {
         e.printStackTrace();
     }
 }
-     public static void editerTest(TestMedical testMedical) throws SQLException {
-        String sql = "UPDATE test_medical SET type_test=?, date_test=?, resultat=?,type_doctor=?,statut=?  WHERE id=?";
+     public static void editTest(MedicalTest medicalTest) throws SQLException {
+        String sql = "UPDATE MedicalTest SET test_type=?, test_date=?, result=?,doctor_type=?,status=?  WHERE id=?";
         try (Connection conn = DBConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, testMedical.getTypeTest());
-            pstmt.setDate(2, java.sql.Date.valueOf(testMedical.getDateTest()));
-            pstmt.setString(3, testMedical.getResultat());
-            pstmt.setString(4, testMedical.getTypeDoctor());
-            pstmt.setString(5, testMedical.getStatut());
-            pstmt.setInt(6, testMedical.getId());
-            
+            pstmt.setString(1, medicalTest.getTestType());
+            pstmt.setDate(2, java.sql.Date.valueOf(medicalTest.getTestDate()));
+            pstmt.setString(3, medicalTest.getResult());
+            pstmt.setString(4, medicalTest.getDoctorType());
+            pstmt.setString(5, medicalTest.getStatus());
+            pstmt.setInt(6, medicalTest.getId());
+
             int rowsUpdated = pstmt.executeUpdate();
 
             if (rowsUpdated > 0) {
@@ -81,18 +81,18 @@ public class TestMedicalDAO {
             e.printStackTrace();
         }
     }
-    public static void inserer(TestMedical testMedical, String cniePatient, int idDoctor)  throws SQLException{
-    String sql = "INSERT INTO test_medical (type_test, resultat, date_test, type_doctor, statut, cnie_patient, id_doctor) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public static void insert(MedicalTest medicalTest, String nationalIdPatient, int idDoctor)  throws SQLException{
+    String sql = "INSERT INTO MedicalTest (test_type, result, test_date, doctor_type, status, patient_national_id, id_doctor) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        pstmt.setString(1, testMedical.getTypeTest());
-        pstmt.setString(2, testMedical.getResultat());
-        pstmt.setDate(3, java.sql.Date.valueOf(testMedical.getDateTest()));
-        pstmt.setString(4, testMedical.getTypeDoctor());
-        pstmt.setString(5, testMedical.getStatut());
-        pstmt.setString(6, cniePatient);
+        pstmt.setString(1, medicalTest.getTestType());
+        pstmt.setString(2, medicalTest.getResult());
+        pstmt.setDate(3, java.sql.Date.valueOf(medicalTest.getTestDate()));
+        pstmt.setString(4, medicalTest.getDoctorType());
+        pstmt.setString(5, medicalTest.getStatus());
+        pstmt.setString(6, nationalIdPatient);
         pstmt.setInt(7, idDoctor);
 
         int rowsInserted = pstmt.executeUpdate();

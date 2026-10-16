@@ -7,89 +7,89 @@ import java.time.LocalDate;
  */
 public class Patient {
     private int id;
-    private String nom, prenom, cnie, motDePasse, ville, telephone, adresse, sexe, compteCree, email;
-    private LocalDate dateNaissance;
+    private String name, firstName, nationalId, password, city, phone, address, gender, accountCreated, email;
+    private LocalDate birthDate;
 
     public Patient() {}
 
-    public Patient(String cnie, String motDePasse) {
-        this.cnie = cnie;
-        this.motDePasse = motDePasse;
+    public Patient(String nationalId, String password) {
+        this.nationalId = nationalId;
+        this.password = password;
     }
 
-    public Patient(String nom, String prenom, String cnie, String motDePasse) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.cnie = cnie;
-        this.motDePasse = motDePasse;
+    public Patient(String name, String firstName, String nationalId, String password) {
+        this.name = name;
+        this.firstName = firstName;
+        this.nationalId = nationalId;
+        this.password = password;
     }
 
-    public Patient(String nom, String prenom, String cnie, String motDePasse, LocalDate dateNaissance) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.cnie = cnie;
-        this.motDePasse = motDePasse;
-        this.dateNaissance = dateNaissance;
+    public Patient(String name, String firstName, String nationalId, String password, LocalDate birthDate) {
+        this.name = name;
+        this.firstName = firstName;
+        this.nationalId = nationalId;
+        this.password = password;
+        this.birthDate = birthDate;
     }
 
-    public Patient(String nom, String prenom, String cnie, String motDePasse, String ville, String telephone, String adresse, String sexe, String compteCree, String email, LocalDate dateNaissance) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.cnie = cnie;
-        this.motDePasse = motDePasse;
-        this.ville = ville;
-        this.telephone = telephone;
-        this.adresse = adresse;
-        this.sexe = sexe;
-        this.compteCree = compteCree;
+    public Patient(String name, String firstName, String nationalId, String password, String city, String phone, String address, String gender, String accountCreated, String email, LocalDate birthDate) {
+        this.name = name;
+        this.firstName = firstName;
+        this.nationalId = nationalId;
+        this.password = password;
+        this.city = city;
+        this.phone = phone;
+        this.address = address;
+        this.gender = gender;
+        this.accountCreated = accountCreated;
         this.email = email;
-        this.dateNaissance = dateNaissance;
+        this.birthDate = birthDate;
     }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getPrenom() { return prenom; }
-    public void setPrenom(String prenom) { this.prenom = prenom; }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
 
-    public String getCnie() { return cnie; }
-    public void setCnie(String cnie) { this.cnie = cnie; }
+    public String getNationalId() { return nationalId; }
+    public void setNationalId(String nationalId) { this.nationalId = nationalId; }
 
-    public String getMotDePasse() { return motDePasse; }
-    public void setMotDePasse(String motDePasse) { this.motDePasse = motDePasse; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public LocalDate getDateNaissance() {return dateNaissance;}
-    public void setDateNaissance(LocalDate dateNaissance) {this.dateNaissance = dateNaissance;}
+    public LocalDate getDateNaissance() {return birthDate;}
+    public void setDateNaissance(LocalDate birthDate) {this.birthDate = birthDate;}
 
-    public String getVille() {return ville;}
-    public void setVille(String ville) {this.ville = ville;}
+    public String getCity() {return city;}
+    public void setCity(String city) {this.city = city;}
 
     public String getEmail() {return email;}
     public void setEmail(String email) {this.email = email;}
 
-    public String getTelephone() { return telephone; }
-    public void setTelephone(String telephone) { this.telephone = telephone; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public String getAdresse() { return adresse; }
-    public void setAdresse(String adresse) { this.adresse = adresse; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-    public String getSexe() { return sexe; }
-    public void setSexe(String sexe) { this.sexe = sexe; }
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
 
-    public String getCompteCree() { return compteCree; }
-    public void setCompteCree(String compteCree) { this.compteCree = compteCree; }
+    public String getCompteCree() { return accountCreated; }
+    public void setCompteCree(String accountCreated) { this.accountCreated = accountCreated; }
 
     public int getAge() {
-        if (dateNaissance == null) return 0;
-        return java.time.Period.between(dateNaissance, java.time.LocalDate.now()).getYears();
+        if (birthDate == null) return 0;
+        return java.time.Period.between(birthDate, java.time.LocalDate.now()).getYears();
     }
 
     public void setAge(int age) {
-        if (dateNaissance != null) {
-            this.dateNaissance = java.time.LocalDate.now().minusYears(age);
+        if (birthDate != null) {
+            this.birthDate = java.time.LocalDate.now().minusYears(age);
         }
     }
 }

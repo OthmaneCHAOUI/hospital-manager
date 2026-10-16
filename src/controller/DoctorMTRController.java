@@ -35,15 +35,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import model.DBConnection;
-import model.DoctorPatient;
-import model.DoctorPatientDAO;
-import model.Medicament;
-import model.MedicamentDAO;
-import model.RendezVous;
-import model.RendezVousDAO;
-import model.TestMedical;
-import model.TestMedicalDAO;
+import model.Medication;
+import model.MedicationDAO;
+import model.Appointment;
+import model.AppointmentDAO;
+import model.MedicalTest;
+import model.MedicalTestDAO;
 
 /**
  * Manages the doctor’s patient records for medications, tests, and appointments.
@@ -51,157 +48,157 @@ import model.TestMedicalDAO;
 public class DoctorMTRController {
 
     @FXML
-    private TableColumn<Medicament, Void> Medicament_column_action;
+    private TableColumn<Medication, Void> Medication_column_action;
 
     @FXML
-    private TableColumn<Medicament, LocalDate> Medicament_column_date;
+    private TableColumn<Medication, LocalDate> Medication_column_date;
 
     @FXML
-    private TableColumn<Medicament, String> Medicament_column_description;
+    private TableColumn<Medication, String> Medication_column_description;
 
     @FXML
-    private TableColumn<Medicament, Integer> Medicament_column_id;
+    private TableColumn<Medication, Integer> Medication_column_id;
 
     @FXML
-    private TableColumn<Medicament, String> Medicament_column_nom;
+    private TableColumn<Medication, String> Medication_column_name;
 
     @FXML
-    private TableColumn<Medicament, String> Medicament_column_periode;
+    private TableColumn<Medication, String> Medication_column_duration;
 
     @FXML
-    private TableColumn<RendezVous, Void> Rendez_column_action;
+    private TableColumn<Appointment, Void> Appointment_column_action;
 
     @FXML
-    private TableColumn<RendezVous, LocalDate> Rendez_column_date;
+    private TableColumn<Appointment, LocalDate> Appointment_column_date;
 
     @FXML
-    private TableColumn<RendezVous, LocalTime> Rendez_column_heure;
+    private TableColumn<Appointment, LocalTime> Appointment_column_time;
 
     @FXML
-    private TableColumn<RendezVous, Integer> Rendez_column_id;
+    private TableColumn<Appointment, Integer> Appointment_column_id;
 
     @FXML
-    private TableColumn<RendezVous, String> Rendez_column_raison;
+    private TableColumn<Appointment, String> Appointment_column_reason;
 
     @FXML
-    private TableColumn<RendezVous, String> Rendez_column_statut;
+    private TableColumn<Appointment, String> Appointment_column_status;
 
     @FXML
-    private TableColumn<TestMedical, Void> Test_column_action;
+    private TableColumn<MedicalTest, Void> Test_column_action;
 
     @FXML
-    private TableColumn<TestMedical, LocalDate> Test_column_date;
+    private TableColumn<MedicalTest, LocalDate> Test_column_date;
 
     @FXML
-    private TableColumn<TestMedical, Integer> Test_column_id;
+    private TableColumn<MedicalTest, Integer> Test_column_id;
 
     @FXML
-    private TableColumn<TestMedical, String> Test_column_nom;
+    private TableColumn<MedicalTest, String> Test_column_name;
 
     @FXML
-    private TableColumn<TestMedical, String> Test_column_result;
+    private TableColumn<MedicalTest, String> Test_column_result;
 
     @FXML
-    private TableColumn<TestMedical, String> Test_column_statut;
+    private TableColumn<MedicalTest, String> Test_column_status;
 
     @FXML
-    private TableColumn<TestMedical, String> Test_column_type;
+    private TableColumn<MedicalTest, String> Test_column_type;
 
     @FXML
-    private Button btn_ajouterMedicament;
+    private Button addMedicationButton;
 
     @FXML
-    private Button btn_ajouterRendez;
+    private Button addAppointmentButton;
 
     @FXML
-    private Button btn_ajouterTest;
+    private Button addTestButton;
 
     @FXML
-    private Button btn_exporterMedicament;
+    private Button exportMedicationButton;
 
     @FXML
-    private Button btn_exporterRendez;
+    private Button exportAppointmentButton;
 
     @FXML
-    private Button btn_exporterTest;
+    private Button exportMedicalTestButton;
 
     @FXML
-    private Button btn_medicament;
+    private Button medicationsButton;
 
     @FXML
-    private Button btn_parametre;
+    private Button settingsButton;
 
     @FXML
-    private Button btn_rendezvous;
+    private Button appointmentsButton;
 
     @FXML
-    private Button btn_test;
+    private Button testsButton;
 
     @FXML
-    private TextField f_rechercheMedicament;
+    private TextField medicationSearchField;
 
     @FXML
-    private TextField f_rechercheRendez;
+    private TextField appointmentSearchField;
 
     @FXML
-    private TextField f_rechercheTest;
+    private TextField medicalTestSearchField;
 
     @FXML
-    private Text field_doctor;
+    private Text doctorNameField;
 
     @FXML
-    private AnchorPane interfaceMedicament;
+    private AnchorPane interfaceMedication;
 
     @FXML
-    private AnchorPane interfaceRendezVous;
+    private AnchorPane interfaceAppointment;
 
     @FXML
     private AnchorPane interfaceTest;
 
     @FXML
-    private TableView<Medicament> table_patientM;
-    
-    private ObservableList<Medicament> medicamentList;
+    private TableView<Medication> medicationTable;
+
+    private ObservableList<Medication> medicationList;
 
     @FXML
-    private TableView<TestMedical> table_patientT;
-    
-    private ObservableList<TestMedical> testList;
+    private TableView<MedicalTest> medicalTestTable;
+
+    private ObservableList<MedicalTest> testList;
 
     @FXML
-    private TableView<RendezVous> table_patientR;
-    
-    private ObservableList<RendezVous> rendezVousList;
-    
+    private TableView<Appointment> appointmentTable;
+
+    private ObservableList<Appointment> appointmentList;
+
     @FXML
     public void initialize() {
         try {
-            Medicament_column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
-            Medicament_column_date.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
-            Medicament_column_description.setCellValueFactory(new PropertyValueFactory<>("description"));
-            Medicament_column_periode.setCellValueFactory(new PropertyValueFactory<>("periode"));
+            Medication_column_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+            Medication_column_date.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+            Medication_column_description.setCellValueFactory(new PropertyValueFactory<>("description"));
+            Medication_column_duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
 
-            Test_column_nom.setCellValueFactory(new PropertyValueFactory<>("typeTest"));
-            Test_column_date.setCellValueFactory(new PropertyValueFactory<>("dateTest"));
-            Test_column_type.setCellValueFactory(new PropertyValueFactory<>("typeDoctor"));
-            Test_column_result.setCellValueFactory(new PropertyValueFactory<>("resultat"));
-            Test_column_statut.setCellValueFactory(new PropertyValueFactory<>("statut"));
+            Test_column_name.setCellValueFactory(new PropertyValueFactory<>("testType"));
+            Test_column_date.setCellValueFactory(new PropertyValueFactory<>("testDate"));
+            Test_column_type.setCellValueFactory(new PropertyValueFactory<>("doctorType"));
+            Test_column_result.setCellValueFactory(new PropertyValueFactory<>("result"));
+            Test_column_status.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-            Rendez_column_date.setCellValueFactory(new PropertyValueFactory<>("dateRendezVous"));
-            Rendez_column_heure.setCellValueFactory(new PropertyValueFactory<>("heure"));
-            Rendez_column_raison.setCellValueFactory(new PropertyValueFactory<>("raison"));
-            Rendez_column_statut.setCellValueFactory(new PropertyValueFactory<>("statut"));
-            addActionButtonsToTableMedicament();
-            addActionButtonsToTableRendezVous();
+            Appointment_column_date.setCellValueFactory(new PropertyValueFactory<>("dateAppointment"));
+            Appointment_column_time.setCellValueFactory(new PropertyValueFactory<>("time"));
+            Appointment_column_reason.setCellValueFactory(new PropertyValueFactory<>("reason"));
+            Appointment_column_status.setCellValueFactory(new PropertyValueFactory<>("status"));
+            addActionButtonsToTableMedication();
+            addActionButtonsToTableAppointment();
             addActionButtonsToTableTest();
-            f_rechercheMedicament.textProperty().addListener((observable, oldValue, newValue) -> {
-                filterMedicaments(newValue);
+            medicationSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filterMedications(newValue);
             });
-            f_rechercheRendez.textProperty().addListener((observable, oldValue, newValue) -> {
-               filterRendezVous(newValue);
+            appointmentSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+               filterAppointment(newValue);
             });
-            f_rechercheTest.textProperty().addListener((observable, oldValue, newValue) -> {
-               filterTestMedical(newValue);
+            medicalTestSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+               filterMedicalTest(newValue);
             });
 
         } catch (Exception e) {
@@ -209,111 +206,111 @@ public class DoctorMTRController {
         }
     }
 
-    private void filterMedicaments(String keyword) {
-    FilteredList<Medicament> filteredList = new FilteredList<>(medicamentList, medicament -> {
+    private void filterMedications(String keyword) {
+    FilteredList<Medication> filteredList = new FilteredList<>(medicationList, medication -> {
         if (keyword == null || keyword.isEmpty()) return true;
         String lowerKeyword = keyword.toLowerCase();
 
-        return medicament.getNom().toLowerCase().contains(lowerKeyword) ||
-               medicament.getDescription().toLowerCase().contains(lowerKeyword) ||
-               String.valueOf(medicament.getPeriode()).toLowerCase().contains(lowerKeyword) ||
-               medicament.getDateDebut().toString().contains(lowerKeyword);
+        return medication.getName().toLowerCase().contains(lowerKeyword) ||
+               medication.getDescription().toLowerCase().contains(lowerKeyword) ||
+               String.valueOf(medication.getDuration()).toLowerCase().contains(lowerKeyword) ||
+               medication.getStartDate().toString().contains(lowerKeyword);
     });
 
-    table_patientM.setItems(filteredList);
+    medicationTable.setItems(filteredList);
 }
 
 
-    private void filterRendezVous(String keyword) {
-    FilteredList<RendezVous> filteredList = new FilteredList<>(rendezVousList, rendez -> {
+    private void filterAppointment(String keyword) {
+    FilteredList<Appointment> filteredList = new FilteredList<>(appointmentList, rendez -> {
         if (keyword == null || keyword.isEmpty()) return true;
         String lowerKeyword = keyword.toLowerCase();
 
-        return rendez.getRaison().toLowerCase().contains(lowerKeyword) ||
-               rendez.getStatut().toLowerCase().contains(lowerKeyword) ||
-               rendez.getDateRendezVous().toString().contains(lowerKeyword) ||
-               rendez.getHeure().toString().contains(lowerKeyword);
+        return rendez.getReason().toLowerCase().contains(lowerKeyword) ||
+               rendez.getStatus().toLowerCase().contains(lowerKeyword) ||
+               rendez.getDateAppointment().toString().contains(lowerKeyword) ||
+               rendez.getTime().toString().contains(lowerKeyword);
     });
 
-    table_patientR.setItems(filteredList);
+    appointmentTable.setItems(filteredList);
 }
 
-    private void filterTestMedical(String keyword) {
-    FilteredList<TestMedical> filteredList = new FilteredList<>(testList, test -> {
+    private void filterMedicalTest(String keyword) {
+    FilteredList<MedicalTest> filteredList = new FilteredList<>(testList, test -> {
         if (keyword == null || keyword.isEmpty()) return true;
         String lowerKeyword = keyword.toLowerCase();
 
-        return test.getTypeTest().toLowerCase().contains(lowerKeyword) ||
-               test.getTypeDoctor().toLowerCase().contains(lowerKeyword) ||
-               test.getResultat().toLowerCase().contains(lowerKeyword) ||
-               test.getStatut().toLowerCase().contains(lowerKeyword) ||
-               test.getDateTest().toString().contains(lowerKeyword);
+        return test.getTestType().toLowerCase().contains(lowerKeyword) ||
+               test.getDoctorType().toLowerCase().contains(lowerKeyword) ||
+               test.getResult().toLowerCase().contains(lowerKeyword) ||
+               test.getStatus().toLowerCase().contains(lowerKeyword) ||
+               test.getTestDate().toString().contains(lowerKeyword);
     });
 
-    table_patientT.setItems(filteredList);
+    medicalTestTable.setItems(filteredList);
 }
 
-    
-    private void loadMedicaments() {
-        medicamentList = FXCollections.observableArrayList(MedicamentDAO.getMedicaments(cniePatient,idDoctor));
-        table_patientM.setItems(medicamentList);
+
+    private void loadMedications() {
+        medicationList = FXCollections.observableArrayList(MedicationDAO.getMedications(nationalIdPatient,idDoctor));
+        medicationTable.setItems(medicationList);
     }
-    private void loadRendezVous(){
-        rendezVousList = FXCollections.observableArrayList(RendezVousDAO.getRendezVous(cniePatient,idDoctor));
-        table_patientR.setItems(rendezVousList);
+    private void loadAppointment(){
+        appointmentList = FXCollections.observableArrayList(AppointmentDAO.getAppointment(nationalIdPatient,idDoctor));
+        appointmentTable.setItems(appointmentList);
     }
-    private void loadTestMedical() {
-        testList = FXCollections.observableArrayList(TestMedicalDAO.getTests(cniePatient,idDoctor));
-        table_patientT.setItems(testList);
+    private void loadMedicalTest() {
+        testList = FXCollections.observableArrayList(MedicalTestDAO.getTests(nationalIdPatient,idDoctor));
+        medicalTestTable.setItems(testList);
     }
     @FXML
-    private Text nomPrenomPatient ;
-    
+    private Text patientName ;
+
 
     @FXML
-    void Exporter(ActionEvent event) {
-
-    }
-
-    @FXML
-    void Parametre(ActionEvent event) {
+    void handleExport(ActionEvent event) {
 
     }
 
     @FXML
-    void Recherche(ActionEvent event) {
+    void handleSettings(ActionEvent event) {
 
     }
-    
+
+    @FXML
+    void handleSearch(ActionEvent event) {
+
+    }
+
     private boolean rdLoaded = false ;
-    private boolean medicamentLoaded = true ;
+    private boolean medicationLoaded = true ;
     private boolean testLoaded = false ;
     private int inter = 1;
     @FXML
-    void switchToRendezVous(ActionEvent event){
-        
+    void switchToAppointment(ActionEvent event){
+
         if(!rdLoaded){
-            loadRendezVous();
+            loadAppointment();
             rdLoaded = true ;
         }
         inter = 3;
         switchForm(3);
     }
     @FXML
-    void switchToMedicament(ActionEvent event){
-        
-        if(!medicamentLoaded){
-            loadMedicaments();
-            medicamentLoaded = true ;
+    void switchToMedication(ActionEvent event){
+
+        if(!medicationLoaded){
+            loadMedications();
+            medicationLoaded = true ;
         }
         inter = 1;
         switchForm(1);
     }
     @FXML
-    void switchToTest(ActionEvent event){
+    void switchToMedicalTest(ActionEvent event){
 
         if(!testLoaded){
-            loadTestMedical();
+            loadMedicalTest();
             testLoaded = true ;
         }
         inter = 2;
@@ -321,56 +318,56 @@ public class DoctorMTRController {
     }
 
     private int idDoctor;
-    private String cniePatient;
-    private String nomPatient;
-    private String prenomPatient;
+    private String nationalIdPatient;
+    private String namePatient;
+    private String firstNamePatient;
 
-   
+
 
     public void setDoctorId(int idDoctor) {
         this.idDoctor = idDoctor;
     }
 
-    public void setCniePatient(String cniePatient) {
-        this.cniePatient = cniePatient;
+    public void setNationalIdPatient(String nationalIdPatient) {
+        this.nationalIdPatient = nationalIdPatient;
     }
 
-    public void setNomPatient(String nomPatient) {
-        this.nomPatient = nomPatient;
+    public void setPatientName(String namePatient) {
+        this.namePatient = namePatient;
     }
-     public void setPrenomPatient(String prenomPatient) {
-        this.prenomPatient = prenomPatient;
+     public void setPatientFirstName(String firstNamePatient) {
+        this.firstNamePatient = firstNamePatient;
         String res = "" ;
-        res = nomPatient +" "+ prenomPatient;
-        nomPrenomPatient.setText(res);
-        loadMedicaments();
+        res = namePatient +" "+ firstNamePatient;
+        patientName.setText(res);
+        loadMedications();
     }
-     
+
     public void switchForm(int choix){
         switch(choix){
                 case 1 :
-                    interfaceMedicament.setVisible(true);
-                    interfaceRendezVous.setVisible(false);
+                    interfaceMedication.setVisible(true);
+                    interfaceAppointment.setVisible(false);
                     interfaceTest.setVisible(false);
                     break ;
                 case 2 :
                     interfaceTest.setVisible(true);
-                    interfaceMedicament.setVisible(false);
-                    interfaceRendezVous.setVisible(false);
+                    interfaceMedication.setVisible(false);
+                    interfaceAppointment.setVisible(false);
                     break ;
                 case 3 :
-                    interfaceRendezVous.setVisible(true);
+                    interfaceAppointment.setVisible(true);
                     interfaceTest.setVisible(false);
-                    interfaceMedicament.setVisible(false);
+                    interfaceMedication.setVisible(false);
                     break ;
         }
     }
-    
-    
-    private void addActionButtonsToTableMedicament() {
-    Callback<TableColumn<Medicament, Void>, TableCell<Medicament, Void>> cellFactory = new Callback<>() {
+
+
+    private void addActionButtonsToTableMedication() {
+    Callback<TableColumn<Medication, Void>, TableCell<Medication, Void>> cellFactory = new Callback<>() {
         @Override
-        public TableCell<Medicament, Void> call(final TableColumn<Medicament, Void> param) {
+        public TableCell<Medication, Void> call(final TableColumn<Medication, Void> param) {
             return new TableCell<>() {
                 private final Button btnVoir = new Button();
                 private final Button btnSupprimer = new Button();
@@ -392,13 +389,13 @@ public class DoctorMTRController {
                     pane.getChildren().addAll(btnVoir, btnSupprimer);
 
                     btnVoir.setOnAction(event -> {
-                        Medicament medicament = getTableView().getItems().get(getIndex());
-                        voirMedicament(medicament);
+                        Medication medication = getTableView().getItems().get(getIndex());
+                        voirMedication(medication);
                     });
 
                     btnSupprimer.setOnAction(event -> {
-                        Medicament medicament = getTableView().getItems().get(getIndex());
-                        supprimerMedicament(medicament);
+                        Medication medication = getTableView().getItems().get(getIndex());
+                        deleteMedication(medication);
                     });
                 }
 
@@ -415,12 +412,12 @@ public class DoctorMTRController {
         }
     };
 
-    Medicament_column_action.setCellFactory(cellFactory);
+    Medication_column_action.setCellFactory(cellFactory);
 }
     private void addActionButtonsToTableTest() {
-    Callback<TableColumn<TestMedical, Void>, TableCell<TestMedical, Void>> cellFactory = new Callback<>() {
+    Callback<TableColumn<MedicalTest, Void>, TableCell<MedicalTest, Void>> cellFactory = new Callback<>() {
         @Override
-        public TableCell<TestMedical, Void> call(final TableColumn<TestMedical, Void> param) {
+        public TableCell<MedicalTest, Void> call(final TableColumn<MedicalTest, Void> param) {
             return new TableCell<>() {
                 private final Button btnVoir = new Button();
                 private final Button btnSupprimer = new Button();
@@ -442,13 +439,13 @@ public class DoctorMTRController {
                     pane.getChildren().addAll(btnVoir, btnSupprimer);
 
                     btnVoir.setOnAction(event -> {
-                        TestMedical testMedical = getTableView().getItems().get(getIndex());
-                        voirTestMedical(testMedical);
+                        MedicalTest medicalTest = getTableView().getItems().get(getIndex());
+                        voirMedicalTest(medicalTest);
                     });
 
                     btnSupprimer.setOnAction(event -> {
-                        TestMedical testMedical = getTableView().getItems().get(getIndex());
-                        supprimerTestMedical(testMedical);
+                        MedicalTest medicalTest = getTableView().getItems().get(getIndex());
+                        deleteMedicalTest(medicalTest);
                     });
                 }
 
@@ -467,11 +464,11 @@ public class DoctorMTRController {
 
     Test_column_action.setCellFactory(cellFactory);
 }
-    
-private void addActionButtonsToTableRendezVous() {
-Callback<TableColumn<RendezVous, Void>, TableCell<RendezVous, Void>> cellFactory = new Callback<>() {
+
+private void addActionButtonsToTableAppointment() {
+Callback<TableColumn<Appointment, Void>, TableCell<Appointment, Void>> cellFactory = new Callback<>() {
     @Override
-    public TableCell<RendezVous, Void> call(final TableColumn<RendezVous, Void> param) {
+    public TableCell<Appointment, Void> call(final TableColumn<Appointment, Void> param) {
         return new TableCell<>() {
             private final Button btnVoir = new Button();
             private final Button btnSupprimer = new Button();
@@ -493,13 +490,13 @@ Callback<TableColumn<RendezVous, Void>, TableCell<RendezVous, Void>> cellFactory
                 pane.getChildren().addAll(btnVoir, btnSupprimer);
 
                 btnVoir.setOnAction(event -> {
-                    RendezVous rendezVous = getTableView().getItems().get(getIndex());
-                    voirRendezVous(rendezVous);
+                    Appointment appointment = getTableView().getItems().get(getIndex());
+                    voirAppointment(appointment);
                 });
 
                 btnSupprimer.setOnAction(event -> {
-                    RendezVous rendezVous = getTableView().getItems().get(getIndex());
-                    supprimerRendezVous(rendezVous);
+                    Appointment appointment = getTableView().getItems().get(getIndex());
+                    deleteAppointment(appointment);
                 });
             }
 
@@ -516,47 +513,47 @@ Callback<TableColumn<RendezVous, Void>, TableCell<RendezVous, Void>> cellFactory
     }
 };
 
-Rendez_column_action.setCellFactory(cellFactory);
+Appointment_column_action.setCellFactory(cellFactory);
 }
-    
-    private void supprimerMedicament(Medicament medicament) {
+
+    private void deleteMedication(Medication medication) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Delete confirmation");
     alert.setHeaderText(null);
-    alert.setContentText("Are you sure you want to delete the medication " + medicament.getNom() + "?");
+    alert.setContentText("Are you sure you want to delete the medication " + medication.getName() + "?");
     alert.showAndWait().ifPresent(response -> {
         if (response == ButtonType.OK) {
-            MedicamentDAO.delete(medicament.getId());
-            loadMedicaments();  // reload the list after deletion
+            MedicationDAO.delete(medication.getId());
+            loadMedications();  // reload the list after deletion
         }
     });
 }
-    
-    private void voirMedicament(Medicament medicament){
-        
+
+    private void voirMedication(Medication medication){
+
         Stage dialogStage = new Stage();
-    dialogStage.setTitle("Edit medication for "+""+nomPatient);
+    dialogStage.setTitle("Edit medication for "+""+namePatient);
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
-    TextField tfNom = new TextField();
-    tfNom.setText(medicament.getNom());
+    TextField nameInput = new TextField();
+    nameInput.setText(medication.getName());
 
-    DatePicker dateDedbut = new DatePicker();
-    dateDedbut.setValue(medicament.getDateDebut());
+    DatePicker startDate = new DatePicker();
+    startDate.setValue(medication.getStartDate());
 
-    TextField tfperiode = new TextField();
-    tfperiode.setText(String.valueOf(medicament.getPeriode()));
+    TextField tfduration = new TextField();
+    tfduration.setText(String.valueOf(medication.getDuration()));
 
     TextField tfDescription = new TextField();
-    tfDescription.setText(medicament.getDescription());
+    tfDescription.setText(medication.getDescription());
 
     Button btnAjouter = new Button("Add");
     Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, tfNom, dateDedbut);
-    HBox hbox2 = new HBox(10, tfperiode, tfDescription);
+    HBox hbox1 = new HBox(10, nameInput, startDate);
+    HBox hbox2 = new HBox(10, tfduration, tfDescription);
     HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
     // Padding for each HBox (internal spacing)
@@ -564,9 +561,9 @@ Rendez_column_action.setCellFactory(cellFactory);
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
-    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // right margin of 10px
-    HBox.setMargin(tfperiode, new Insets(0, 10, 0, 0));
+    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
+    HBox.setMargin(nameInput, new Insets(0, 10, 0, 0));  // right margin of 10px
+    HBox.setMargin(tfduration, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
@@ -586,7 +583,7 @@ Rendez_column_action.setCellFactory(cellFactory);
 
     btnAjouter.setOnAction(e -> {
         // Check required fields
-        if (tfNom.getText().isEmpty() || dateDedbut.getValue() == null) {
+        if (nameInput.getText().isEmpty() || startDate.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing fields");
             alert.setHeaderText(null);
@@ -596,16 +593,16 @@ Rendez_column_action.setCellFactory(cellFactory);
         }
 
         try {
-            Medicament newmedicament = new Medicament();
-            newmedicament.setNom(tfNom.getText());
-            newmedicament.setDateDebut(dateDedbut.getValue()); // LocalDate
-            newmedicament.setPeriode(Integer.parseInt(tfperiode.getText()));
-            newmedicament.setDescription(tfDescription.getText());
-            newmedicament.setId(medicament.getId());
+            Medication newmedication = new Medication();
+            newmedication.setName(nameInput.getText());
+            newmedication.setStartDate(startDate.getValue()); // LocalDate
+            newmedication.setDuration(Integer.parseInt(tfduration.getText()));
+            newmedication.setDescription(tfDescription.getText());
+            newmedication.setId(medication.getId());
 
-            MedicamentDAO.editerMedicament(medicament); // DAO call
+            MedicationDAO.editMedication(medication); // DAO call
             dialogStage.close();
-            loadMedicaments(); // Reload the table
+            loadMedications(); // Reload the table
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -627,51 +624,51 @@ Rendez_column_action.setCellFactory(cellFactory);
     Scene scene = new Scene(vbox);
     dialogStage.setScene(scene);
     dialogStage.showAndWait();
-        
+
     }
-    
-    private void supprimerTestMedical(TestMedical testMedical) {
+
+    private void deleteMedicalTest(MedicalTest medicalTest) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Delete confirmation");
     alert.setHeaderText(null);
-    alert.setContentText("Are you sure you want to delete the medical test " + testMedical.getTypeTest() + "?");
+    alert.setContentText("Are you sure you want to delete the medical test " + medicalTest.getTestType() + "?");
     alert.showAndWait().ifPresent(response -> {
         if (response == ButtonType.OK) {
-            TestMedicalDAO.delete(testMedical.getId());
-            loadTestMedical();  // reload the list after deletion
+            MedicalTestDAO.delete(medicalTest.getId());
+            loadMedicalTest();  // reload the list after deletion
         }
     });
 }
-    
-    private void voirTestMedical(TestMedical testMedical){
-        
+
+    private void voirMedicalTest(MedicalTest medicalTest){
+
          Stage dialogStage = new Stage();
-    dialogStage.setTitle("Edit medical test for "+""+nomPatient);
+    dialogStage.setTitle("Edit medical test for "+""+namePatient);
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
-    TextField tfNom = new TextField();
-    tfNom.setText(testMedical.getTypeTest());
+    TextField nameInput = new TextField();
+    nameInput.setText(medicalTest.getTestType());
 
-    DatePicker dateDedbut = new DatePicker();
-    dateDedbut.setValue(testMedical.getDateTest());
+    DatePicker startDate = new DatePicker();
+    startDate.setValue(medicalTest.getTestDate());
 
-    TextField tfResultat = new TextField();
-    tfResultat.setText(testMedical.getResultat());
+    TextField tfResult = new TextField();
+    tfResult.setText(medicalTest.getResult());
 
-    ComboBox<String> cbStatut = new ComboBox<>();
-    cbStatut.getItems().addAll("pending", "completed");
-    cbStatut.setValue(testMedical.getStatut());
-    ComboBox<String> cbType = new ComboBox<>();
-    cbType.getItems().addAll("interne", "externe");
-    cbType.setValue(testMedical.getTypeDoctor());
+    ComboBox<String> statusComboBox = new ComboBox<>();
+    statusComboBox.getItems().addAll("pending", "completed");
+    statusComboBox.setValue(medicalTest.getStatus());
+    ComboBox<String> typeComboBox = new ComboBox<>();
+    typeComboBox.getItems().addAll("internal", "external");
+    typeComboBox.setValue(medicalTest.getDoctorType());
 
     Button btnAjouter = new Button("Update");
     Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, tfNom, dateDedbut);
-    HBox hbox2 = new HBox(10, tfResultat, cbStatut,cbType);
+    HBox hbox1 = new HBox(10, nameInput, startDate);
+    HBox hbox2 = new HBox(10, tfResult, statusComboBox,typeComboBox);
     HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
     // Padding for each HBox (internal spacing)
@@ -679,9 +676,9 @@ Rendez_column_action.setCellFactory(cellFactory);
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
-    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // right margin of 10px
-    HBox.setMargin(tfResultat, new Insets(0, 10, 0, 0));
+    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
+    HBox.setMargin(nameInput, new Insets(0, 10, 0, 0));  // right margin of 10px
+    HBox.setMargin(tfResult, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
@@ -701,7 +698,7 @@ Rendez_column_action.setCellFactory(cellFactory);
 
     btnAjouter.setOnAction(e -> {
         // Check required fields
-        if (tfNom.getText().isEmpty() || dateDedbut.getValue() == null || cbStatut.getValue() == null) {
+        if (nameInput.getText().isEmpty() || startDate.getValue() == null || statusComboBox.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing fields");
             alert.setHeaderText(null);
@@ -711,17 +708,17 @@ Rendez_column_action.setCellFactory(cellFactory);
         }
 
         try {
-            TestMedical newtestMedical = new TestMedical();
-            newtestMedical.setTypeTest(tfNom.getText());
-            newtestMedical.setDateTest(dateDedbut.getValue()); // LocalDate
-            newtestMedical.setResultat(tfResultat.getText());
-            newtestMedical.setStatut(cbStatut.getValue());
-            newtestMedical.setTypeDoctor(cbType.getValue());
-            newtestMedical.setId(testMedical.getId());
+            MedicalTest newmedicalTest = new MedicalTest();
+            newmedicalTest.setTestType(nameInput.getText());
+            newmedicalTest.setTestDate(startDate.getValue()); // LocalDate
+            newmedicalTest.setResult(tfResult.getText());
+            newmedicalTest.setStatus(statusComboBox.getValue());
+            newmedicalTest.setDoctorType(typeComboBox.getValue());
+            newmedicalTest.setId(medicalTest.getId());
 
-            TestMedicalDAO.editerTest(newtestMedical); // DAO call
+            MedicalTestDAO.editTest(newmedicalTest); // DAO call
             dialogStage.close();
-            loadTestMedical(); // Reload the table
+            loadMedicalTest(); // Reload the table
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -744,48 +741,48 @@ Rendez_column_action.setCellFactory(cellFactory);
     dialogStage.setScene(scene);
     dialogStage.showAndWait();
        }
-        
-   
-    
-    private void supprimerRendezVous(RendezVous rendezVous) {
+
+
+
+    private void deleteAppointment(Appointment appointment) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Delete confirmation");
     alert.setHeaderText(null);
-    alert.setContentText("Are you sure you want to delete the appointment dated " + rendezVous.getDateRendezVous() + "?");
+    alert.setContentText("Are you sure you want to delete the appointment dated " + appointment.getDateAppointment() + "?");
     alert.showAndWait().ifPresent(response -> {
         if (response == ButtonType.OK) {
-            RendezVousDAO.delete(rendezVous.getId());
-            loadRendezVous();  // reload the list after deletion
+            AppointmentDAO.delete(appointment.getId());
+            loadAppointment();  // reload the list after deletion
         }
     });
 }
-    
-    private void voirRendezVous(RendezVous rendezVous){
-        
+
+    private void voirAppointment(Appointment appointment){
+
         Stage dialogStage = new Stage();
-    dialogStage.setTitle("Edit appointment for "+""+nomPatient);
+    dialogStage.setTitle("Edit appointment for "+""+namePatient);
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
 
     DatePicker date = new DatePicker();
-    date.setValue(rendezVous.getDateRendezVous());
+    date.setValue(appointment.getDateAppointment());
 
     TextField tfRaisont = new TextField();
-    tfRaisont.setText(rendezVous.getRaison());
-    TextField tfHeure = new TextField();
-    tfHeure.setText(String.valueOf(rendezVous.getHeure()));
+    tfRaisont.setText(appointment.getReason());
+    TextField timeInput = new TextField();
+    timeInput.setText(String.valueOf(appointment.getTime()));
 
-    ComboBox<String> cbStatut = new ComboBox<>();
-    cbStatut.getItems().addAll("absent", "upcoming", "present");
-    cbStatut.setValue(rendezVous.getStatut());
+    ComboBox<String> statusComboBox = new ComboBox<>();
+    statusComboBox.getItems().addAll("absent", "upcoming", "present");
+    statusComboBox.setValue(appointment.getStatus());
 
     Button btnAjouter = new Button("Add");
     Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, date, tfHeure);
-    HBox hbox2 = new HBox(10, tfRaisont, cbStatut);
+    HBox hbox1 = new HBox(10, date, timeInput);
+    HBox hbox2 = new HBox(10, tfRaisont, statusComboBox);
     HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
     // Padding for each HBox (internal spacing)
@@ -793,7 +790,7 @@ Rendez_column_action.setCellFactory(cellFactory);
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
+    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
     HBox.setMargin(date, new Insets(0, 10, 0, 0));  // right margin of 10px
     HBox.setMargin(tfRaisont, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
@@ -815,7 +812,7 @@ Rendez_column_action.setCellFactory(cellFactory);
 
     btnAjouter.setOnAction(e -> {
         // Check required fields
-        if (date.getValue() == null || cbStatut.getValue() == null || tfHeure.getText().isEmpty()) {
+        if (date.getValue() == null || statusComboBox.getValue() == null || timeInput.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing fields");
             alert.setHeaderText(null);
@@ -825,16 +822,16 @@ Rendez_column_action.setCellFactory(cellFactory);
         }
 
         try {
-            RendezVous newrendezVous = new RendezVous();
-            newrendezVous.setDateRendezVous(date.getValue());
-            newrendezVous.setRaison(tfRaisont.getText()); // LocalDate
-            newrendezVous.setHeure(LocalTime.parse(tfHeure.getText()));
-            newrendezVous.setStatut(cbStatut.getValue());
-            newrendezVous.setId(rendezVous.getId());
+            Appointment newappointment = new Appointment();
+            newappointment.setDateAppointment(date.getValue());
+            newappointment.setReason(tfRaisont.getText()); // LocalDate
+            newappointment.setTime(LocalTime.parse(timeInput.getText()));
+            newappointment.setStatus(statusComboBox.getValue());
+            newappointment.setId(appointment.getId());
 
-            RendezVousDAO.editerTest(rendezVous); // DAO call
+            AppointmentDAO.editTest(appointment); // DAO call
             dialogStage.close();
-            loadRendezVous(); // Rechargement de la table
+            loadAppointment(); // Rechargement de la table
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -856,27 +853,27 @@ Rendez_column_action.setCellFactory(cellFactory);
     Scene scene = new Scene(vbox);
     dialogStage.setScene(scene);
     dialogStage.showAndWait();
-        
+
     }
-    
-    
+
+
     @FXML
-   public  void Ajouter(ActionEvent event) {
-       
+   public  void handleAdd(ActionEvent event) {
+
        if(inter == 1){
     Stage dialogStage = new Stage();
     dialogStage.setTitle("Add medication");
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
-    TextField tfNom = new TextField();
-    tfNom.setPromptText("Name");
+    TextField nameInput = new TextField();
+    nameInput.setPromptText("Name");
 
-    DatePicker dateDedbut = new DatePicker();
-    dateDedbut.setPromptText("Start date");
+    DatePicker startDate = new DatePicker();
+    startDate.setPromptText("Start date");
 
-    TextField tfperiode = new TextField();
-    tfperiode.setPromptText("Period (integer)");
+    TextField tfduration = new TextField();
+    tfduration.setPromptText("Period (integer)");
 
     TextField tfDescription = new TextField();
     tfDescription.setPromptText("Description");
@@ -885,8 +882,8 @@ Rendez_column_action.setCellFactory(cellFactory);
     Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, tfNom, dateDedbut);
-    HBox hbox2 = new HBox(10, tfperiode, tfDescription);
+    HBox hbox1 = new HBox(10, nameInput, startDate);
+    HBox hbox2 = new HBox(10, tfduration, tfDescription);
     HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
     // Padding for each HBox (internal spacing)
@@ -894,9 +891,9 @@ Rendez_column_action.setCellFactory(cellFactory);
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
-    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // right margin of 10px
-    HBox.setMargin(tfperiode, new Insets(0, 10, 0, 0));
+    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
+    HBox.setMargin(nameInput, new Insets(0, 10, 0, 0));  // right margin of 10px
+    HBox.setMargin(tfduration, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
@@ -916,7 +913,7 @@ Rendez_column_action.setCellFactory(cellFactory);
 
     btnAjouter.setOnAction(e -> {
         // Check required fields
-        if (tfNom.getText().isEmpty() || dateDedbut.getValue() == null) {
+        if (nameInput.getText().isEmpty() || startDate.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing fields");
             alert.setHeaderText(null);
@@ -926,15 +923,15 @@ Rendez_column_action.setCellFactory(cellFactory);
         }
 
         try {
-            Medicament medicament = new Medicament();
-            medicament.setNom(tfNom.getText());
-            medicament.setDateDebut(dateDedbut.getValue()); // LocalDate
-            medicament.setPeriode(Integer.parseInt(tfperiode.getText()));
-            medicament.setDescription(tfDescription.getText());
+            Medication medication = new Medication();
+            medication.setName(nameInput.getText());
+            medication.setStartDate(startDate.getValue()); // LocalDate
+            medication.setDuration(Integer.parseInt(tfduration.getText()));
+            medication.setDescription(tfDescription.getText());
 
-            MedicamentDAO.inserer(medicament,cniePatient, idDoctor); // DAO call
+            MedicationDAO.insert(medication,nationalIdPatient, idDoctor); // DAO call
             dialogStage.close();
-            loadMedicaments(); // Reload the table
+            loadMedications(); // Reload the table
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -963,28 +960,28 @@ Rendez_column_action.setCellFactory(cellFactory);
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
-    TextField tfNom = new TextField();
-    tfNom.setPromptText("Name");
+    TextField nameInput = new TextField();
+    nameInput.setPromptText("Name");
 
-    DatePicker dateDedbut = new DatePicker();
-    dateDedbut.setPromptText("Test date");
+    DatePicker startDate = new DatePicker();
+    startDate.setPromptText("Test date");
 
-    TextField tfResultat = new TextField();
-    tfResultat.setPromptText("Result");
+    TextField tfResult = new TextField();
+    tfResult.setPromptText("Result");
 
-    ComboBox<String> cbStatut = new ComboBox<>();
-    cbStatut.getItems().addAll("pending", "completed");
-    cbStatut.setPromptText("Status");
-    ComboBox<String> cbType = new ComboBox<>();
-    cbType.getItems().addAll("interne", "externe");
-    cbType.setPromptText("Doctor type");
+    ComboBox<String> statusComboBox = new ComboBox<>();
+    statusComboBox.getItems().addAll("pending", "completed");
+    statusComboBox.setPromptText("Status");
+    ComboBox<String> typeComboBox = new ComboBox<>();
+    typeComboBox.getItems().addAll("internal", "external");
+    typeComboBox.setPromptText("Doctor type");
 
     Button btnAjouter = new Button("Add");
     Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, tfNom, dateDedbut);
-    HBox hbox2 = new HBox(10, tfResultat, cbStatut,cbType);
+    HBox hbox1 = new HBox(10, nameInput, startDate);
+    HBox hbox2 = new HBox(10, tfResult, statusComboBox,typeComboBox);
     HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
     // Padding for each HBox (internal spacing)
@@ -992,9 +989,9 @@ Rendez_column_action.setCellFactory(cellFactory);
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
-    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // right margin of 10px
-    HBox.setMargin(tfResultat, new Insets(0, 10, 0, 0));
+    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
+    HBox.setMargin(nameInput, new Insets(0, 10, 0, 0));  // right margin of 10px
+    HBox.setMargin(tfResult, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
@@ -1014,7 +1011,7 @@ Rendez_column_action.setCellFactory(cellFactory);
 
     btnAjouter.setOnAction(e -> {
         // Check required fields
-        if (tfNom.getText().isEmpty() || dateDedbut.getValue() == null || cbStatut.getValue() == null) {
+        if (nameInput.getText().isEmpty() || startDate.getValue() == null || statusComboBox.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing fields");
             alert.setHeaderText(null);
@@ -1024,16 +1021,16 @@ Rendez_column_action.setCellFactory(cellFactory);
         }
 
         try {
-            TestMedical testMedical = new TestMedical();
-            testMedical.setTypeTest(tfNom.getText());
-            testMedical.setDateTest(dateDedbut.getValue()); // LocalDate
-            testMedical.setResultat(tfResultat.getText());
-            testMedical.setStatut(cbStatut.getValue());
-            testMedical.setTypeDoctor(cbType.getValue());
+            MedicalTest medicalTest = new MedicalTest();
+            medicalTest.setTestType(nameInput.getText());
+            medicalTest.setTestDate(startDate.getValue()); // LocalDate
+            medicalTest.setResult(tfResult.getText());
+            medicalTest.setStatus(statusComboBox.getValue());
+            medicalTest.setDoctorType(typeComboBox.getValue());
 
-            TestMedicalDAO.inserer(testMedical,cniePatient, idDoctor); // DAO call
+            MedicalTestDAO.insert(medicalTest,nationalIdPatient, idDoctor); // DAO call
             dialogStage.close();
-            loadTestMedical(); // Reload the table
+            loadMedicalTest(); // Reload the table
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -1068,19 +1065,19 @@ Rendez_column_action.setCellFactory(cellFactory);
 
     TextField tfRaisont = new TextField();
     tfRaisont.setPromptText("Reason");
-    TextField tfHeure = new TextField();
-    tfHeure.setPromptText("Time (format x:x)");
+    TextField timeInput = new TextField();
+    timeInput.setPromptText("Time (format x:x)");
 
-    ComboBox<String> cbStatut = new ComboBox<>();
-    cbStatut.getItems().addAll("absent", "upcoming", "present");
-    cbStatut.setPromptText("Status");
+    ComboBox<String> statusComboBox = new ComboBox<>();
+    statusComboBox.getItems().addAll("absent", "upcoming", "present");
+    statusComboBox.setPromptText("Status");
 
     Button btnAjouter = new Button("Add");
     Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, date, tfHeure);
-    HBox hbox2 = new HBox(10, tfRaisont, cbStatut);
+    HBox hbox1 = new HBox(10, date, timeInput);
+    HBox hbox2 = new HBox(10, tfRaisont, statusComboBox);
     HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
     // Padding for each HBox (internal spacing)
@@ -1088,7 +1085,7 @@ Rendez_column_action.setCellFactory(cellFactory);
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
+    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
     HBox.setMargin(date, new Insets(0, 10, 0, 0));  // right margin of 10px
     HBox.setMargin(tfRaisont, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
@@ -1110,7 +1107,7 @@ Rendez_column_action.setCellFactory(cellFactory);
 
     btnAjouter.setOnAction(e -> {
         // Check required fields
-        if (date.getValue() == null || cbStatut.getValue() == null || tfHeure.getText().isEmpty()) {
+        if (date.getValue() == null || statusComboBox.getValue() == null || timeInput.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing fields");
             alert.setHeaderText(null);
@@ -1120,15 +1117,15 @@ Rendez_column_action.setCellFactory(cellFactory);
         }
 
         try {
-            RendezVous rendezVous = new RendezVous();
-            rendezVous.setDateRendezVous(date.getValue());
-            rendezVous.setRaison(tfRaisont.getText()); // LocalDate
-            rendezVous.setHeure(LocalTime.parse(tfHeure.getText()));
-            rendezVous.setStatut(cbStatut.getValue());
+            Appointment appointment = new Appointment();
+            appointment.setDateAppointment(date.getValue());
+            appointment.setReason(tfRaisont.getText()); // LocalDate
+            appointment.setTime(LocalTime.parse(timeInput.getText()));
+            appointment.setStatus(statusComboBox.getValue());
 
-            RendezVousDAO.inserer(rendezVous,cniePatient, idDoctor); // DAO call
+            AppointmentDAO.insert(appointment,nationalIdPatient, idDoctor); // DAO call
             dialogStage.close();
-            loadRendezVous(); // Reload the table
+            loadAppointment(); // Reload the table
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -1152,7 +1149,7 @@ Rendez_column_action.setCellFactory(cellFactory);
     dialogStage.showAndWait();
        }
 }
-    
-     
+
+
 
 }

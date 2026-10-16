@@ -84,7 +84,7 @@
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </MenuButton>
-                                <Hyperlink fx:id="linkMedicaments" text="Medications" textFill="WHITE">
+                                <Hyperlink fx:id="linkMedications" text="Medications" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
@@ -94,7 +94,7 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Hyperlink>
-                                <Hyperlink fx:id="linkRendezvous" layoutX="168.0" layoutY="10.0" text="Appointments" textFill="WHITE">
+                                <Hyperlink fx:id="linkAppointments" layoutX="168.0" layoutY="10.0" text="Appointments" textFill="WHITE">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
@@ -164,22 +164,22 @@
                               </StackPane>
                               <StackPane alignment="TOP_LEFT" layoutX="261.0" layoutY="10.0" GridPane.rowIndex="1">
                                  <children>
-                                    <TextField fx:id="nomField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="100.0" promptText="Name" styleClass="fields" />
+                                    <TextField fx:id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="100.0" promptText="Name" styleClass="fields" />
                                  </children>
                               </StackPane>
                               <StackPane alignment="TOP_LEFT" layoutX="10.0" layoutY="95.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <TextField fx:id="prenomField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="100.0" promptText="First name" styleClass="fields" />
+                                    <TextField fx:id="firstNameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="100.0" promptText="First name" styleClass="fields" />
                                  </children>
                               </StackPane>
                               <StackPane alignment="TOP_LEFT" layoutX="10.0" layoutY="103.0" GridPane.rowIndex="5">
                                  <children>
-                                    <TextField fx:id="villeField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="100.0" promptText="City" styleClass="fields" />
+                                    <TextField fx:id="cityField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="100.0" promptText="City" styleClass="fields" />
                                  </children>
                               </StackPane>
                               <StackPane alignment="TOP_LEFT" layoutX="10.0" layoutY="165.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <children>
-                                    <TextField fx:id="telephoneField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="100.0" promptText="Phone" styleClass="fields" />
+                                    <TextField fx:id="phoneField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="100.0" promptText="Phone" styleClass="fields" />
                                  </children>
                               </StackPane>
                               <StackPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" GridPane.columnIndex="1">
@@ -220,7 +220,7 @@
                               </StackPane>
                               <StackPane alignment="TOP_LEFT" layoutX="10.0" layoutY="103.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <DatePicker fx:id="dateNaissancePicker" promptText="JJ/MM/AAAA" styleClass="fields" />
+                                    <DatePicker fx:id="birthDatePicker" promptText="JJ/MM/AAAA" styleClass="fields" />
                                  </children>
                               </StackPane>
                               <StackPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="138.0" GridPane.rowIndex="6">
@@ -243,17 +243,17 @@
                               </StackPane>
                               <StackPane alignment="TOP_LEFT" layoutX="261.0" layoutY="170.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                  <children>
-                                    <MenuButton fx:id="sexeMenu" mnemonicParsing="false" onAction="#handleSexeSelection" styleClass="fields" text="Gender">
+                                    <MenuButton fx:id="genderMenu" mnemonicParsing="false" onAction="#handleGenderSelection" styleClass="fields" text="Gender">
                                       <items>
-                                        <MenuItem mnemonicParsing="false" onAction="#handleSexeSelection" text="Male" />
-                                        <MenuItem mnemonicParsing="false" onAction="#handleSexeSelection" text="Female" />
+                                        <MenuItem mnemonicParsing="false" onAction="#handleGenderSelection" text="Male" />
+                                        <MenuItem mnemonicParsing="false" onAction="#handleGenderSelection" text="Female" />
                                       </items>
                                     </MenuButton>
                                  </children>
                               </StackPane>
                               <StackPane alignment="TOP_LEFT" layoutX="10.0" layoutY="170.0" GridPane.rowIndex="7">
                                  <children>
-                                    <TextField fx:id="adresseField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="31.0" prefWidth="244.0" promptText="Address" styleClass="fields" />
+                                    <TextField fx:id="addressField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="31.0" prefWidth="244.0" promptText="Address" styleClass="fields" />
                                  </children>
                               </StackPane>
                               <StackPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="239.0" GridPane.rowIndex="2">
@@ -281,12 +281,12 @@
                               </StackPane>
                               <StackPane alignment="TOP_LEFT" layoutX="10.0" layoutY="361.0" GridPane.rowIndex="9">
                                  <children>
-                                    <PasswordField fx:id="motDePasseField" maxWidth="-Infinity" prefWidth="244.0" styleClass="fields" />
+                                    <PasswordField fx:id="passwordField" maxWidth="-Infinity" prefWidth="244.0" styleClass="fields" />
                                  </children>
                               </StackPane>
                            </children>
                         </GridPane>
-                        <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="enregi-button" text="Save">
+                        <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="41.0" prefWidth="94.0" styleClass="save-button" text="Save">
                            <VBox.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </VBox.margin>

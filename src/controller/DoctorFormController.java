@@ -21,41 +21,41 @@ import model.Doctor;
 public class DoctorFormController {
 
     @FXML
-    private Button btn_cree;
+    private Button createButton;
 
     @FXML
-    private TextField f_addresse;
+    private TextField f_clinicAddress;
 
     @FXML
-    private TextField f_cnie;
+    private TextField f_nationalId;
 
     @FXML
-    private TextField f_motdepass;
+    private TextField f_password;
 
     @FXML
-    private TextField f_nom;
+    private TextField f_name;
 
     @FXML
-    private TextField f_nom_cabinet;
+    private TextField f_clinic_name;
 
     @FXML
-    private TextField f_prenom;
+    private TextField f_firstName;
 
     @FXML
-    private TextField f_specialite;
+    private TextField f_specialty;
 
     @FXML
-    private TextField f_telephone;
-    
+    private TextField f_phone;
+
     @FXML
-    private Button btn_retour;
-    
+    private Button backButton;
+
     @FXML
-    private Label label_error_reussi;
-    
+    private Label statusLabel;
+
     @FXML
-    public void allerVersLoginView(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/connexion_view.fxml"));
+    public void goToLoginView(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/login_view.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -63,43 +63,43 @@ public class DoctorFormController {
     }
 
     @FXML
-    void ButtonCree(ActionEvent event) throws SQLException {
+    void handleCreate(ActionEvent event) throws SQLException {
         boolean hasError = false;
 
-        if (f_nom.getText().trim().isEmpty()) {
-            f_nom.setPromptText("Name is required");
-            f_nom.setStyle("-fx-prompt-text-fill: red;");
-            f_nom.getStyleClass().add("field-error");
+        if (f_name.getText().trim().isEmpty()) {
+            f_name.setPromptText("Name is required");
+            f_name.setStyle("-fx-prompt-text-fill: red;");
+            f_name.getStyleClass().add("field-error");
             hasError = true;
         }
-        if (f_prenom.getText().trim().isEmpty()) {
-            f_prenom.setPromptText("First name is required");
-            f_prenom.setStyle("-fx-prompt-text-fill: red;");
-            f_prenom.getStyleClass().add("field-error");
+        if (f_firstName.getText().trim().isEmpty()) {
+            f_firstName.setPromptText("First name is required");
+            f_firstName.setStyle("-fx-prompt-text-fill: red;");
+            f_firstName.getStyleClass().add("field-error");
             hasError = true;
         }
-        if (f_specialite.getText().trim().isEmpty()) {
-            f_specialite.setPromptText("Specialty is required");
-            f_specialite.setStyle("-fx-prompt-text-fill: red;");
-            f_specialite.getStyleClass().add("field-error");
+        if (f_specialty.getText().trim().isEmpty()) {
+            f_specialty.setPromptText("Specialty is required");
+            f_specialty.setStyle("-fx-prompt-text-fill: red;");
+            f_specialty.getStyleClass().add("field-error");
             hasError = true;
         }
-        if (f_motdepass.getText().trim().isEmpty()) {
-            f_motdepass.setPromptText("Password is required");
-            f_motdepass.setStyle("-fx-prompt-text-fill: red;");
-            f_motdepass.getStyleClass().add("field-error");
+        if (f_password.getText().trim().isEmpty()) {
+            f_password.setPromptText("Password is required");
+            f_password.setStyle("-fx-prompt-text-fill: red;");
+            f_password.getStyleClass().add("field-error");
             hasError = true;
         }
-        if (f_cnie.getText().trim().isEmpty()) {
-            f_cnie.setPromptText("National ID is required");
-            f_cnie.setStyle("-fx-prompt-text-fill: red;");
-            f_cnie.getStyleClass().add("field-error");
+        if (f_nationalId.getText().trim().isEmpty()) {
+            f_nationalId.setPromptText("National ID is required");
+            f_nationalId.setStyle("-fx-prompt-text-fill: red;");
+            f_nationalId.getStyleClass().add("field-error");
             hasError = true;
         }
-        if (f_nom_cabinet.getText().trim().isEmpty()) {
-            f_nom_cabinet.setPromptText("Clinic name is required");
-            f_nom_cabinet.setStyle("-fx-prompt-text-fill: red;");
-            f_nom_cabinet.getStyleClass().add("field-error");
+        if (f_clinic_name.getText().trim().isEmpty()) {
+            f_clinic_name.setPromptText("Clinic name is required");
+            f_clinic_name.setStyle("-fx-prompt-text-fill: red;");
+            f_clinic_name.getStyleClass().add("field-error");
             hasError = true;
         }
 
@@ -108,27 +108,27 @@ public class DoctorFormController {
         }
 
         Doctor d = new Doctor(
-            f_nom.getText(),
-            f_prenom.getText(),
-            f_cnie.getText(),
-            f_specialite.getText(),
-            f_nom_cabinet.getText(),
-            f_telephone.getText(),
-            f_addresse.getText(),
-            f_motdepass.getText()
+            f_name.getText(),
+            f_firstName.getText(),
+            f_nationalId.getText(),
+            f_specialty.getText(),
+            f_clinic_name.getText(),
+            f_phone.getText(),
+            f_clinicAddress.getText(),
+            f_password.getText()
         );
-        System.out.println(f_nom.getText() + f_prenom.getText() + f_cnie.getText() + f_specialite.getText() + f_nom_cabinet.getText() + f_telephone.getText() + f_addresse.getText() + f_motdepass.getText());
+        System.out.println(f_name.getText() + f_firstName.getText() + f_nationalId.getText() + f_specialty.getText() + f_clinic_name.getText() + f_phone.getText() + f_clinicAddress.getText() + f_password.getText());
 
-        int etat = DoctorDAO.inserer(d);
+        int etat = DoctorDAO.insert(d);
 
         if (etat == 1) {
-            label_error_reussi.setStyle("-fx-opacity: 1.0; -fx-text-fill: green;");
-            label_error_reussi.setText("Account created successfully!");
+            statusLabel.setStyle("-fx-opacity: 1.0; -fx-text-fill: green;");
+            statusLabel.setText("Account created successfully!");
 
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(e -> {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/connexion_view.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login_view.fxml"));
                     Parent root = loader.load();
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -140,11 +140,11 @@ public class DoctorFormController {
             });
             pause.play();
         } else if (etat == -1) {
-            label_error_reussi.setStyle("-fx-opacity: 1.0; -fx-text-fill: red;");
-            label_error_reussi.setText("An account already exists with this national ID.");
+            statusLabel.setStyle("-fx-opacity: 1.0; -fx-text-fill: red;");
+            statusLabel.setText("An account already exists with this national ID.");
         } else {
-            label_error_reussi.setStyle("-fx-opacity: 1.0; -fx-text-fill: red;");
-            label_error_reussi.setText("Error creating the account. Please try again.");
+            statusLabel.setStyle("-fx-opacity: 1.0; -fx-text-fill: red;");
+            statusLabel.setText("Error creating the account. Please try again.");
         }
     }
 }

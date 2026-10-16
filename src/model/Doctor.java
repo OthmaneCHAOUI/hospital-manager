@@ -5,58 +5,58 @@ package model;
  */
 public class Doctor {
     private int id;
-    private String nom;
-    private String prenom;
-    private String cnie;
-    private String specialite;
-    private String nomCabinet;
-    private String telephone;
-    private String adresseCabinet;
-    private String motDePasse;
+    private String name;
+    private String firstName;
+    private String nationalId;
+    private String specialty;
+    private String clinicName;
+    private String phone;
+    private String clinicAddress;
+    private String password;
 
     public Doctor(){}
-    public Doctor(int id, String nom, String prenom, String specialite) {
+    public Doctor(int id, String name, String firstName, String specialty) {
         this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.specialite = specialite;
+        this.name = name;
+        this.firstName = firstName;
+        this.specialty = specialty;
     }
 
-    public Doctor(String nom, String prenom, String cnie, String specialite, String nomCabinet, String telephone, String adresseCabinet, String motDePasse) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.cnie = cnie;
-        this.specialite = specialite;
-        this.nomCabinet = nomCabinet;
-        this.telephone = telephone;
-        this.adresseCabinet = adresseCabinet;
-        this.motDePasse = motDePasse;
+    public Doctor(String name, String firstName, String nationalId, String specialty, String clinicName, String phone, String clinicAddress, String password) {
+        this.name = name;
+        this.firstName = firstName;
+        this.nationalId = nationalId;
+        this.specialty = specialty;
+        this.clinicName = clinicName;
+        this.phone = phone;
+        this.clinicAddress = clinicAddress;
+        this.password = password;
     }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getPrenom() { return prenom; }
-    public void setPrenom(String prenom) { this.prenom = prenom; }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
 
-    public String getCnie() { return cnie; }
-    public void setCnie(String cnie) { this.cnie = cnie; }
+    public String getNationalId() { return nationalId; }
+    public void setNationalId(String nationalId) { this.nationalId = nationalId; }
 
-    public String getSpecialite() { return specialite; }
-    public void setSpecialite(String specialite) { this.specialite = specialite; }
+    public String getSpecialty() { return specialty; }
+    public void setSpecialty(String specialty) { this.specialty = specialty; }
 
-    public String getNomCabinet() { return nomCabinet; }
-    public void setNomCabinet(String nomCabinet) { this.nomCabinet = nomCabinet; }
+    public String getClinicName() { return clinicName; }
+    public void setClinicName(String clinicName) { this.clinicName = clinicName; }
 
-    public String getTelephone() { return telephone; }
-    public void setTelephone(String telephone) { this.telephone = telephone; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public String getAdresseCabinet() { return adresseCabinet; }
-    public void setAdresseCabinet(String adresseCabinet) { this.adresseCabinet = adresseCabinet; }
+    public String getClinicAddress() { return clinicAddress; }
+    public void setClinicAddress(String clinicAddress) { this.clinicAddress = clinicAddress; }
 
-    public String getMotDePasse() { return motDePasse; }
-    public void setMotDePasse(String motDePasse) { this.motDePasse = motDePasse; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 }

@@ -46,67 +46,67 @@ import model.DoctorDAO;
 public class DoctorDashboardController {
 
     @FXML
-    private Text field_doctor;
+    private Text doctorNameField;
     @FXML
-    private Button btn_ajouter;
+    private Button addButton;
 
     @FXML
-    private Button btn_exporter;
+    private Button exportButton;
 
     @FXML
-    private Button btn_parametre;
+    private Button settingsButton;
 
     @FXML
-    private TableColumn<DoctorPatient, String> column_adresse;
-    
+    private TableColumn<DoctorPatient, String> column_address;
+
      @FXML
     private TableColumn<DoctorPatient, Void> column_action;
     @FXML
-    private TableColumn<DoctorPatient, String> column_cnie;
+    private TableColumn<DoctorPatient, String> column_nationalId;
 
     @FXML
-    private TableColumn<DoctorPatient, LocalDate> column_date;
+    private TableColumn<DoctorPatient, LocalDate> column_birthDate;
 
     @FXML
-    private TableColumn<DoctorPatient, String> column_nom;
+    private TableColumn<DoctorPatient, String> column_name;
 
     @FXML
-    private TableColumn<DoctorPatient, String> column_prenom;
+    private TableColumn<DoctorPatient, String> column_firstName;
 
     @FXML
-    private TableColumn<DoctorPatient, String> column_sexe;
+    private TableColumn<DoctorPatient, String> column_gender;
 
     @FXML
-    private TableColumn<DoctorPatient, String> column_tele;
+    private TableColumn<DoctorPatient, String> column_phone;
 
     @FXML
-    private TableColumn<DoctorPatient, String> column_ville;
+    private TableColumn<DoctorPatient, String> column_city;
 
     @FXML
-    private TextField f_recherche;
+    private TextField searchField;
 
     @FXML
-    private TableView<DoctorPatient> table_patient;
+    private TableView<DoctorPatient> patientTable;
 
     private ObservableList<DoctorPatient> patientsList;
 
     private int idDoctor;
-    private String nomDoctor;  
-    
-    public int getidDoctor() {
+    private String nameDoctor;
+
+    public int getDoctorId() {
         return idDoctor;
     }
-    public String getnomDoctor() {
-        return nomDoctor;
+    public String getDoctorName() {
+        return nameDoctor;
     }
-    public void setnomDoctor(String nomDoctor) {
-        this.nomDoctor = nomDoctor;
+    public void setDoctorName(String nameDoctor) {
+        this.nameDoctor = nameDoctor;
     }
 
-    public void setIdDoctor(int idDoctor) {
+    public void setDoctorId(int idDoctor) {
         this.idDoctor = idDoctor;
         try {
-            field_doctor.setText(nomDoctor);
+            doctorNameField.setText(nameDoctor);
             loadPatients(); // ✅ Load patients here after the id is defined
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,14 +116,14 @@ public class DoctorDashboardController {
     @FXML
     public void initialize() {
         try {
-            column_nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
-            column_prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-            column_date.setCellValueFactory(new PropertyValueFactory<>("dateNaissance"));
-            column_cnie.setCellValueFactory(new PropertyValueFactory<>("cnie"));
-            column_ville.setCellValueFactory(new PropertyValueFactory<>("ville"));
-            column_tele.setCellValueFactory(new PropertyValueFactory<>("telephone"));
-            column_adresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-            column_sexe.setCellValueFactory(new PropertyValueFactory<>("sexe"));
+            column_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+            column_firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+            column_birthDate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+            column_nationalId.setCellValueFactory(new PropertyValueFactory<>("nationalId"));
+            column_city.setCellValueFactory(new PropertyValueFactory<>("city"));
+            column_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+            column_address.setCellValueFactory(new PropertyValueFactory<>("address"));
+            column_gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
             addActionButtonsToTable();
 
         } catch (Exception e) {
@@ -162,7 +162,7 @@ public class DoctorDashboardController {
 
                     btnSupprimer.setOnAction(event -> {
                         DoctorPatient patient = getTableView().getItems().get(getIndex());
-                        supprimerPatient(patient);
+                        deletePatient(patient);
                     });
                 }
 
@@ -184,15 +184,15 @@ public class DoctorDashboardController {
 
 public void voirPatient(DoctorPatient patient) {
 try {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DoctorMTR_view.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/doctor_mtr_view.fxml"));
     Parent root = loader.load();
 
     DoctorMTRController controller = loader.getController();
 
     controller.setDoctorId(idDoctor);
-    controller.setCniePatient(patient.getCnie());
-    controller.setNomPatient(patient.getNom());
-    controller.setPrenomPatient(patient.getPrenom());
+    controller.setNationalIdPatient(patient.getNationalId());
+    controller.setPatientName(patient.getName());
+    controller.setPatientFirstName(patient.getFirstName());
 
     Stage stage = new Stage();
     stage.setScene(new Scene(root));
@@ -205,14 +205,14 @@ try {
 
 
 
-private void supprimerPatient(DoctorPatient patient) {
+private void deletePatient(DoctorPatient patient) {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Delete confirmation");
     alert.setHeaderText(null);
-    alert.setContentText("Are you sure you want to delete the patient " + patient.getNom() + "?");
+    alert.setContentText("Are you sure you want to delete the patient " + patient.getName() + "?");
     alert.showAndWait().ifPresent(response -> {
         if (response == ButtonType.OK) {
-            DoctorPatientDAO.delete(patient.getCnie(), idDoctor);
+            DoctorPatientDAO.delete(patient.getNationalId(), idDoctor);
             try {
                 loadPatients();  // reload the list after deletion
             } catch (SQLException e) {
@@ -225,49 +225,49 @@ private void supprimerPatient(DoctorPatient patient) {
 
     private void loadPatients() throws SQLException {
         patientsList = FXCollections.observableArrayList(DoctorPatientDAO.getPatients(idDoctor));
-        table_patient.setItems(patientsList);
+        patientTable.setItems(patientsList);
     }
 
 @FXML
-public void Ajouter(ActionEvent event) {
+public void handleAdd(ActionEvent event) {
     Stage dialogStage = new Stage();
     dialogStage.setTitle("Add a patient");
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
-    TextField tfNom = new TextField();
-    tfNom.setPromptText("Name");
+    TextField nameInput = new TextField();
+    nameInput.setPromptText("Name");
 
-    TextField tfPrenom = new TextField();
-    tfPrenom.setPromptText("First name");
+    TextField firstNameInput = new TextField();
+    firstNameInput.setPromptText("First name");
 
     DatePicker dpDateNaissance = new DatePicker();
     dpDateNaissance.setPromptText("Birth date");
 
-    TextField tfCnie = new TextField();
-    tfCnie.setPromptText("CNI");
+    TextField nationalIdInput = new TextField();
+    nationalIdInput.setPromptText("CNI");
 
-    TextField tfVille = new TextField();
-    tfVille.setPromptText("City");
+    TextField cityInput = new TextField();
+    cityInput.setPromptText("City");
 
-    TextField tfTelephone = new TextField();
-    tfTelephone.setPromptText("Phone");
+    TextField phoneInput = new TextField();
+    phoneInput.setPromptText("Phone");
 
-    TextField tfAdresse = new TextField();
-    tfAdresse.setPromptText("Address");
+    TextField addressInput = new TextField();
+    addressInput.setPromptText("Address");
 
-    ComboBox<String> cbSexe = new ComboBox<>();
-    cbSexe.getItems().addAll("M", "F");
-    cbSexe.setPromptText("Gender");
+    ComboBox<String> genderComboBox = new ComboBox<>();
+    genderComboBox.getItems().addAll("M", "F");
+    genderComboBox.setPromptText("Gender");
 
     Button btnAjouter = new Button("Add");
     Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, tfNom, tfVille);
-    HBox hbox2 = new HBox(10, tfPrenom, tfTelephone);
-    HBox hbox3 = new HBox(10, dpDateNaissance, tfAdresse);
-    HBox hbox4 = new HBox(10, tfCnie, cbSexe);
+    HBox hbox1 = new HBox(10, nameInput, cityInput);
+    HBox hbox2 = new HBox(10, firstNameInput, phoneInput);
+    HBox hbox3 = new HBox(10, dpDateNaissance, addressInput);
+    HBox hbox4 = new HBox(10, nationalIdInput, genderComboBox);
     HBox hbox5 = new HBox(15, btnAjouter, btnAnnuler);
 
     // Padding for each HBox (internal spacing)
@@ -277,11 +277,11 @@ public void Ajouter(ActionEvent event) {
     hbox4.setPadding(new Insets(5));
     hbox5.setPadding(new Insets(10));
 
-    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
-    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // right margin of 10px
-    HBox.setMargin(tfPrenom, new Insets(0, 10, 0, 0));
+    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
+    HBox.setMargin(nameInput, new Insets(0, 10, 0, 0));  // right margin of 10px
+    HBox.setMargin(firstNameInput, new Insets(0, 10, 0, 0));
     HBox.setMargin(dpDateNaissance, new Insets(0, 10, 0, 0));
-    HBox.setMargin(tfCnie, new Insets(0, 10, 0, 0));
+    HBox.setMargin(nationalIdInput, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
     VBox vbox = new VBox(15, hbox1, hbox2, hbox3, hbox4, hbox5);
@@ -301,8 +301,8 @@ public void Ajouter(ActionEvent event) {
 
     btnAjouter.setOnAction(e -> {
         // Check required fields
-        if (tfNom.getText().isEmpty() || tfPrenom.getText().isEmpty() || dpDateNaissance.getValue() == null
-                || tfCnie.getText().isEmpty() || cbSexe.getValue() == null) {
+        if (nameInput.getText().isEmpty() || firstNameInput.getText().isEmpty() || dpDateNaissance.getValue() == null
+                || nationalIdInput.getText().isEmpty() || genderComboBox.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing fields");
             alert.setHeaderText(null);
@@ -313,21 +313,21 @@ public void Ajouter(ActionEvent event) {
 
         try {
             DoctorPatient patient = new DoctorPatient();
-            patient.setNom(tfNom.getText());
-            patient.setPrenom(tfPrenom.getText());
+            patient.setName(nameInput.getText());
+            patient.setFirstName(firstNameInput.getText());
             patient.setDateNaissance(dpDateNaissance.getValue()); // LocalDate
-            patient.setCnie(tfCnie.getText());
-            patient.setVille(tfVille.getText());
-            patient.setTelephone(tfTelephone.getText());
-            patient.setAdresse(tfAdresse.getText());
-            patient.setSexe(cbSexe.getValue());
+            patient.setNationalId(nationalIdInput.getText());
+            patient.setCity(cityInput.getText());
+            patient.setPhone(phoneInput.getText());
+            patient.setAddress(addressInput.getText());
+            patient.setGender(genderComboBox.getValue());
 
             // ⚠ Verify that idDoctor is properly initialized
             if (idDoctor == 0) {
                 throw new IllegalStateException("Doctor ID is not initialized.");
             }
 
-            DoctorPatientDAO.inserer(patient, idDoctor); // DAO call
+            DoctorPatientDAO.insert(patient, idDoctor); // DAO call
 
             dialogStage.close();
             loadPatients(); // Reload the table
@@ -356,7 +356,7 @@ public void Ajouter(ActionEvent event) {
 
 
     @FXML
-    void Exporter(ActionEvent event) {
+    void handleExport(ActionEvent event) {
         System.out.println("Export data (feature not implemented)");
     }
     private Doctor currentDoctor ;
@@ -364,51 +364,51 @@ public void Ajouter(ActionEvent event) {
         this.currentDoctor = doctor ;
     }
     @FXML
-    void Parametre(ActionEvent event) {
+    void handleSettings(ActionEvent event) {
         Stage dialogStage = new Stage();
     dialogStage.setTitle("Edit your information");
     dialogStage.initModality(Modality.APPLICATION_MODAL);
     dialogStage.setResizable(false);
 
-    TextField tfNom = new TextField();
-    tfNom.setPromptText("Name");
-    tfNom.setText(currentDoctor.getNom());
-    
+    TextField nameInput = new TextField();
+    nameInput.setPromptText("Name");
+    nameInput.setText(currentDoctor.getName());
+
     TextField tfNomCabinet = new TextField();
     tfNomCabinet.setPromptText("Clinic name");
-    tfNomCabinet.setText(currentDoctor.getNomCabinet());
-    
-    TextField tfPrenom = new TextField();
-    tfPrenom.setPromptText("First name");
-    tfPrenom.setText(currentDoctor.getPrenom());
-    
-    TextField tfAdresse = new TextField();
-    tfAdresse.setPromptText("Clinic address");
-    tfAdresse.setText(currentDoctor.getAdresseCabinet());
+    tfNomCabinet.setText(currentDoctor.getClinicName());
 
-    TextField tfCnie = new TextField();
-    tfCnie.setPromptText("CNIE");
-    tfCnie.setText(currentDoctor.getCnie());
+    TextField firstNameInput = new TextField();
+    firstNameInput.setPromptText("First name");
+    firstNameInput.setText(currentDoctor.getFirstName());
+
+    TextField addressInput = new TextField();
+    addressInput.setPromptText("Clinic address");
+    addressInput.setText(currentDoctor.getClinicAddress());
+
+    TextField nationalIdInput = new TextField();
+    nationalIdInput.setPromptText("CNIE");
+    nationalIdInput.setText(currentDoctor.getNationalId());
 
     TextField tftele = new TextField();
     tftele.setPromptText("Phone");
-    tftele.setText(currentDoctor.getTelephone());
-    
+    tftele.setText(currentDoctor.getPhone());
+
     TextField tfSpec = new TextField();
     tfSpec.setPromptText("Specialty");
-    tfSpec.setText(currentDoctor.getSpecialite());
-    
+    tfSpec.setText(currentDoctor.getSpecialty());
+
     TextField tfmotPasse = new TextField();
     tfmotPasse.setPromptText("Password");
-    tfmotPasse.setText(currentDoctor.getMotDePasse());
+    tfmotPasse.setText(currentDoctor.getPassword());
 
     Button btnAjouter = new Button("Update");
     Button btnAnnuler = new Button("Cancel");
 
     // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, tfNom, tfNomCabinet);
-    HBox hbox2 = new HBox(10, tfPrenom, tfAdresse);
-    HBox hbox3 = new HBox(10, tfCnie, tftele);
+    HBox hbox1 = new HBox(10, nameInput, tfNomCabinet);
+    HBox hbox2 = new HBox(10, firstNameInput, addressInput);
+    HBox hbox3 = new HBox(10, nationalIdInput, tftele);
     HBox hbox4 = new HBox(10, tfSpec, tfmotPasse);
     HBox hbox5 = new HBox(15, btnAjouter, btnAnnuler);
 
@@ -417,10 +417,10 @@ public void Ajouter(ActionEvent event) {
     hbox2.setPadding(new Insets(5));
     hbox3.setPadding(new Insets(10));
 
-    // Margin (outer spacing) example: add margin around tfNom and tfVille in hbox1
-    HBox.setMargin(tfNom, new Insets(0, 10, 0, 0));  // right margin of 10px
-    HBox.setMargin(tfPrenom, new Insets(0, 10, 0, 0));
-    HBox.setMargin(tfCnie, new Insets(0, 10, 0, 0));
+    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
+    HBox.setMargin(nameInput, new Insets(0, 10, 0, 0));  // right margin of 10px
+    HBox.setMargin(firstNameInput, new Insets(0, 10, 0, 0));
+    HBox.setMargin(nationalIdInput, new Insets(0, 10, 0, 0));
     HBox.setMargin(tfSpec, new Insets(0, 10, 0, 0));
     HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
@@ -441,8 +441,8 @@ public void Ajouter(ActionEvent event) {
 
     btnAjouter.setOnAction(e -> {
         // Check required fields
-        if (tfNom.getText().isEmpty() || tfPrenom.getText().isEmpty() ||
-                tfCnie.getText().isEmpty()|| tfSpec.getText().isEmpty()||
+        if (nameInput.getText().isEmpty() || firstNameInput.getText().isEmpty() ||
+                nationalIdInput.getText().isEmpty()|| tfSpec.getText().isEmpty()||
                 tfmotPasse.getText().isEmpty() ||tfNomCabinet.getText() .isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Missing fields");
@@ -454,16 +454,16 @@ public void Ajouter(ActionEvent event) {
 
         try {
             Doctor newdoctor = new Doctor();
-            newdoctor.setNom(tfNom.getText());
-            newdoctor.setPrenom(tfPrenom.getText());
-            newdoctor.setMotDePasse(tfmotPasse.getText());
-            newdoctor.setAdresseCabinet(tfAdresse.getText()); // LocalDate
-            newdoctor.setCnie(tfCnie.getText());
-            newdoctor.setNomCabinet(tfNomCabinet.getText());
-            newdoctor.setSpecialite(tfSpec.getText());
-            newdoctor.setTelephone(tftele.getText());
+            newdoctor.setName(nameInput.getText());
+            newdoctor.setFirstName(firstNameInput.getText());
+            newdoctor.setPassword(tfmotPasse.getText());
+            newdoctor.setClinicAddress(addressInput.getText()); // LocalDate
+            newdoctor.setNationalId(nationalIdInput.getText());
+            newdoctor.setClinicName(tfNomCabinet.getText());
+            newdoctor.setSpecialty(tfSpec.getText());
+            newdoctor.setPhone(tftele.getText());
             newdoctor.setId(idDoctor);
-            field_doctor.setText(tfNom.getText());
+            doctorNameField.setText(nameInput.getText());
 
             DoctorDAO.update(newdoctor); // DAO call
             dialogStage.close();
@@ -491,18 +491,18 @@ public void Ajouter(ActionEvent event) {
     }
 
     @FXML
-    void Recherche(ActionEvent event) {
-        String keyword = f_recherche.getText().toLowerCase();
+    void handleSearch(ActionEvent event) {
+        String keyword = searchField.getText().toLowerCase();
         ObservableList<DoctorPatient> filtered = FXCollections.observableArrayList();
 
         for (DoctorPatient p : patientsList) {
-            if (p.getNom().toLowerCase().contains(keyword) ||
-                p.getPrenom().toLowerCase().contains(keyword) ||
-                p.getCnie().toLowerCase().contains(keyword)) {
+            if (p.getName().toLowerCase().contains(keyword) ||
+                p.getFirstName().toLowerCase().contains(keyword) ||
+                p.getNationalId().toLowerCase().contains(keyword)) {
                 filtered.add(p);
             }
         }
 
-        table_patient.setItems(filtered);
+        patientTable.setItems(filtered);
     }
 }

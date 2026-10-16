@@ -140,8 +140,16 @@ Keep the password chosen for `medical_center`. Then, from the project root, crea
 
 ```bash
 psql -h localhost -p 5432 -U medical_center -d hospital_manager -W \
-  --single-transaction -v ON_ERROR_STOP=1 \
+  -v ON_ERROR_STOP=1 \
   -f src/utils/database.sql
+```
+
+Then load the dataset :
+
+```bash
+psql -h localhost -p 5432 -U medical_center -d hospital_manager -W \
+  -v ON_ERROR_STOP=1 \
+  -f src/utils/dataset.sql
 ```
 
 This script initializes the tables in an empty database. It does not drop the database, create the role, or copy data from an old MySQL database. Do not run it again on an already initialized database: the tables already exist and creation will fail. To migrate existing MySQL data, follow a separate export/import procedure and verify the data before switching over.

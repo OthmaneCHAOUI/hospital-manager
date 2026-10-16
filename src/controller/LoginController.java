@@ -27,35 +27,35 @@ import model.PatientDAO;
 public class LoginController {
 
     @FXML
-    private Button btn_connexion;
+    private Button loginButton;
 
     @FXML
-    private TextField f_cnie;
+    private TextField f_nationalId;
 
     @FXML
     private PasswordField f_password;
 
     @FXML
-    private RadioButton rd_doctor;
+    private RadioButton doctorRadioButton;
 
     @FXML
-    private RadioButton rd_patient;
+    private RadioButton patientRadioButton;
 
     @FXML
     private ToggleGroup type;
-    
-    @FXML
-    private Hyperlink hyper_doctor;
 
     @FXML
-    private Hyperlink hyper_patient;
-    
+    private Hyperlink doctorLink;
+
+    @FXML
+    private Hyperlink patientLink;
+
      @FXML
     private Label label_incorrect;
-    
-    
+
+
     @FXML
-    public void GoToFormDocteur(ActionEvent event) throws IOException {
+    public void goToDoctorForm(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/doctor_form.fxml")) ;
         Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -64,7 +64,7 @@ public class LoginController {
         stage.show();
     }
     @FXML
-    public void GoToFormPatient(ActionEvent event) throws IOException {
+    public void goToPatientForm(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/patient_form.fxml")) ;
         Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -72,7 +72,7 @@ public class LoginController {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     public void goToPatientDashboard(ActionEvent event, Patient patient) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/patient_dashboard_view.fxml"));
         Parent root = loader.load();
@@ -85,14 +85,14 @@ public class LoginController {
         stage.setScene(scene);
         stage.show();
     }
-    
+
      public void goToDoctorDashboard(ActionEvent event, Doctor doctor) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/doctor_dashboard_view.fxml"));
         Parent root = loader.load();
 
         DoctorDashboardController controller = (DoctorDashboardController) loader.getController();
-        controller.setnomDoctor(doctor.getNom());
-        controller.setIdDoctor(doctor.getId());
+        controller.setDoctorName(doctor.getName());
+        controller.setDoctorId(doctor.getId());
         controller.setDoctor(doctor);
 
         Scene scene = new Scene(root);
@@ -101,14 +101,14 @@ public class LoginController {
         stage.show();
     }
 
-    
+
     @FXML
-    public void ButtonConnexion(ActionEvent event) throws SQLException, IOException{
-        if(f_cnie.getText().trim().isEmpty() || f_password.getText().trim().isEmpty() || type.getSelectedToggle() == null){ 
-            if (f_cnie.getText().trim().isEmpty()) {
-                f_cnie.setPromptText("National ID is required");
-                f_cnie.setStyle("-fx-prompt-text-fill : red");
-                f_cnie.getStyleClass().add("field-error");
+    public void handleLogin(ActionEvent event) throws SQLException, IOException{
+        if(f_nationalId.getText().trim().isEmpty() || f_password.getText().trim().isEmpty() || type.getSelectedToggle() == null){
+            if (f_nationalId.getText().trim().isEmpty()) {
+                f_nationalId.setPromptText("National ID is required");
+                f_nationalId.setStyle("-fx-prompt-text-fill : red");
+                f_nationalId.getStyleClass().add("field-error");
             }
             if (f_password.getText().trim().isEmpty()) {
                 f_password.setPromptText("Password is required");
@@ -116,31 +116,31 @@ public class LoginController {
                 f_password.getStyleClass().add("field-error");
             }
             if (type.getSelectedToggle() == null) {
-               rd_doctor.setStyle("-fx-text-fill: red; -fx-radio-color: red;");
-               rd_patient.setStyle("-fx-text-fill: red; -fx-radio-color: red;");
+               doctorRadioButton.setStyle("-fx-text-fill: red; -fx-radio-color: red;");
+               patientRadioButton.setStyle("-fx-text-fill: red; -fx-radio-color: red;");
             }
 
         }else{
-            if(rd_doctor.isSelected()){
-                Doctor doctor = DoctorDAO.checkDoctorByCniePassword(f_cnie.getText(), f_password.getText());
+            if(doctorRadioButton.isSelected()){
+                Doctor doctor = DoctorDAO.checkDoctorByCniePassword(f_nationalId.getText(), f_password.getText());
                 if(doctor != null){
-                          System.out.println("Login successful: Welcome Dr."+doctor.getNom()+" "+doctor.getPrenom());
+                          System.out.println("Login successful: Welcome Dr."+doctor.getName()+" "+doctor.getFirstName());
                           goToDoctorDashboard(event,doctor);
                 }else{
                         System.out.println("Login failed");
                         label_incorrect.setStyle("-fx-opacity : 1.0");
                 }
             }else{
-                Patient patient = PatientDAO.checkPatientByCniePassword(f_cnie.getText(), f_password.getText());
+                Patient patient = PatientDAO.checkPatientByCniePassword(f_nationalId.getText(), f_password.getText());
                 if(patient != null){
-                          System.out.println("Login successful: Welcome "+patient.getNom()+" "+patient.getPrenom());
+                          System.out.println("Login successful: Welcome "+patient.getName()+" "+patient.getFirstName());
                           goToPatientDashboard(event, patient);
                 }else{
                         System.out.println("Login failed");
                         label_incorrect.setStyle("-fx-opacity : 1.0");
                 }
             }
-        
+
         }
     }
 }

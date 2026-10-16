@@ -59,7 +59,7 @@
     -fx-border-color: #0969da;
 }
 
-.connexion-button {
+.login-button {
     -fx-background-color: #1f883d;
     -fx-background-radius: 6px;
     -fx-border-radius: 6px;
@@ -70,7 +70,7 @@
     -fx-cursor: hand;
 }
 
-.connexion-button:hover {
+.login-button:hover {
     -fx-background-color: #1a7f37;
 }
 

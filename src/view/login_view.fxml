@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0" prefWidth="867.0" styleClass="auth-page" stylesheets="@../style/connexionStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0" prefWidth="867.0" styleClass="auth-page" stylesheets="@../style/loginStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <GridPane alignment="CENTER" scaleShape="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -71,7 +71,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="f_cnie" maxWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="CNIE" styleClass="field">
+                  <TextField fx:id="f_nationalId" maxWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="National ID" styleClass="field">
                      <VBox.margin>
                         <Insets bottom="30.0" />
                      </VBox.margin>
@@ -83,7 +83,7 @@
                   </PasswordField>
                   <HBox alignment="CENTER" prefHeight="123.0" prefWidth="466.0" spacing="40.0">
                      <children>
-                        <RadioButton fx:id="rd_patient" mnemonicParsing="false" text="Patient" textFill="LIMEGREEN">
+                        <RadioButton fx:id="patientRadioButton" mnemonicParsing="false" text="Patient" textFill="LIMEGREEN">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -91,14 +91,14 @@
                               <ToggleGroup fx:id="type" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="rd_doctor" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Doctor" textFill="LIMEGREEN" toggleGroup="$type">
+                        <RadioButton fx:id="doctorRadioButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Doctor" textFill="LIMEGREEN" toggleGroup="$type">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </RadioButton>
                      </children>
                   </HBox>
-                  <Button fx:id="btn_connexion" mnemonicParsing="false" onAction="#ButtonConnexion" prefHeight="50.0" prefWidth="100.0" styleClass="connexion-button" text="Login" />
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#handleLogin" prefHeight="50.0" prefWidth="100.0" styleClass="login-button" text="Login" />
                   <GridPane alignment="CENTER_RIGHT" prefHeight="215.0" prefWidth="466.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" />
@@ -110,7 +110,7 @@
                      <children>
                         <StackPane alignment="BOTTOM_RIGHT" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <children>
-                              <Hyperlink fx:id="hyper_doctor" alignment="CENTER_RIGHT" onAction="#GoToFormDocteur" text="Create doctor account">
+                              <Hyperlink fx:id="doctorLink" alignment="CENTER_RIGHT" onAction="#goToDoctorForm" text="Create doctor account">
                                  <StackPane.margin>
                                     <Insets bottom="20.0" right="10.0" />
                                  </StackPane.margin>
@@ -122,7 +122,7 @@
                         </StackPane>
                         <StackPane alignment="BOTTOM_LEFT" prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <Hyperlink fx:id="hyper_patient" onAction="#GoToFormPatient" text="Create patient account">
+                              <Hyperlink fx:id="patientLink" onAction="#goToPatientForm" text="Create patient account">
                                  <StackPane.margin>
                                     <Insets bottom="20.0" left="10.0" />
                                  </StackPane.margin>
