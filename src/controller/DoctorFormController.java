@@ -108,16 +108,16 @@ public class DoctorFormController {
         }
 
         Doctor d = new Doctor(
-            f_name.getText(),
-            f_firstName.getText(),
-            f_nationalId.getText(),
-            f_specialty.getText(),
-            f_clinic_name.getText(),
-            f_phone.getText(),
-            f_clinicAddress.getText(),
-            f_password.getText()
-        );
-        System.out.println(f_name.getText() + f_firstName.getText() + f_nationalId.getText() + f_specialty.getText() + f_clinic_name.getText() + f_phone.getText() + f_clinicAddress.getText() + f_password.getText());
+                f_name.getText(),
+                f_firstName.getText(),
+                f_nationalId.getText(),
+                f_specialty.getText(),
+                f_clinic_name.getText(),
+                f_phone.getText(),
+                f_clinicAddress.getText(),
+                f_password.getText());
+        System.out.println(f_name.getText() + f_firstName.getText() + f_nationalId.getText() + f_specialty.getText()
+                + f_clinic_name.getText() + f_phone.getText() + f_clinicAddress.getText() + f_password.getText());
 
         int etat = DoctorDAO.insert(d);
 

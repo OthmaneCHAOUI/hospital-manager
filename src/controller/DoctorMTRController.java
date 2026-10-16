@@ -43,7 +43,8 @@ import model.MedicalTest;
 import model.MedicalTestDAO;
 
 /**
- * Manages the doctor’s patient records for medications, tests, and appointments.
+ * Manages the doctor’s patient records for medications, tests, and
+ * appointments.
  */
 public class DoctorMTRController {
 
@@ -195,10 +196,10 @@ public class DoctorMTRController {
                 filterMedications(newValue);
             });
             appointmentSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
-               filterAppointment(newValue);
+                filterAppointment(newValue);
             });
             medicalTestSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
-               filterMedicalTest(newValue);
+                filterMedicalTest(newValue);
             });
 
         } catch (Exception e) {
@@ -207,65 +208,68 @@ public class DoctorMTRController {
     }
 
     private void filterMedications(String keyword) {
-    FilteredList<Medication> filteredList = new FilteredList<>(medicationList, medication -> {
-        if (keyword == null || keyword.isEmpty()) return true;
-        String lowerKeyword = keyword.toLowerCase();
+        FilteredList<Medication> filteredList = new FilteredList<>(medicationList, medication -> {
+            if (keyword == null || keyword.isEmpty())
+                return true;
+            String lowerKeyword = keyword.toLowerCase();
 
-        return medication.getName().toLowerCase().contains(lowerKeyword) ||
-               medication.getDescription().toLowerCase().contains(lowerKeyword) ||
-               String.valueOf(medication.getDuration()).toLowerCase().contains(lowerKeyword) ||
-               medication.getStartDate().toString().contains(lowerKeyword);
-    });
+            return medication.getName().toLowerCase().contains(lowerKeyword) ||
+                    medication.getDescription().toLowerCase().contains(lowerKeyword) ||
+                    String.valueOf(medication.getDuration()).toLowerCase().contains(lowerKeyword) ||
+                    medication.getStartDate().toString().contains(lowerKeyword);
+        });
 
-    medicationTable.setItems(filteredList);
-}
-
+        medicationTable.setItems(filteredList);
+    }
 
     private void filterAppointment(String keyword) {
-    FilteredList<Appointment> filteredList = new FilteredList<>(appointmentList, rendez -> {
-        if (keyword == null || keyword.isEmpty()) return true;
-        String lowerKeyword = keyword.toLowerCase();
+        FilteredList<Appointment> filteredList = new FilteredList<>(appointmentList, rendez -> {
+            if (keyword == null || keyword.isEmpty())
+                return true;
+            String lowerKeyword = keyword.toLowerCase();
 
-        return rendez.getReason().toLowerCase().contains(lowerKeyword) ||
-               rendez.getStatus().toLowerCase().contains(lowerKeyword) ||
-               rendez.getDateAppointment().toString().contains(lowerKeyword) ||
-               rendez.getTime().toString().contains(lowerKeyword);
-    });
+            return rendez.getReason().toLowerCase().contains(lowerKeyword) ||
+                    rendez.getStatus().toLowerCase().contains(lowerKeyword) ||
+                    rendez.getDateAppointment().toString().contains(lowerKeyword) ||
+                    rendez.getTime().toString().contains(lowerKeyword);
+        });
 
-    appointmentTable.setItems(filteredList);
-}
+        appointmentTable.setItems(filteredList);
+    }
 
     private void filterMedicalTest(String keyword) {
-    FilteredList<MedicalTest> filteredList = new FilteredList<>(testList, test -> {
-        if (keyword == null || keyword.isEmpty()) return true;
-        String lowerKeyword = keyword.toLowerCase();
+        FilteredList<MedicalTest> filteredList = new FilteredList<>(testList, test -> {
+            if (keyword == null || keyword.isEmpty())
+                return true;
+            String lowerKeyword = keyword.toLowerCase();
 
-        return test.getTestType().toLowerCase().contains(lowerKeyword) ||
-               test.getDoctorType().toLowerCase().contains(lowerKeyword) ||
-               test.getResult().toLowerCase().contains(lowerKeyword) ||
-               test.getStatus().toLowerCase().contains(lowerKeyword) ||
-               test.getTestDate().toString().contains(lowerKeyword);
-    });
+            return test.getTestType().toLowerCase().contains(lowerKeyword) ||
+                    test.getDoctorType().toLowerCase().contains(lowerKeyword) ||
+                    test.getResult().toLowerCase().contains(lowerKeyword) ||
+                    test.getStatus().toLowerCase().contains(lowerKeyword) ||
+                    test.getTestDate().toString().contains(lowerKeyword);
+        });
 
-    medicalTestTable.setItems(filteredList);
-}
-
+        medicalTestTable.setItems(filteredList);
+    }
 
     private void loadMedications() {
-        medicationList = FXCollections.observableArrayList(MedicationDAO.getMedications(nationalIdPatient,idDoctor));
+        medicationList = FXCollections.observableArrayList(MedicationDAO.getMedications(nationalIdPatient, idDoctor));
         medicationTable.setItems(medicationList);
     }
-    private void loadAppointment(){
-        appointmentList = FXCollections.observableArrayList(AppointmentDAO.getAppointment(nationalIdPatient,idDoctor));
+
+    private void loadAppointment() {
+        appointmentList = FXCollections.observableArrayList(AppointmentDAO.getAppointment(nationalIdPatient, idDoctor));
         appointmentTable.setItems(appointmentList);
     }
+
     private void loadMedicalTest() {
-        testList = FXCollections.observableArrayList(MedicalTestDAO.getTests(nationalIdPatient,idDoctor));
+        testList = FXCollections.observableArrayList(MedicalTestDAO.getTests(nationalIdPatient, idDoctor));
         medicalTestTable.setItems(testList);
     }
-    @FXML
-    private Text patientName ;
 
+    @FXML
+    private Text patientName;
 
     @FXML
     void handleExport(ActionEvent event) {
@@ -282,47 +286,48 @@ public class DoctorMTRController {
 
     }
 
-    private boolean rdLoaded = false ;
-    private boolean medicationLoaded = true ;
-    private boolean testLoaded = false ;
+    private boolean rdLoaded = false;
+    private boolean medicationLoaded = true;
+    private boolean testLoaded = false;
     private int inter = 1;
-    @FXML
-    void switchToAppointment(ActionEvent event){
 
-        if(!rdLoaded){
+    @FXML
+    void switchToAppointment(ActionEvent event) {
+
+        if (!rdLoaded) {
             loadAppointment();
-            rdLoaded = true ;
+            rdLoaded = true;
         }
         inter = 3;
         switchForm(3);
     }
-    @FXML
-    void switchToMedication(ActionEvent event){
 
-        if(!medicationLoaded){
+    @FXML
+    void switchToMedication(ActionEvent event) {
+
+        if (!medicationLoaded) {
             loadMedications();
-            medicationLoaded = true ;
+            medicationLoaded = true;
         }
         inter = 1;
         switchForm(1);
     }
-    @FXML
-    void switchToMedicalTest(ActionEvent event){
 
-        if(!testLoaded){
+    @FXML
+    void switchToMedicalTest(ActionEvent event) {
+
+        if (!testLoaded) {
             loadMedicalTest();
-            testLoaded = true ;
+            testLoaded = true;
         }
         inter = 2;
-       switchForm(2);
+        switchForm(2);
     }
 
     private int idDoctor;
     private String nationalIdPatient;
     private String namePatient;
     private String firstNamePatient;
-
-
 
     public void setDoctorId(int idDoctor) {
         this.idDoctor = idDoctor;
@@ -335,821 +340,821 @@ public class DoctorMTRController {
     public void setPatientName(String namePatient) {
         this.namePatient = namePatient;
     }
-     public void setPatientFirstName(String firstNamePatient) {
+
+    public void setPatientFirstName(String firstNamePatient) {
         this.firstNamePatient = firstNamePatient;
-        String res = "" ;
-        res = namePatient +" "+ firstNamePatient;
+        String res = "";
+        res = namePatient + " " + firstNamePatient;
         patientName.setText(res);
         loadMedications();
     }
 
-    public void switchForm(int choix){
-        switch(choix){
-                case 1 :
-                    interfaceMedication.setVisible(true);
-                    interfaceAppointment.setVisible(false);
-                    interfaceTest.setVisible(false);
-                    break ;
-                case 2 :
-                    interfaceTest.setVisible(true);
-                    interfaceMedication.setVisible(false);
-                    interfaceAppointment.setVisible(false);
-                    break ;
-                case 3 :
-                    interfaceAppointment.setVisible(true);
-                    interfaceTest.setVisible(false);
-                    interfaceMedication.setVisible(false);
-                    break ;
+    public void switchForm(int choix) {
+        switch (choix) {
+            case 1:
+                interfaceMedication.setVisible(true);
+                interfaceAppointment.setVisible(false);
+                interfaceTest.setVisible(false);
+                break;
+            case 2:
+                interfaceTest.setVisible(true);
+                interfaceMedication.setVisible(false);
+                interfaceAppointment.setVisible(false);
+                break;
+            case 3:
+                interfaceAppointment.setVisible(true);
+                interfaceTest.setVisible(false);
+                interfaceMedication.setVisible(false);
+                break;
         }
     }
-
 
     private void addActionButtonsToTableMedication() {
-    Callback<TableColumn<Medication, Void>, TableCell<Medication, Void>> cellFactory = new Callback<>() {
-        @Override
-        public TableCell<Medication, Void> call(final TableColumn<Medication, Void> param) {
-            return new TableCell<>() {
-                private final Button btnVoir = new Button();
-                private final Button btnSupprimer = new Button();
-                private final HBox pane = new HBox(35);
-
-                {
-                    ImageView iconVoir = new ImageView(new Image(getClass().getResourceAsStream("/resources/edit.png")));
-                    iconVoir.setFitHeight(18);
-                    iconVoir.setFitWidth(18);
-                    btnVoir.setGraphic(iconVoir);
-                    btnVoir.setStyle("-fx-background-color: transparent;");
-
-                    ImageView iconSupprimer = new ImageView(new Image(getClass().getResourceAsStream("/resources/delete.png")));
-                    iconSupprimer.setFitHeight(18);
-                    iconSupprimer.setFitWidth(18);
-                    btnSupprimer.setGraphic(iconSupprimer);
-                    btnSupprimer.setStyle("-fx-background-color: transparent;");
-
-                    pane.getChildren().addAll(btnVoir, btnSupprimer);
-
-                    btnVoir.setOnAction(event -> {
-                        Medication medication = getTableView().getItems().get(getIndex());
-                        voirMedication(medication);
-                    });
-
-                    btnSupprimer.setOnAction(event -> {
-                        Medication medication = getTableView().getItems().get(getIndex());
-                        deleteMedication(medication);
-                    });
-                }
-
-                @Override
-                protected void updateItem(Void item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        setGraphic(pane);
-                    }
-                }
-            };
-        }
-    };
-
-    Medication_column_action.setCellFactory(cellFactory);
-}
-    private void addActionButtonsToTableTest() {
-    Callback<TableColumn<MedicalTest, Void>, TableCell<MedicalTest, Void>> cellFactory = new Callback<>() {
-        @Override
-        public TableCell<MedicalTest, Void> call(final TableColumn<MedicalTest, Void> param) {
-            return new TableCell<>() {
-                private final Button btnVoir = new Button();
-                private final Button btnSupprimer = new Button();
-                private final HBox pane = new HBox(35);
-
-                {
-                    ImageView iconVoir = new ImageView(new Image(getClass().getResourceAsStream("/resources/info.png")));
-                    iconVoir.setFitHeight(18);
-                    iconVoir.setFitWidth(18);
-                    btnVoir.setGraphic(iconVoir);
-                    btnVoir.setStyle("-fx-background-color: transparent;");
-
-                    ImageView iconSupprimer = new ImageView(new Image(getClass().getResourceAsStream("/resources/delete.png")));
-                    iconSupprimer.setFitHeight(18);
-                    iconSupprimer.setFitWidth(18);
-                    btnSupprimer.setGraphic(iconSupprimer);
-                    btnSupprimer.setStyle("-fx-background-color: transparent;");
-
-                    pane.getChildren().addAll(btnVoir, btnSupprimer);
-
-                    btnVoir.setOnAction(event -> {
-                        MedicalTest medicalTest = getTableView().getItems().get(getIndex());
-                        voirMedicalTest(medicalTest);
-                    });
-
-                    btnSupprimer.setOnAction(event -> {
-                        MedicalTest medicalTest = getTableView().getItems().get(getIndex());
-                        deleteMedicalTest(medicalTest);
-                    });
-                }
-
-                @Override
-                protected void updateItem(Void item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        setGraphic(pane);
-                    }
-                }
-            };
-        }
-    };
-
-    Test_column_action.setCellFactory(cellFactory);
-}
-
-private void addActionButtonsToTableAppointment() {
-Callback<TableColumn<Appointment, Void>, TableCell<Appointment, Void>> cellFactory = new Callback<>() {
-    @Override
-    public TableCell<Appointment, Void> call(final TableColumn<Appointment, Void> param) {
-        return new TableCell<>() {
-            private final Button btnVoir = new Button();
-            private final Button btnSupprimer = new Button();
-            private final HBox pane = new HBox(35);
-
-            {
-                ImageView iconVoir = new ImageView(new Image(getClass().getResourceAsStream("/resources/info.png")));
-                iconVoir.setFitHeight(18);
-                iconVoir.setFitWidth(18);
-                btnVoir.setGraphic(iconVoir);
-                btnVoir.setStyle("-fx-background-color: transparent;");
-
-                ImageView iconSupprimer = new ImageView(new Image(getClass().getResourceAsStream("/resources/delete.png")));
-                iconSupprimer.setFitHeight(18);
-                iconSupprimer.setFitWidth(18);
-                btnSupprimer.setGraphic(iconSupprimer);
-                btnSupprimer.setStyle("-fx-background-color: transparent;");
-
-                pane.getChildren().addAll(btnVoir, btnSupprimer);
-
-                btnVoir.setOnAction(event -> {
-                    Appointment appointment = getTableView().getItems().get(getIndex());
-                    voirAppointment(appointment);
-                });
-
-                btnSupprimer.setOnAction(event -> {
-                    Appointment appointment = getTableView().getItems().get(getIndex());
-                    deleteAppointment(appointment);
-                });
-            }
-
+        Callback<TableColumn<Medication, Void>, TableCell<Medication, Void>> cellFactory = new Callback<>() {
             @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(pane);
-                }
+            public TableCell<Medication, Void> call(final TableColumn<Medication, Void> param) {
+                return new TableCell<>() {
+                    private final Button btnVoir = new Button();
+                    private final Button btnSupprimer = new Button();
+                    private final HBox pane = new HBox(35);
+
+                    {
+                        ImageView iconVoir = new ImageView(
+                                new Image(getClass().getResourceAsStream("/resources/edit.png")));
+                        iconVoir.setFitHeight(18);
+                        iconVoir.setFitWidth(18);
+                        btnVoir.setGraphic(iconVoir);
+                        btnVoir.setStyle("-fx-background-color: transparent;");
+
+                        ImageView iconSupprimer = new ImageView(
+                                new Image(getClass().getResourceAsStream("/resources/delete.png")));
+                        iconSupprimer.setFitHeight(18);
+                        iconSupprimer.setFitWidth(18);
+                        btnSupprimer.setGraphic(iconSupprimer);
+                        btnSupprimer.setStyle("-fx-background-color: transparent;");
+
+                        pane.getChildren().addAll(btnVoir, btnSupprimer);
+
+                        btnVoir.setOnAction(event -> {
+                            Medication medication = getTableView().getItems().get(getIndex());
+                            voirMedication(medication);
+                        });
+
+                        btnSupprimer.setOnAction(event -> {
+                            Medication medication = getTableView().getItems().get(getIndex());
+                            deleteMedication(medication);
+                        });
+                    }
+
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(pane);
+                        }
+                    }
+                };
             }
         };
-    }
-};
 
-Appointment_column_action.setCellFactory(cellFactory);
-}
+        Medication_column_action.setCellFactory(cellFactory);
+    }
+
+    private void addActionButtonsToTableTest() {
+        Callback<TableColumn<MedicalTest, Void>, TableCell<MedicalTest, Void>> cellFactory = new Callback<>() {
+            @Override
+            public TableCell<MedicalTest, Void> call(final TableColumn<MedicalTest, Void> param) {
+                return new TableCell<>() {
+                    private final Button btnVoir = new Button();
+                    private final Button btnSupprimer = new Button();
+                    private final HBox pane = new HBox(35);
+
+                    {
+                        ImageView iconVoir = new ImageView(
+                                new Image(getClass().getResourceAsStream("/resources/info.png")));
+                        iconVoir.setFitHeight(18);
+                        iconVoir.setFitWidth(18);
+                        btnVoir.setGraphic(iconVoir);
+                        btnVoir.setStyle("-fx-background-color: transparent;");
+
+                        ImageView iconSupprimer = new ImageView(
+                                new Image(getClass().getResourceAsStream("/resources/delete.png")));
+                        iconSupprimer.setFitHeight(18);
+                        iconSupprimer.setFitWidth(18);
+                        btnSupprimer.setGraphic(iconSupprimer);
+                        btnSupprimer.setStyle("-fx-background-color: transparent;");
+
+                        pane.getChildren().addAll(btnVoir, btnSupprimer);
+
+                        btnVoir.setOnAction(event -> {
+                            MedicalTest medicalTest = getTableView().getItems().get(getIndex());
+                            voirMedicalTest(medicalTest);
+                        });
+
+                        btnSupprimer.setOnAction(event -> {
+                            MedicalTest medicalTest = getTableView().getItems().get(getIndex());
+                            deleteMedicalTest(medicalTest);
+                        });
+                    }
+
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(pane);
+                        }
+                    }
+                };
+            }
+        };
+
+        Test_column_action.setCellFactory(cellFactory);
+    }
+
+    private void addActionButtonsToTableAppointment() {
+        Callback<TableColumn<Appointment, Void>, TableCell<Appointment, Void>> cellFactory = new Callback<>() {
+            @Override
+            public TableCell<Appointment, Void> call(final TableColumn<Appointment, Void> param) {
+                return new TableCell<>() {
+                    private final Button btnVoir = new Button();
+                    private final Button btnSupprimer = new Button();
+                    private final HBox pane = new HBox(35);
+
+                    {
+                        ImageView iconVoir = new ImageView(
+                                new Image(getClass().getResourceAsStream("/resources/info.png")));
+                        iconVoir.setFitHeight(18);
+                        iconVoir.setFitWidth(18);
+                        btnVoir.setGraphic(iconVoir);
+                        btnVoir.setStyle("-fx-background-color: transparent;");
+
+                        ImageView iconSupprimer = new ImageView(
+                                new Image(getClass().getResourceAsStream("/resources/delete.png")));
+                        iconSupprimer.setFitHeight(18);
+                        iconSupprimer.setFitWidth(18);
+                        btnSupprimer.setGraphic(iconSupprimer);
+                        btnSupprimer.setStyle("-fx-background-color: transparent;");
+
+                        pane.getChildren().addAll(btnVoir, btnSupprimer);
+
+                        btnVoir.setOnAction(event -> {
+                            Appointment appointment = getTableView().getItems().get(getIndex());
+                            voirAppointment(appointment);
+                        });
+
+                        btnSupprimer.setOnAction(event -> {
+                            Appointment appointment = getTableView().getItems().get(getIndex());
+                            deleteAppointment(appointment);
+                        });
+                    }
+
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(pane);
+                        }
+                    }
+                };
+            }
+        };
+
+        Appointment_column_action.setCellFactory(cellFactory);
+    }
 
     private void deleteMedication(Medication medication) {
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Delete confirmation");
-    alert.setHeaderText(null);
-    alert.setContentText("Are you sure you want to delete the medication " + medication.getName() + "?");
-    alert.showAndWait().ifPresent(response -> {
-        if (response == ButtonType.OK) {
-            MedicationDAO.delete(medication.getId());
-            loadMedications();  // reload the list after deletion
-        }
-    });
-}
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to delete the medication " + medication.getName() + "?");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                MedicationDAO.delete(medication.getId());
+                loadMedications(); // reload the list after deletion
+            }
+        });
+    }
 
-    private void voirMedication(Medication medication){
+    private void voirMedication(Medication medication) {
 
         Stage dialogStage = new Stage();
-    dialogStage.setTitle("Edit medication for "+""+namePatient);
-    dialogStage.initModality(Modality.APPLICATION_MODAL);
-    dialogStage.setResizable(false);
+        dialogStage.setTitle("Edit medication for " + "" + namePatient);
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setResizable(false);
 
-    TextField nameInput = new TextField();
-    nameInput.setText(medication.getName());
+        TextField nameInput = new TextField();
+        nameInput.setText(medication.getName());
 
-    DatePicker startDate = new DatePicker();
-    startDate.setValue(medication.getStartDate());
+        DatePicker startDate = new DatePicker();
+        startDate.setValue(medication.getStartDate());
 
-    TextField tfduration = new TextField();
-    tfduration.setText(String.valueOf(medication.getDuration()));
+        TextField tfduration = new TextField();
+        tfduration.setText(String.valueOf(medication.getDuration()));
 
-    TextField tfDescription = new TextField();
-    tfDescription.setText(medication.getDescription());
+        TextField tfDescription = new TextField();
+        tfDescription.setText(medication.getDescription());
 
-    Button btnAjouter = new Button("Add");
-    Button btnAnnuler = new Button("Cancel");
+        Button btnAjouter = new Button("Add");
+        Button btnAnnuler = new Button("Cancel");
 
-    // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, nameInput, startDate);
-    HBox hbox2 = new HBox(10, tfduration, tfDescription);
-    HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
+        // Spacing between elements in the HBox
+        HBox hbox1 = new HBox(10, nameInput, startDate);
+        HBox hbox2 = new HBox(10, tfduration, tfDescription);
+        HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
-    // Padding for each HBox (internal spacing)
-    hbox1.setPadding(new Insets(5));
-    hbox2.setPadding(new Insets(5));
-    hbox3.setPadding(new Insets(10));
+        // Padding for each HBox (internal spacing)
+        hbox1.setPadding(new Insets(5));
+        hbox2.setPadding(new Insets(5));
+        hbox3.setPadding(new Insets(10));
 
-    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
-    HBox.setMargin(nameInput, new Insets(0, 10, 0, 0));  // right margin of 10px
-    HBox.setMargin(tfduration, new Insets(0, 10, 0, 0));
-    HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
+        // Margin (outer spacing) example: add margin around nameInput and cityInput in
+        // hbox1
+        HBox.setMargin(nameInput, new Insets(0, 10, 0, 0)); // right margin of 10px
+        HBox.setMargin(tfduration, new Insets(0, 10, 0, 0));
+        HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
-    VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
+        VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
 
-    // Padding for the VBox (internal spacing all around)
-    vbox.setPadding(new Insets(20));
+        // Padding for the VBox (internal spacing all around)
+        vbox.setPadding(new Insets(20));
 
-    // Gray solid border, rounded corners 10px, thickness 2px
-    vbox.setBorder(new Border(new BorderStroke(
-        Color.GRAY,
-        BorderStrokeStyle.SOLID,
-        new CornerRadii(10),
-        new BorderWidths(2)
-    )));
+        // Gray solid border, rounded corners 10px, thickness 2px
+        vbox.setBorder(new Border(new BorderStroke(
+                Color.GRAY,
+                BorderStrokeStyle.SOLID,
+                new CornerRadii(10),
+                new BorderWidths(2))));
 
-    btnAnnuler.setOnAction(e -> dialogStage.close());
+        btnAnnuler.setOnAction(e -> dialogStage.close());
 
-    btnAjouter.setOnAction(e -> {
-        // Check required fields
-        if (nameInput.getText().isEmpty() || startDate.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Missing fields");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in all required fields (name, start date).");
-            alert.showAndWait();
-            return;
-        }
+        btnAjouter.setOnAction(e -> {
+            // Check required fields
+            if (nameInput.getText().isEmpty() || startDate.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Missing fields");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill in all required fields (name, start date).");
+                alert.showAndWait();
+                return;
+            }
 
-        try {
-            Medication newmedication = new Medication();
-            newmedication.setName(nameInput.getText());
-            newmedication.setStartDate(startDate.getValue()); // LocalDate
-            newmedication.setDuration(Integer.parseInt(tfduration.getText()));
-            newmedication.setDescription(tfDescription.getText());
-            newmedication.setId(medication.getId());
+            try {
+                Medication newmedication = new Medication();
+                newmedication.setName(nameInput.getText());
+                newmedication.setStartDate(startDate.getValue()); // LocalDate
+                newmedication.setDuration(Integer.parseInt(tfduration.getText()));
+                newmedication.setDescription(tfDescription.getText());
+                newmedication.setId(medication.getId());
 
-            MedicationDAO.editMedication(medication); // DAO call
-            dialogStage.close();
-            loadMedications(); // Reload the table
+                MedicationDAO.editMedication(medication); // DAO call
+                dialogStage.close();
+                loadMedications(); // Reload the table
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("SQL error");
-            alert.setHeaderText("Error adding medication");
-            alert.setContentText("Details: " + ex.getMessage());
-            alert.showAndWait();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Unexpected error");
-            alert.setContentText("Details: " + ex.getMessage());
-            alert.showAndWait();
-        }
-    });
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("SQL error");
+                alert.setHeaderText("Error adding medication");
+                alert.setContentText("Details: " + ex.getMessage());
+                alert.showAndWait();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Unexpected error");
+                alert.setContentText("Details: " + ex.getMessage());
+                alert.showAndWait();
+            }
+        });
 
-    Scene scene = new Scene(vbox);
-    dialogStage.setScene(scene);
-    dialogStage.showAndWait();
+        Scene scene = new Scene(vbox);
+        dialogStage.setScene(scene);
+        dialogStage.showAndWait();
 
     }
 
     private void deleteMedicalTest(MedicalTest medicalTest) {
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Delete confirmation");
-    alert.setHeaderText(null);
-    alert.setContentText("Are you sure you want to delete the medical test " + medicalTest.getTestType() + "?");
-    alert.showAndWait().ifPresent(response -> {
-        if (response == ButtonType.OK) {
-            MedicalTestDAO.delete(medicalTest.getId());
-            loadMedicalTest();  // reload the list after deletion
-        }
-    });
-}
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to delete the medical test " + medicalTest.getTestType() + "?");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                MedicalTestDAO.delete(medicalTest.getId());
+                loadMedicalTest(); // reload the list after deletion
+            }
+        });
+    }
 
-    private void voirMedicalTest(MedicalTest medicalTest){
-
-         Stage dialogStage = new Stage();
-    dialogStage.setTitle("Edit medical test for "+""+namePatient);
-    dialogStage.initModality(Modality.APPLICATION_MODAL);
-    dialogStage.setResizable(false);
-
-    TextField nameInput = new TextField();
-    nameInput.setText(medicalTest.getTestType());
-
-    DatePicker startDate = new DatePicker();
-    startDate.setValue(medicalTest.getTestDate());
-
-    TextField tfResult = new TextField();
-    tfResult.setText(medicalTest.getResult());
-
-    ComboBox<String> statusComboBox = new ComboBox<>();
-    statusComboBox.getItems().addAll("pending", "completed");
-    statusComboBox.setValue(medicalTest.getStatus());
-    ComboBox<String> typeComboBox = new ComboBox<>();
-    typeComboBox.getItems().addAll("internal", "external");
-    typeComboBox.setValue(medicalTest.getDoctorType());
-
-    Button btnAjouter = new Button("Update");
-    Button btnAnnuler = new Button("Cancel");
-
-    // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, nameInput, startDate);
-    HBox hbox2 = new HBox(10, tfResult, statusComboBox,typeComboBox);
-    HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
-
-    // Padding for each HBox (internal spacing)
-    hbox1.setPadding(new Insets(5));
-    hbox2.setPadding(new Insets(5));
-    hbox3.setPadding(new Insets(10));
-
-    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
-    HBox.setMargin(nameInput, new Insets(0, 10, 0, 0));  // right margin of 10px
-    HBox.setMargin(tfResult, new Insets(0, 10, 0, 0));
-    HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
-
-    VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
-
-    // Padding for the VBox (internal spacing all around)
-    vbox.setPadding(new Insets(20));
-
-    // Gray solid border, rounded corners 10px, thickness 2px
-    vbox.setBorder(new Border(new BorderStroke(
-        Color.GRAY,
-        BorderStrokeStyle.SOLID,
-        new CornerRadii(10),
-        new BorderWidths(2)
-    )));
-
-    btnAnnuler.setOnAction(e -> dialogStage.close());
-
-    btnAjouter.setOnAction(e -> {
-        // Check required fields
-        if (nameInput.getText().isEmpty() || startDate.getValue() == null || statusComboBox.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Missing fields");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in all required fields (name, test date, and status).");
-            alert.showAndWait();
-            return;
-        }
-
-        try {
-            MedicalTest newmedicalTest = new MedicalTest();
-            newmedicalTest.setTestType(nameInput.getText());
-            newmedicalTest.setTestDate(startDate.getValue()); // LocalDate
-            newmedicalTest.setResult(tfResult.getText());
-            newmedicalTest.setStatus(statusComboBox.getValue());
-            newmedicalTest.setDoctorType(typeComboBox.getValue());
-            newmedicalTest.setId(medicalTest.getId());
-
-            MedicalTestDAO.editTest(newmedicalTest); // DAO call
-            dialogStage.close();
-            loadMedicalTest(); // Reload the table
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("SQL error");
-            alert.setHeaderText("Error adding medical test");
-            alert.setContentText("Details: " + ex.getMessage());
-            alert.showAndWait();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Unexpected error");
-            alert.setContentText("Details: " + ex.getMessage());
-            alert.showAndWait();
-        }
-    });
-
-    Scene scene = new Scene(vbox);
-    dialogStage.setScene(scene);
-    dialogStage.showAndWait();
-       }
-
-
-
-    private void deleteAppointment(Appointment appointment) {
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Delete confirmation");
-    alert.setHeaderText(null);
-    alert.setContentText("Are you sure you want to delete the appointment dated " + appointment.getDateAppointment() + "?");
-    alert.showAndWait().ifPresent(response -> {
-        if (response == ButtonType.OK) {
-            AppointmentDAO.delete(appointment.getId());
-            loadAppointment();  // reload the list after deletion
-        }
-    });
-}
-
-    private void voirAppointment(Appointment appointment){
+    private void voirMedicalTest(MedicalTest medicalTest) {
 
         Stage dialogStage = new Stage();
-    dialogStage.setTitle("Edit appointment for "+""+namePatient);
-    dialogStage.initModality(Modality.APPLICATION_MODAL);
-    dialogStage.setResizable(false);
+        dialogStage.setTitle("Edit medical test for " + "" + namePatient);
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setResizable(false);
 
+        TextField nameInput = new TextField();
+        nameInput.setText(medicalTest.getTestType());
 
-    DatePicker date = new DatePicker();
-    date.setValue(appointment.getDateAppointment());
+        DatePicker startDate = new DatePicker();
+        startDate.setValue(medicalTest.getTestDate());
 
-    TextField tfRaisont = new TextField();
-    tfRaisont.setText(appointment.getReason());
-    TextField timeInput = new TextField();
-    timeInput.setText(String.valueOf(appointment.getTime()));
+        TextField tfResult = new TextField();
+        tfResult.setText(medicalTest.getResult());
 
-    ComboBox<String> statusComboBox = new ComboBox<>();
-    statusComboBox.getItems().addAll("absent", "upcoming", "present");
-    statusComboBox.setValue(appointment.getStatus());
+        ComboBox<String> statusComboBox = new ComboBox<>();
+        statusComboBox.getItems().addAll("pending", "completed");
+        statusComboBox.setValue(medicalTest.getStatus());
+        ComboBox<String> typeComboBox = new ComboBox<>();
+        typeComboBox.getItems().addAll("internal", "external");
+        typeComboBox.setValue(medicalTest.getDoctorType());
 
-    Button btnAjouter = new Button("Add");
-    Button btnAnnuler = new Button("Cancel");
+        Button btnAjouter = new Button("Update");
+        Button btnAnnuler = new Button("Cancel");
 
-    // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, date, timeInput);
-    HBox hbox2 = new HBox(10, tfRaisont, statusComboBox);
-    HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
+        // Spacing between elements in the HBox
+        HBox hbox1 = new HBox(10, nameInput, startDate);
+        HBox hbox2 = new HBox(10, tfResult, statusComboBox, typeComboBox);
+        HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
-    // Padding for each HBox (internal spacing)
-    hbox1.setPadding(new Insets(5));
-    hbox2.setPadding(new Insets(5));
-    hbox3.setPadding(new Insets(10));
+        // Padding for each HBox (internal spacing)
+        hbox1.setPadding(new Insets(5));
+        hbox2.setPadding(new Insets(5));
+        hbox3.setPadding(new Insets(10));
 
-    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
-    HBox.setMargin(date, new Insets(0, 10, 0, 0));  // right margin of 10px
-    HBox.setMargin(tfRaisont, new Insets(0, 10, 0, 0));
-    HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
+        // Margin (outer spacing) example: add margin around nameInput and cityInput in
+        // hbox1
+        HBox.setMargin(nameInput, new Insets(0, 10, 0, 0)); // right margin of 10px
+        HBox.setMargin(tfResult, new Insets(0, 10, 0, 0));
+        HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
-    VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
+        VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
 
-    // Padding for the VBox (internal spacing all around)
-    vbox.setPadding(new Insets(20));
+        // Padding for the VBox (internal spacing all around)
+        vbox.setPadding(new Insets(20));
 
-    // Gray solid border, rounded corners 10px, thickness 2px
-    vbox.setBorder(new Border(new BorderStroke(
-        Color.GRAY,
-        BorderStrokeStyle.SOLID,
-        new CornerRadii(10),
-        new BorderWidths(2)
-    )));
+        // Gray solid border, rounded corners 10px, thickness 2px
+        vbox.setBorder(new Border(new BorderStroke(
+                Color.GRAY,
+                BorderStrokeStyle.SOLID,
+                new CornerRadii(10),
+                new BorderWidths(2))));
 
-    btnAnnuler.setOnAction(e -> dialogStage.close());
+        btnAnnuler.setOnAction(e -> dialogStage.close());
 
-    btnAjouter.setOnAction(e -> {
-        // Check required fields
-        if (date.getValue() == null || statusComboBox.getValue() == null || timeInput.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Missing fields");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in all required fields (date, time, and status).");
-            alert.showAndWait();
-            return;
-        }
+        btnAjouter.setOnAction(e -> {
+            // Check required fields
+            if (nameInput.getText().isEmpty() || startDate.getValue() == null || statusComboBox.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Missing fields");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill in all required fields (name, test date, and status).");
+                alert.showAndWait();
+                return;
+            }
 
-        try {
-            Appointment newappointment = new Appointment();
-            newappointment.setDateAppointment(date.getValue());
-            newappointment.setReason(tfRaisont.getText()); // LocalDate
-            newappointment.setTime(LocalTime.parse(timeInput.getText()));
-            newappointment.setStatus(statusComboBox.getValue());
-            newappointment.setId(appointment.getId());
+            try {
+                MedicalTest newmedicalTest = new MedicalTest();
+                newmedicalTest.setTestType(nameInput.getText());
+                newmedicalTest.setTestDate(startDate.getValue()); // LocalDate
+                newmedicalTest.setResult(tfResult.getText());
+                newmedicalTest.setStatus(statusComboBox.getValue());
+                newmedicalTest.setDoctorType(typeComboBox.getValue());
+                newmedicalTest.setId(medicalTest.getId());
 
-            AppointmentDAO.editTest(appointment); // DAO call
-            dialogStage.close();
-            loadAppointment(); // Rechargement de la table
+                MedicalTestDAO.editTest(newmedicalTest); // DAO call
+                dialogStage.close();
+                loadMedicalTest(); // Reload the table
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("SQL error");
-            alert.setHeaderText("Error updating appointment");
-            alert.setContentText("Details: " + ex.getMessage());
-            alert.showAndWait();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Unexpected error");
-            alert.setContentText("Details: " + ex.getMessage());
-            alert.showAndWait();
-        }
-    });
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("SQL error");
+                alert.setHeaderText("Error adding medical test");
+                alert.setContentText("Details: " + ex.getMessage());
+                alert.showAndWait();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Unexpected error");
+                alert.setContentText("Details: " + ex.getMessage());
+                alert.showAndWait();
+            }
+        });
 
-    Scene scene = new Scene(vbox);
-    dialogStage.setScene(scene);
-    dialogStage.showAndWait();
+        Scene scene = new Scene(vbox);
+        dialogStage.setScene(scene);
+        dialogStage.showAndWait();
+    }
+
+    private void deleteAppointment(Appointment appointment) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText(
+                "Are you sure you want to delete the appointment dated " + appointment.getDateAppointment() + "?");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                AppointmentDAO.delete(appointment.getId());
+                loadAppointment(); // reload the list after deletion
+            }
+        });
+    }
+
+    private void voirAppointment(Appointment appointment) {
+
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Edit appointment for " + "" + namePatient);
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setResizable(false);
+
+        DatePicker date = new DatePicker();
+        date.setValue(appointment.getDateAppointment());
+
+        TextField tfRaisont = new TextField();
+        tfRaisont.setText(appointment.getReason());
+        TextField timeInput = new TextField();
+        timeInput.setText(String.valueOf(appointment.getTime()));
+
+        ComboBox<String> statusComboBox = new ComboBox<>();
+        statusComboBox.getItems().addAll("absent", "upcoming", "present");
+        statusComboBox.setValue(appointment.getStatus());
+
+        Button btnAjouter = new Button("Add");
+        Button btnAnnuler = new Button("Cancel");
+
+        // Spacing between elements in the HBox
+        HBox hbox1 = new HBox(10, date, timeInput);
+        HBox hbox2 = new HBox(10, tfRaisont, statusComboBox);
+        HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
+
+        // Padding for each HBox (internal spacing)
+        hbox1.setPadding(new Insets(5));
+        hbox2.setPadding(new Insets(5));
+        hbox3.setPadding(new Insets(10));
+
+        // Margin (outer spacing) example: add margin around nameInput and cityInput in
+        // hbox1
+        HBox.setMargin(date, new Insets(0, 10, 0, 0)); // right margin of 10px
+        HBox.setMargin(tfRaisont, new Insets(0, 10, 0, 0));
+        HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
+
+        VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
+
+        // Padding for the VBox (internal spacing all around)
+        vbox.setPadding(new Insets(20));
+
+        // Gray solid border, rounded corners 10px, thickness 2px
+        vbox.setBorder(new Border(new BorderStroke(
+                Color.GRAY,
+                BorderStrokeStyle.SOLID,
+                new CornerRadii(10),
+                new BorderWidths(2))));
+
+        btnAnnuler.setOnAction(e -> dialogStage.close());
+
+        btnAjouter.setOnAction(e -> {
+            // Check required fields
+            if (date.getValue() == null || statusComboBox.getValue() == null || timeInput.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Missing fields");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill in all required fields (date, time, and status).");
+                alert.showAndWait();
+                return;
+            }
+
+            try {
+                Appointment newappointment = new Appointment();
+                newappointment.setDateAppointment(date.getValue());
+                newappointment.setReason(tfRaisont.getText()); // LocalDate
+                newappointment.setTime(LocalTime.parse(timeInput.getText()));
+                newappointment.setStatus(statusComboBox.getValue());
+                newappointment.setId(appointment.getId());
+
+                AppointmentDAO.editTest(appointment); // DAO call
+                dialogStage.close();
+                loadAppointment(); // Rechargement de la table
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("SQL error");
+                alert.setHeaderText("Error updating appointment");
+                alert.setContentText("Details: " + ex.getMessage());
+                alert.showAndWait();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Unexpected error");
+                alert.setContentText("Details: " + ex.getMessage());
+                alert.showAndWait();
+            }
+        });
+
+        Scene scene = new Scene(vbox);
+        dialogStage.setScene(scene);
+        dialogStage.showAndWait();
 
     }
 
-
     @FXML
-   public  void handleAdd(ActionEvent event) {
+    public void handleAdd(ActionEvent event) {
 
-       if(inter == 1){
-    Stage dialogStage = new Stage();
-    dialogStage.setTitle("Add medication");
-    dialogStage.initModality(Modality.APPLICATION_MODAL);
-    dialogStage.setResizable(false);
+        if (inter == 1) {
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Add medication");
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.setResizable(false);
 
-    TextField nameInput = new TextField();
-    nameInput.setPromptText("Name");
+            TextField nameInput = new TextField();
+            nameInput.setPromptText("Name");
 
-    DatePicker startDate = new DatePicker();
-    startDate.setPromptText("Start date");
+            DatePicker startDate = new DatePicker();
+            startDate.setPromptText("Start date");
 
-    TextField tfduration = new TextField();
-    tfduration.setPromptText("Period (integer)");
+            TextField tfduration = new TextField();
+            tfduration.setPromptText("Period (integer)");
 
-    TextField tfDescription = new TextField();
-    tfDescription.setPromptText("Description");
+            TextField tfDescription = new TextField();
+            tfDescription.setPromptText("Description");
 
-    Button btnAjouter = new Button("Add");
-    Button btnAnnuler = new Button("Cancel");
+            Button btnAjouter = new Button("Add");
+            Button btnAnnuler = new Button("Cancel");
 
-    // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, nameInput, startDate);
-    HBox hbox2 = new HBox(10, tfduration, tfDescription);
-    HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
+            // Spacing between elements in the HBox
+            HBox hbox1 = new HBox(10, nameInput, startDate);
+            HBox hbox2 = new HBox(10, tfduration, tfDescription);
+            HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
 
-    // Padding for each HBox (internal spacing)
-    hbox1.setPadding(new Insets(5));
-    hbox2.setPadding(new Insets(5));
-    hbox3.setPadding(new Insets(10));
+            // Padding for each HBox (internal spacing)
+            hbox1.setPadding(new Insets(5));
+            hbox2.setPadding(new Insets(5));
+            hbox3.setPadding(new Insets(10));
 
-    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
-    HBox.setMargin(nameInput, new Insets(0, 10, 0, 0));  // right margin of 10px
-    HBox.setMargin(tfduration, new Insets(0, 10, 0, 0));
-    HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
+            // Margin (outer spacing) example: add margin around nameInput and cityInput in
+            // hbox1
+            HBox.setMargin(nameInput, new Insets(0, 10, 0, 0)); // right margin of 10px
+            HBox.setMargin(tfduration, new Insets(0, 10, 0, 0));
+            HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
 
-    VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
+            VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
 
-    // Padding for the VBox (internal spacing all around)
-    vbox.setPadding(new Insets(20));
+            // Padding for the VBox (internal spacing all around)
+            vbox.setPadding(new Insets(20));
 
-    // Gray solid border, rounded corners 10px, thickness 2px
-    vbox.setBorder(new Border(new BorderStroke(
-        Color.GRAY,
-        BorderStrokeStyle.SOLID,
-        new CornerRadii(10),
-        new BorderWidths(2)
-    )));
+            // Gray solid border, rounded corners 10px, thickness 2px
+            vbox.setBorder(new Border(new BorderStroke(
+                    Color.GRAY,
+                    BorderStrokeStyle.SOLID,
+                    new CornerRadii(10),
+                    new BorderWidths(2))));
 
-    btnAnnuler.setOnAction(e -> dialogStage.close());
+            btnAnnuler.setOnAction(e -> dialogStage.close());
 
-    btnAjouter.setOnAction(e -> {
-        // Check required fields
-        if (nameInput.getText().isEmpty() || startDate.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Missing fields");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in all required fields (name, start date).");
-            alert.showAndWait();
-            return;
+            btnAjouter.setOnAction(e -> {
+                // Check required fields
+                if (nameInput.getText().isEmpty() || startDate.getValue() == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Missing fields");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please fill in all required fields (name, start date).");
+                    alert.showAndWait();
+                    return;
+                }
+
+                try {
+                    Medication medication = new Medication();
+                    medication.setName(nameInput.getText());
+                    medication.setStartDate(startDate.getValue()); // LocalDate
+                    medication.setDuration(Integer.parseInt(tfduration.getText()));
+                    medication.setDescription(tfDescription.getText());
+
+                    MedicationDAO.insert(medication, nationalIdPatient, idDoctor); // DAO call
+                    dialogStage.close();
+                    loadMedications(); // Reload the table
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("SQL error");
+                    alert.setHeaderText("Error adding medication");
+                    alert.setContentText("Details: " + ex.getMessage());
+                    alert.showAndWait();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Unexpected error");
+                    alert.setContentText("Details: " + ex.getMessage());
+                    alert.showAndWait();
+                }
+            });
+
+            Scene scene = new Scene(vbox);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
+        } else if (inter == 2) {
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Add medical test");
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.setResizable(false);
+
+            TextField nameInput = new TextField();
+            nameInput.setPromptText("Name");
+
+            DatePicker startDate = new DatePicker();
+            startDate.setPromptText("Test date");
+
+            TextField tfResult = new TextField();
+            tfResult.setPromptText("Result");
+
+            ComboBox<String> statusComboBox = new ComboBox<>();
+            statusComboBox.getItems().addAll("pending", "completed");
+            statusComboBox.setPromptText("Status");
+            ComboBox<String> typeComboBox = new ComboBox<>();
+            typeComboBox.getItems().addAll("internal", "external");
+            typeComboBox.setPromptText("Doctor type");
+
+            Button btnAjouter = new Button("Add");
+            Button btnAnnuler = new Button("Cancel");
+
+            // Spacing between elements in the HBox
+            HBox hbox1 = new HBox(10, nameInput, startDate);
+            HBox hbox2 = new HBox(10, tfResult, statusComboBox, typeComboBox);
+            HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
+
+            // Padding for each HBox (internal spacing)
+            hbox1.setPadding(new Insets(5));
+            hbox2.setPadding(new Insets(5));
+            hbox3.setPadding(new Insets(10));
+
+            // Margin (outer spacing) example: add margin around nameInput and cityInput in
+            // hbox1
+            HBox.setMargin(nameInput, new Insets(0, 10, 0, 0)); // right margin of 10px
+            HBox.setMargin(tfResult, new Insets(0, 10, 0, 0));
+            HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
+
+            VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
+
+            // Padding for the VBox (internal spacing all around)
+            vbox.setPadding(new Insets(20));
+
+            // Gray solid border, rounded corners 10px, thickness 2px
+            vbox.setBorder(new Border(new BorderStroke(
+                    Color.GRAY,
+                    BorderStrokeStyle.SOLID,
+                    new CornerRadii(10),
+                    new BorderWidths(2))));
+
+            btnAnnuler.setOnAction(e -> dialogStage.close());
+
+            btnAjouter.setOnAction(e -> {
+                // Check required fields
+                if (nameInput.getText().isEmpty() || startDate.getValue() == null
+                        || statusComboBox.getValue() == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Missing fields");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please fill in all required fields (name, test date, and status).");
+                    alert.showAndWait();
+                    return;
+                }
+
+                try {
+                    MedicalTest medicalTest = new MedicalTest();
+                    medicalTest.setTestType(nameInput.getText());
+                    medicalTest.setTestDate(startDate.getValue()); // LocalDate
+                    medicalTest.setResult(tfResult.getText());
+                    medicalTest.setStatus(statusComboBox.getValue());
+                    medicalTest.setDoctorType(typeComboBox.getValue());
+
+                    MedicalTestDAO.insert(medicalTest, nationalIdPatient, idDoctor); // DAO call
+                    dialogStage.close();
+                    loadMedicalTest(); // Reload the table
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("SQL error");
+                    alert.setHeaderText("Error adding medical test");
+                    alert.setContentText("Details: " + ex.getMessage());
+                    alert.showAndWait();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Unexpected error");
+                    alert.setContentText("Details: " + ex.getMessage());
+                    alert.showAndWait();
+                }
+            });
+
+            Scene scene = new Scene(vbox);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
+        } else {
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Add appointment");
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.setResizable(false);
+
+            DatePicker date = new DatePicker();
+            date.setPromptText("Appointment date");
+
+            TextField tfRaisont = new TextField();
+            tfRaisont.setPromptText("Reason");
+            TextField timeInput = new TextField();
+            timeInput.setPromptText("Time (format x:x)");
+
+            ComboBox<String> statusComboBox = new ComboBox<>();
+            statusComboBox.getItems().addAll("absent", "upcoming", "present");
+            statusComboBox.setPromptText("Status");
+
+            Button btnAjouter = new Button("Add");
+            Button btnAnnuler = new Button("Cancel");
+
+            // Spacing between elements in the HBox
+            HBox hbox1 = new HBox(10, date, timeInput);
+            HBox hbox2 = new HBox(10, tfRaisont, statusComboBox);
+            HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
+
+            // Padding for each HBox (internal spacing)
+            hbox1.setPadding(new Insets(5));
+            hbox2.setPadding(new Insets(5));
+            hbox3.setPadding(new Insets(10));
+
+            // Margin (outer spacing) example: add margin around nameInput and cityInput in
+            // hbox1
+            HBox.setMargin(date, new Insets(0, 10, 0, 0)); // right margin of 10px
+            HBox.setMargin(tfRaisont, new Insets(0, 10, 0, 0));
+            HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
+
+            VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
+
+            // Padding for the VBox (internal spacing all around)
+            vbox.setPadding(new Insets(20));
+
+            // Gray solid border, rounded corners 10px, thickness 2px
+            vbox.setBorder(new Border(new BorderStroke(
+                    Color.GRAY,
+                    BorderStrokeStyle.SOLID,
+                    new CornerRadii(10),
+                    new BorderWidths(2))));
+
+            btnAnnuler.setOnAction(e -> dialogStage.close());
+
+            btnAjouter.setOnAction(e -> {
+                // Check required fields
+                if (date.getValue() == null || statusComboBox.getValue() == null || timeInput.getText().isEmpty()) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Missing fields");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please fill in all required fields (date, time, and status).");
+                    alert.showAndWait();
+                    return;
+                }
+
+                try {
+                    Appointment appointment = new Appointment();
+                    appointment.setDateAppointment(date.getValue());
+                    appointment.setReason(tfRaisont.getText()); // LocalDate
+                    appointment.setTime(LocalTime.parse(timeInput.getText()));
+                    appointment.setStatus(statusComboBox.getValue());
+
+                    AppointmentDAO.insert(appointment, nationalIdPatient, idDoctor); // DAO call
+                    dialogStage.close();
+                    loadAppointment(); // Reload the table
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("SQL error");
+                    alert.setHeaderText("Error adding appointment");
+                    alert.setContentText("Details: " + ex.getMessage());
+                    alert.showAndWait();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Unexpected error");
+                    alert.setContentText("Details: " + ex.getMessage());
+                    alert.showAndWait();
+                }
+            });
+
+            Scene scene = new Scene(vbox);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
         }
-
-        try {
-            Medication medication = new Medication();
-            medication.setName(nameInput.getText());
-            medication.setStartDate(startDate.getValue()); // LocalDate
-            medication.setDuration(Integer.parseInt(tfduration.getText()));
-            medication.setDescription(tfDescription.getText());
-
-            MedicationDAO.insert(medication,nationalIdPatient, idDoctor); // DAO call
-            dialogStage.close();
-            loadMedications(); // Reload the table
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("SQL error");
-            alert.setHeaderText("Error adding medication");
-            alert.setContentText("Details: " + ex.getMessage());
-            alert.showAndWait();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Unexpected error");
-            alert.setContentText("Details: " + ex.getMessage());
-            alert.showAndWait();
-        }
-    });
-
-    Scene scene = new Scene(vbox);
-    dialogStage.setScene(scene);
-    dialogStage.showAndWait();
-       }
-       else if(inter == 2){
-           Stage dialogStage = new Stage();
-    dialogStage.setTitle("Add medical test");
-    dialogStage.initModality(Modality.APPLICATION_MODAL);
-    dialogStage.setResizable(false);
-
-    TextField nameInput = new TextField();
-    nameInput.setPromptText("Name");
-
-    DatePicker startDate = new DatePicker();
-    startDate.setPromptText("Test date");
-
-    TextField tfResult = new TextField();
-    tfResult.setPromptText("Result");
-
-    ComboBox<String> statusComboBox = new ComboBox<>();
-    statusComboBox.getItems().addAll("pending", "completed");
-    statusComboBox.setPromptText("Status");
-    ComboBox<String> typeComboBox = new ComboBox<>();
-    typeComboBox.getItems().addAll("internal", "external");
-    typeComboBox.setPromptText("Doctor type");
-
-    Button btnAjouter = new Button("Add");
-    Button btnAnnuler = new Button("Cancel");
-
-    // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, nameInput, startDate);
-    HBox hbox2 = new HBox(10, tfResult, statusComboBox,typeComboBox);
-    HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
-
-    // Padding for each HBox (internal spacing)
-    hbox1.setPadding(new Insets(5));
-    hbox2.setPadding(new Insets(5));
-    hbox3.setPadding(new Insets(10));
-
-    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
-    HBox.setMargin(nameInput, new Insets(0, 10, 0, 0));  // right margin of 10px
-    HBox.setMargin(tfResult, new Insets(0, 10, 0, 0));
-    HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
-
-    VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
-
-    // Padding for the VBox (internal spacing all around)
-    vbox.setPadding(new Insets(20));
-
-    // Gray solid border, rounded corners 10px, thickness 2px
-    vbox.setBorder(new Border(new BorderStroke(
-        Color.GRAY,
-        BorderStrokeStyle.SOLID,
-        new CornerRadii(10),
-        new BorderWidths(2)
-    )));
-
-    btnAnnuler.setOnAction(e -> dialogStage.close());
-
-    btnAjouter.setOnAction(e -> {
-        // Check required fields
-        if (nameInput.getText().isEmpty() || startDate.getValue() == null || statusComboBox.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Missing fields");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in all required fields (name, test date, and status).");
-            alert.showAndWait();
-            return;
-        }
-
-        try {
-            MedicalTest medicalTest = new MedicalTest();
-            medicalTest.setTestType(nameInput.getText());
-            medicalTest.setTestDate(startDate.getValue()); // LocalDate
-            medicalTest.setResult(tfResult.getText());
-            medicalTest.setStatus(statusComboBox.getValue());
-            medicalTest.setDoctorType(typeComboBox.getValue());
-
-            MedicalTestDAO.insert(medicalTest,nationalIdPatient, idDoctor); // DAO call
-            dialogStage.close();
-            loadMedicalTest(); // Reload the table
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("SQL error");
-            alert.setHeaderText("Error adding medical test");
-            alert.setContentText("Details: " + ex.getMessage());
-            alert.showAndWait();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Unexpected error");
-            alert.setContentText("Details: " + ex.getMessage());
-            alert.showAndWait();
-        }
-    });
-
-    Scene scene = new Scene(vbox);
-    dialogStage.setScene(scene);
-    dialogStage.showAndWait();
-       }
-       else{
-           Stage dialogStage = new Stage();
-    dialogStage.setTitle("Add appointment");
-    dialogStage.initModality(Modality.APPLICATION_MODAL);
-    dialogStage.setResizable(false);
-
-
-    DatePicker date = new DatePicker();
-    date.setPromptText("Appointment date");
-
-    TextField tfRaisont = new TextField();
-    tfRaisont.setPromptText("Reason");
-    TextField timeInput = new TextField();
-    timeInput.setPromptText("Time (format x:x)");
-
-    ComboBox<String> statusComboBox = new ComboBox<>();
-    statusComboBox.getItems().addAll("absent", "upcoming", "present");
-    statusComboBox.setPromptText("Status");
-
-    Button btnAjouter = new Button("Add");
-    Button btnAnnuler = new Button("Cancel");
-
-    // Spacing between elements in the HBox
-    HBox hbox1 = new HBox(10, date, timeInput);
-    HBox hbox2 = new HBox(10, tfRaisont, statusComboBox);
-    HBox hbox3 = new HBox(15, btnAjouter, btnAnnuler);
-
-    // Padding for each HBox (internal spacing)
-    hbox1.setPadding(new Insets(5));
-    hbox2.setPadding(new Insets(5));
-    hbox3.setPadding(new Insets(10));
-
-    // Margin (outer spacing) example: add margin around nameInput and cityInput in hbox1
-    HBox.setMargin(date, new Insets(0, 10, 0, 0));  // right margin of 10px
-    HBox.setMargin(tfRaisont, new Insets(0, 10, 0, 0));
-    HBox.setMargin(btnAjouter, new Insets(0, 10, 0, 0));
-
-    VBox vbox = new VBox(15, hbox1, hbox2, hbox3);
-
-    // Padding for the VBox (internal spacing all around)
-    vbox.setPadding(new Insets(20));
-
-    // Gray solid border, rounded corners 10px, thickness 2px
-    vbox.setBorder(new Border(new BorderStroke(
-        Color.GRAY,
-        BorderStrokeStyle.SOLID,
-        new CornerRadii(10),
-        new BorderWidths(2)
-    )));
-
-    btnAnnuler.setOnAction(e -> dialogStage.close());
-
-    btnAjouter.setOnAction(e -> {
-        // Check required fields
-        if (date.getValue() == null || statusComboBox.getValue() == null || timeInput.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Missing fields");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in all required fields (date, time, and status).");
-            alert.showAndWait();
-            return;
-        }
-
-        try {
-            Appointment appointment = new Appointment();
-            appointment.setDateAppointment(date.getValue());
-            appointment.setReason(tfRaisont.getText()); // LocalDate
-            appointment.setTime(LocalTime.parse(timeInput.getText()));
-            appointment.setStatus(statusComboBox.getValue());
-
-            AppointmentDAO.insert(appointment,nationalIdPatient, idDoctor); // DAO call
-            dialogStage.close();
-            loadAppointment(); // Reload the table
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("SQL error");
-            alert.setHeaderText("Error adding appointment");
-            alert.setContentText("Details: " + ex.getMessage());
-            alert.showAndWait();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Unexpected error");
-            alert.setContentText("Details: " + ex.getMessage());
-            alert.showAndWait();
-        }
-    });
-
-    Scene scene = new Scene(vbox);
-    dialogStage.setScene(scene);
-    dialogStage.showAndWait();
-       }
-}
-
-
+    }
 
 }

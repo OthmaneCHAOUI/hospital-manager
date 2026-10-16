@@ -14,7 +14,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * Displays patient information and keeps the medical records panels synchronized with the selected doctor.
+ * Displays patient information and keeps the medical records panels
+ * synchronized with the selected doctor.
  */
 public class PatientDashboardController {
     @FXML
@@ -34,17 +35,28 @@ public class PatientDashboardController {
     @FXML
     private Hyperlink linkAppointments;
 
-    @FXML private TextField nameField;
-    @FXML private TextField firstNameField;
-    @FXML private TextField cityField;
-    @FXML private TextField emailField;
-    @FXML private TextField phoneField;
-    @FXML private TextField addressField;
-    @FXML private DatePicker birthDatePicker;
-    @FXML private MenuButton genderMenu;
-    @FXML private PasswordField passwordField;
-    @FXML private Button saveButton;
-    @FXML private ImageView closeIcon;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField cityField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField phoneField;
+    @FXML
+    private TextField addressField;
+    @FXML
+    private DatePicker birthDatePicker;
+    @FXML
+    private MenuButton genderMenu;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private ImageView closeIcon;
 
     private String selectedSexe;
 
@@ -84,7 +96,8 @@ public class PatientDashboardController {
 
     public void loadMedicationsTable() {
         try {
-            List<Medication> list = new MedicationDAO().getMedicationsByPatientAndDoctor(patient.getNationalId(), currentDoctor.getId());
+            List<Medication> list = new MedicationDAO().getMedicationsByPatientAndDoctor(patient.getNationalId(),
+                    currentDoctor.getId());
             TableView<Medication> table = new TableView<>();
 
             TableColumn<Medication, String> colName = new TableColumn<>("Name");
@@ -110,7 +123,8 @@ public class PatientDashboardController {
 
     public void loadTestsTable() {
         try {
-            List<MedicalTest> list = new MedicalTestDAO().getTestsByPatientAndDoctor(patient.getNationalId(), currentDoctor.getId());
+            List<MedicalTest> list = new MedicalTestDAO().getTestsByPatientAndDoctor(patient.getNationalId(),
+                    currentDoctor.getId());
             TableView<MedicalTest> table = new TableView<>();
 
             TableColumn<MedicalTest, String> colType = new TableColumn<>("Test type");
@@ -128,7 +142,8 @@ public class PatientDashboardController {
             TableColumn<MedicalTest, String> colStatus = new TableColumn<>("Status");
             colStatus.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getStatus()));
 
-            // table.getColumns().addAll(colType, colResult, colDate, colDoctorType, colStatus);
+            // table.getColumns().addAll(colType, colResult, colDate, colDoctorType,
+            // colStatus);
             table.getItems().addAll(list);
 
             refreshTable(table);
@@ -139,7 +154,8 @@ public class PatientDashboardController {
 
     public void loadAppointmentTable() {
         try {
-            List<Appointment> list = new AppointmentDAO().getAppointmentByPatientAndDoctor(patient.getNationalId(), currentDoctor.getId());
+            List<Appointment> list = new AppointmentDAO().getAppointmentByPatientAndDoctor(patient.getNationalId(),
+                    currentDoctor.getId());
             TableView<Appointment> table = new TableView<>();
 
             TableColumn<Appointment, String> colDate = new TableColumn<>("Date");
@@ -165,7 +181,8 @@ public class PatientDashboardController {
 
     @FXML
     public void refreshTable(TableView<?> table) {
-        mainVBox.getChildren().removeIf(node -> node instanceof TableView || (node instanceof VBox && node != mainVBox));
+        mainVBox.getChildren()
+                .removeIf(node -> node instanceof TableView || (node instanceof VBox && node != mainVBox));
         mainVBox.getChildren().add(table);
     }
 

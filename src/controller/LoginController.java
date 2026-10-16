@@ -50,22 +50,22 @@ public class LoginController {
     @FXML
     private Hyperlink patientLink;
 
-     @FXML
+    @FXML
     private Label label_incorrect;
-
 
     @FXML
     public void goToDoctorForm(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/doctor_form.fxml")) ;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/doctor_form.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     public void goToPatientForm(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/patient_form.fxml")) ;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/patient_form.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -86,7 +86,7 @@ public class LoginController {
         stage.show();
     }
 
-     public void goToDoctorDashboard(ActionEvent event, Doctor doctor) throws IOException {
+    public void goToDoctorDashboard(ActionEvent event, Doctor doctor) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/doctor_dashboard_view.fxml"));
         Parent root = loader.load();
 
@@ -101,10 +101,10 @@ public class LoginController {
         stage.show();
     }
 
-
     @FXML
-    public void handleLogin(ActionEvent event) throws SQLException, IOException{
-        if(f_nationalId.getText().trim().isEmpty() || f_password.getText().trim().isEmpty() || type.getSelectedToggle() == null){
+    public void handleLogin(ActionEvent event) throws SQLException, IOException {
+        if (f_nationalId.getText().trim().isEmpty() || f_password.getText().trim().isEmpty()
+                || type.getSelectedToggle() == null) {
             if (f_nationalId.getText().trim().isEmpty()) {
                 f_nationalId.setPromptText("National ID is required");
                 f_nationalId.setStyle("-fx-prompt-text-fill : red");
@@ -116,28 +116,29 @@ public class LoginController {
                 f_password.getStyleClass().add("field-error");
             }
             if (type.getSelectedToggle() == null) {
-               doctorRadioButton.setStyle("-fx-text-fill: red; -fx-radio-color: red;");
-               patientRadioButton.setStyle("-fx-text-fill: red; -fx-radio-color: red;");
+                doctorRadioButton.setStyle("-fx-text-fill: red; -fx-radio-color: red;");
+                patientRadioButton.setStyle("-fx-text-fill: red; -fx-radio-color: red;");
             }
 
-        }else{
-            if(doctorRadioButton.isSelected()){
+        } else {
+            if (doctorRadioButton.isSelected()) {
                 Doctor doctor = DoctorDAO.checkDoctorByCniePassword(f_nationalId.getText(), f_password.getText());
-                if(doctor != null){
-                          System.out.println("Login successful: Welcome Dr."+doctor.getName()+" "+doctor.getFirstName());
-                          goToDoctorDashboard(event,doctor);
-                }else{
-                        System.out.println("Login failed");
-                        label_incorrect.setStyle("-fx-opacity : 1.0");
+                if (doctor != null) {
+                    System.out
+                            .println("Login successful: Welcome Dr." + doctor.getName() + " " + doctor.getFirstName());
+                    goToDoctorDashboard(event, doctor);
+                } else {
+                    System.out.println("Login failed");
+                    label_incorrect.setStyle("-fx-opacity : 1.0");
                 }
-            }else{
+            } else {
                 Patient patient = PatientDAO.checkPatientByCniePassword(f_nationalId.getText(), f_password.getText());
-                if(patient != null){
-                          System.out.println("Login successful: Welcome "+patient.getName()+" "+patient.getFirstName());
-                          goToPatientDashboard(event, patient);
-                }else{
-                        System.out.println("Login failed");
-                        label_incorrect.setStyle("-fx-opacity : 1.0");
+                if (patient != null) {
+                    System.out.println("Login successful: Welcome " + patient.getName() + " " + patient.getFirstName());
+                    goToPatientDashboard(event, patient);
+                } else {
+                    System.out.println("Login failed");
+                    label_incorrect.setStyle("-fx-opacity : 1.0");
                 }
             }
 

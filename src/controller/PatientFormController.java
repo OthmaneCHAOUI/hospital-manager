@@ -35,7 +35,7 @@ public class PatientFormController {
     private PatientDAO patientDAO;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         patientDAO = new PatientDAO();
     }
 
@@ -86,11 +86,10 @@ public class PatientFormController {
         }
 
         Patient patient = new Patient(
-            nameField.getText(),
-            firstNameField.getText(),
-            nationalIdField.getText(),
-            passwordField.getText()
-        );
+                nameField.getText(),
+                firstNameField.getText(),
+                nationalIdField.getText(),
+                passwordField.getText());
         patientDAO.addPatient(patient);
 
         showAlert(Alert.AlertType.INFORMATION, "Success", "Patient added successfully.");

@@ -9,11 +9,11 @@ import java.util.ArrayList;
  */
 public class DoctorDAO {
 
-    public static int insert(Doctor doctor) throws SQLException{
+    public static int insert(Doctor doctor) throws SQLException {
         String sql = "INSERT INTO doctor(name,firstName,nationalId,specialty,clinic_name,phone,clinic_address,password) VALUES (?,?,?,?,?,?,?,?)";
 
-        try(Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)){
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, doctor.getName());
             stmt.setString(2, doctor.getFirstName());
@@ -26,13 +26,13 @@ public class DoctorDAO {
 
             int rowsInserted = stmt.executeUpdate();
 
-        if (rowsInserted > 0) {
-            System.out.println("Doctor added successfully!");
-            return 1 ;
-        } else {
-            System.out.println("Failed to add doctor.");
-        }
-        }catch(SQLException e) {
+            if (rowsInserted > 0) {
+                System.out.println("Doctor added successfully!");
+                return 1;
+            } else {
+                System.out.println("Failed to add doctor.");
+            }
+        } catch (SQLException e) {
             if ("23505".equals(e.getSQLState())) {
                 System.out.println("Error: This unique value is already in use.");
             } else {
@@ -42,44 +42,44 @@ public class DoctorDAO {
         return 0;
     }
 
-    public static Doctor checkDoctorByCniePassword(String nationalId,String password) throws SQLException{
+    public static Doctor checkDoctorByCniePassword(String nationalId, String password) throws SQLException {
         String sql = "SELECT * FROM doctor WHERE nationalId = ? AND password = ? ";
         Doctor doctor = null;
 
-        try(Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)){
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, nationalId);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
 
-            if(rs.next()){
-               doctor = new Doctor();
-               doctor.setId(rs.getInt("id"));
-               doctor.setName(rs.getString("name"));
-               doctor.setFirstName(rs.getString("firstName"));
-               doctor.setNationalId(rs.getString("nationalId"));
-               doctor.setSpecialty(rs.getString("specialty"));
-               doctor.setClinicName(rs.getString("clinic_name"));
-               doctor.setPhone(rs.getString("phone"));
-               doctor.setClinicAddress(rs.getString("clinic_address"));
-               doctor.setPassword(rs.getString("password"));
+            if (rs.next()) {
+                doctor = new Doctor();
+                doctor.setId(rs.getInt("id"));
+                doctor.setName(rs.getString("name"));
+                doctor.setFirstName(rs.getString("firstName"));
+                doctor.setNationalId(rs.getString("nationalId"));
+                doctor.setSpecialty(rs.getString("specialty"));
+                doctor.setClinicName(rs.getString("clinic_name"));
+                doctor.setPhone(rs.getString("phone"));
+                doctor.setClinicAddress(rs.getString("clinic_address"));
+                doctor.setPassword(rs.getString("password"));
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return doctor ;
+        return doctor;
     }
 
-    public static List<Doctor> getAllDoctors() throws SQLException{
+    public static List<Doctor> getAllDoctors() throws SQLException {
         List<Doctor> doctors = new ArrayList<>();
         String sql = "SELECT * FROM doctor";
 
-        try(Connection conn = DBConnection.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)){
+        try (Connection conn = DBConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
 
-            while (rs.next()){
+            while (rs.next()) {
                 Doctor doctor = new Doctor();
                 doctor.setId(rs.getInt("id"));
                 doctor.setName(rs.getString("name"));
@@ -92,29 +92,28 @@ public class DoctorDAO {
                 doctor.setPassword(rs.getString("password"));
                 doctors.add(doctor);
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return doctors ;
+        return doctors;
     }
 
     public static List<Doctor> getDoctorsByPatient(String nationalId) throws SQLException {
         List<Doctor> doctors = new ArrayList<>();
         String sql = "SELECT d.* FROM doctor d " +
-                    "JOIN DoctorPatient dp ON d.id = dp.id_doctor " +
-                    "WHERE dp.nationalId = ?";
+                "JOIN DoctorPatient dp ON d.id = dp.id_doctor " +
+                "WHERE dp.nationalId = ?";
         try (Connection conn = DBConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, nationalId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Doctor doc = new Doctor(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getString("firstName"),
-                    rs.getString("specialty")
-                );
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("firstName"),
+                        rs.getString("specialty"));
                 doctors.add(doc);
             }
         }
@@ -125,7 +124,7 @@ public class DoctorDAO {
         String sql = "UPDATE doctor SET name = ?, firstName = ?, nationalId = ?, specialty = ?, clinic_name = ?, phone = ?, clinic_address = ?, password = ? WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, doctor.getName());
             stmt.setString(2, doctor.getFirstName());

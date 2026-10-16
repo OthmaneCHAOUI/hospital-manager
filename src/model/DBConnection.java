@@ -10,7 +10,8 @@ import java.sql.DriverManager;
 public class DBConnection {
     private static final String DEFAULT_URL = "jdbc:postgresql://localhost:5432/hospital_manager";
 
-    private DBConnection() {}
+    private DBConnection() {
+    }
 
     public static Connection getConnection() throws SQLException {
         String url = System.getenv().getOrDefault("DB_URL", DEFAULT_URL);
