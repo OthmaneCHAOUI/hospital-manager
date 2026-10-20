@@ -156,7 +156,7 @@ This script initializes the tables in an empty database. It does not drop the da
 
 ### 4. Configure the PostgreSQL connection
 
-The application does not request the PostgreSQL username or password in a dialog box. The `src/model/DBConnection.java` class reads these values from environment variables at startup:
+The application does not request the PostgreSQL username or password in a dialog box. The `src/model/DBConnection.java` class reads these values from `config.env` at startup. Explicit environment variables override values in that file:
 
 | Variable | Default value / requirement |
 |---|---|
@@ -164,7 +164,15 @@ The application does not request the PostgreSQL username or password in a dialog
 | `DB_USER` | Required: PostgreSQL role |
 | `DB_PASSWORD` | Required: role password (may be empty if your PostgreSQL configuration allows it) |
 
-Define the variables in the same terminal used to start the application. The following example prompts for the password without displaying it, then starts the application:
+Create `config.env` in the project root:
+
+```bash
+DB_URL=jdbc:postgresql://localhost:5432/hospital_manager
+DB_USER=medical_center
+DB_PASSWORD=your_password
+```
+
+Alternatively, define the variables in the same terminal used to start the application. This overrides `config.env`:
 
 ```bash
 export DB_URL='jdbc:postgresql://localhost:5432/hospital_manager'
@@ -174,7 +182,7 @@ export DB_PASSWORD
 mvn javafx:run
 ```
 
-Variables defined this way are available only in that terminal and its child processes; define them again in a new terminal. You can also configure these variables in your IDE's run configuration. Do not publish real credentials in the Git repository.
+The application looks for `config.env` relative to its working directory. You can also configure the variables in your IDE's run configuration. Do not publish real credentials in the Git repository.
 
 ### 5. Resolve dependencies and compile
 

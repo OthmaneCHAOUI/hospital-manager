@@ -22,6 +22,10 @@ Thumbs.db
 lib/*
 
 # future upgrades
-TODO.md
+ROADMAP.md
 
+# Dataset
 dataset.sql
+
+# Environment variables
+*.env
