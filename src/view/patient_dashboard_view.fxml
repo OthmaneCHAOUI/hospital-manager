@@ -41,7 +41,7 @@
                             <children>
                                 <ImageView fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../resources/AppIcon.png" />
+                                        <Image url="@../assets/icons/AppIcon.png" />
                                     </image>
                                 </ImageView>
                                 <Label text="Hospit">
@@ -63,7 +63,7 @@
                                 </Label>
                                 <ImageView fx:id="profileImage" fitHeight="35.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../resources/326497_account_circle_icon.png" />
+                                        <Image url="@../assets/icons/326497_account_circle_icon.png" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -124,7 +124,7 @@
                            <children>
                               <ImageView fx:id="closeIcon" fitHeight="23.0" fitWidth="26.0" onMouseClicked="#hideProfileEdit" pickOnBounds="true" preserveRatio="true" styleClass="quit-icon">
                                  <image>
-                                    <Image url="@../resources/9110784_circle_x_icon.png" />
+                                    <Image url="@../assets/icons/9110784_circle_x_icon.png" />
                                  </image>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />

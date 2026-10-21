@@ -35,7 +35,7 @@
                <children>
                   <ImageView fitHeight="242.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/AppIcon.png" />
+                        <Image url="@../assets/icons/AppIcon.png" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="20.0" />
@@ -86,7 +86,7 @@
                         </Label>
                         <ImageView fitHeight="43.0" fitWidth="49.0" onMouseClicked="#goToLoginView" pickOnBounds="true" preserveRatio="true" styleClass="return" StackPane.alignment="CENTER_LEFT">
                            <image>
-                              <Image url="@../resources/211618_c_left_arrow_icon.png" />
+                              <Image url="@../assets/icons/211618_c_left_arrow_icon.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />

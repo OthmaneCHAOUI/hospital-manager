@@ -141,14 +141,14 @@ public class DoctorDashboardController {
 
                     {
                         ImageView iconVoir = new ImageView(
-                                new Image(getClass().getResourceAsStream("/resources/info.png")));
+                                new Image(getClass().getResourceAsStream("/assets/icons/info.png")));
                         iconVoir.setFitHeight(18);
                         iconVoir.setFitWidth(18);
                         btnVoir.setGraphic(iconVoir);
                         btnVoir.setStyle("-fx-background-color: transparent;");
 
                         ImageView iconSupprimer = new ImageView(
-                                new Image(getClass().getResourceAsStream("/resources/delete.png")));
+                                new Image(getClass().getResourceAsStream("/assets/icons/delete.png")));
                         iconSupprimer.setFitHeight(18);
                         iconSupprimer.setFitWidth(18);
                         btnSupprimer.setGraphic(iconSupprimer);

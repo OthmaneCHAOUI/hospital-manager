@@ -37,7 +37,7 @@ The project was developed as part of a computer science project and applies obje
 - Login and user management forms.
 - Dashboards dedicated to doctors and patients.
 - FXML interfaces and CSS stylesheets.
-- Several graphical resources are stored in `src/resources/` and used by the interfaces.
+- Several graphical resources are stored in `src/assets/icons/` and used by the interfaces.
 
 ## Tech stack
 
@@ -80,7 +80,7 @@ The application follows an organization inspired by the MVC (*Model-View-Control
 - **Controller (`controller/`)**: handles interactions between the user and the application.
 - **Model (`model/`)**: contains business objects, data access classes (DAO), and the database connection.
 - **Style (`style/`)**: contains CSS stylesheets.
-- **Resources (`resources/`)**: contains the icons and images used by the interface.
+- **Assets (`assets/`)**: contains the icons and images used by the interface.
 - **Utils (`utils/`)**: contains, among other things, the database SQL script.
 
 This organization facilitates the separation of responsibilities between the graphical interface, interaction processing, and data persistence.
@@ -261,7 +261,7 @@ hospital-manager/
 │   ├── controller/   # JavaFX controllers
 │   ├── main/         # Application entry point
 │   ├── model/        # Models, DAOs, and SQL connection
-│   ├── resources/    # Icons and images
+│   ├── assets/       # Icons and images
 │   ├── style/        # CSS stylesheets
 │   ├── utils/        # SQL script
 │   └── view/         # FXML interfaces

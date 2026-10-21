@@ -39,7 +39,7 @@
                      <children>
                         <ImageView fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../resources/AppIcon.png" />
+                              <Image url="@../assets/icons/AppIcon.png" />
                            </image>
                         </ImageView>
                         <Label text="Hospit">
@@ -95,7 +95,7 @@
                                        <graphic>
                                           <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../resources/3669476_add_circle_ic_icon.png" />
+                                                <Image url="@../assets/icons/3669476_add_circle_ic_icon.png" />
                                              </image>
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
@@ -110,7 +110,7 @@
                                        <graphic>
                                           <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true" styleClass="icon_chercher">
                                              <image>
-                                                <Image url="@../resources/search-interface-symbol.png" />
+                                                <Image url="@../assets/icons/search-interface-symbol.png" />
                                              </image>
                                              <effect>
                                                 <DropShadow>

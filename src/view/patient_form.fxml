@@ -36,7 +36,7 @@
                <children>
                   <ImageView fitHeight="243.0" fitWidth="271.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/AppIcon.png" />
+                        <Image url="@../assets/icons/AppIcon.png" />
                      </image>
                   </ImageView>
                   <Text lineSpacing="20.0" opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-title" text="HOSPIT" textAlignment="CENTER">
@@ -61,7 +61,7 @@
                <children>
                   <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#goToLoginView" pickOnBounds="true" preserveRatio="true" styleClass="return" StackPane.alignment="BOTTOM_LEFT">
                      <image>
-                        <Image url="@../resources/211618_c_left_arrow_icon.png" />
+                        <Image url="@../assets/icons/211618_c_left_arrow_icon.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
