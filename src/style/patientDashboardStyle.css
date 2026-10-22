@@ -4,7 +4,7 @@
 }
 
 .top-bar {
-    -fx-background-color: #0d1117;
+    -fx-background-color: limegreen;
     -fx-padding: 0 20px;
 }
 
@@ -20,7 +20,7 @@
 
 .top-bar .menu-button:hover,
 .top-bar .hyperlink:hover {
-    -fx-background-color: #21262d;
+    -fx-background-color: limegreen;
 }
 
 .profile-card {

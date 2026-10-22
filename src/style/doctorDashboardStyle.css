@@ -4,7 +4,7 @@
 }
 
 .top-bar {
-    -fx-background-color: #0d1117;
+    -fx-background-color: limegreen;
     -fx-padding: 0 20px;
 }
 
@@ -26,7 +26,7 @@
 }
 
 .btn {
-    -fx-background-color: #1f883d;
+    -fx-background-color: dodgerblue;
     -fx-background-radius: 6px;
     -fx-border-radius: 6px;
     -fx-text-fill: white;
@@ -37,7 +37,9 @@
 }
 
 .btn:hover {
-    -fx-background-color: #1a7f37;
+    /* -fx-background-color: #1a7f37; */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
 .search-button {

@@ -1,20 +1,20 @@
 .auth-page {
-    -fx-background-color: #f6f8fa;
-    -fx-font-family: "System";
+    /* -fx-background-color: blue; */
+    -fx-font-family: "Arial", sans-serif;
 }
 
 .brand-panel {
-    -fx-background-color: #0d1117;
-    -fx-padding: 32;
+    -fx-background-color: limegreen;
+    /* -fx-padding: 32; */
 }
 
 .brand-panel Label {
-    -fx-text-fill: #f0f6fc;
+    /* -fx-text-fill: #f0f6fc; */
 }
 
 .login-panel {
     -fx-background-color: #ffffff;
-    -fx-padding: 40 64;
+    /* -fx-padding: 40 64; */
 }
 
 .login-title {
@@ -60,7 +60,7 @@
 }
 
 .login-button {
-    -fx-background-color: #1f883d;
+    -fx-background-color: dodgerblue;
     -fx-background-radius: 6px;
     -fx-border-radius: 6px;
     -fx-text-fill: white;
@@ -71,7 +71,9 @@
 }
 
 .login-button:hover {
-    -fx-background-color: #1a7f37;
+    /* -fx-background-color: ; */
+    fxscale-x: 1.05;
+    fxscale-y: 1.05;
 }
 
 .hyperlink {
