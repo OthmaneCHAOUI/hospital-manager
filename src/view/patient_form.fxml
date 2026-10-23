@@ -43,7 +43,7 @@
                         </ImageView>
                         <Text lineSpacing="20.0" opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label-title" text="HOSPIT" textAlignment="CENTER">
                            <font>
-                              <Font name="Sitka Banner Bold" size="40.0" />
+                              <Font name="System Bold" size="40.0" />
                            </font>
                            <VBox.margin>
                               <Insets top="8.0" />
