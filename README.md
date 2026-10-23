@@ -265,7 +265,6 @@ hospital-manager/
 │   ├── style/        # CSS stylesheets
 │   ├── utils/        # SQL script
 │   └── view/         # FXML interfaces
-├── lib/              # External libraries
 ├── bin/              # Compiled classes (generated)
 ├── target/           # Maven-generated files
 ├── pom.xml           # Maven configuration
