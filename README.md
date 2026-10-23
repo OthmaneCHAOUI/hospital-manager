@@ -164,13 +164,15 @@ The application does not request the PostgreSQL username or password in a dialog
 | `DB_USER` | Required: PostgreSQL role |
 | `DB_PASSWORD` | Required: role password (may be empty if your PostgreSQL configuration allows it) |
 
-Create `config.env` in the project root:
+Create `config.env` in the project root by copying the tracked example:
 
 ```bash
-DB_URL=jdbc:postgresql://localhost:5432/hospital_manager
-DB_USER=medical_center
-DB_PASSWORD=your_password
+cp config.env.example config.env
 ```
+
+Then edit `config.env` with the credentials for your local PostgreSQL role.
+The example file contains placeholders only and is safe to keep in version
+control. The real `config.env` is ignored by Git.
 
 Alternatively, define the variables in the same terminal used to start the application. This overrides `config.env`:
 
@@ -267,12 +269,16 @@ hospital-manager/
 │   └── view/         # FXML interfaces
 ├── bin/              # Compiled classes (generated)
 ├── target/           # Maven-generated files
+├── config.env.example # Safe configuration template
 ├── pom.xml           # Maven configuration
+├── ROADMAP.md        # Current status and planned work
 ├── LICENSE           # Project license
 └── README.md         # Documentation
 ```
 
-The `bin/` and `target/` directories contain generated files. The source files to maintain are located in `src/`.
+The `bin/` and `target/` directories contain generated files. The source files
+to maintain are located in `src/`. Maven resolves external libraries from
+`pom.xml`; no manually managed `lib/` directory is required.
 
 ## Potential improvements
 
