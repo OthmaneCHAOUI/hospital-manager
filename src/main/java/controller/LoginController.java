@@ -1,4 +1,4 @@
-package controller;
+package main.java.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -16,10 +16,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
-import model.Doctor;
-import model.DoctorDAO;
-import model.Patient;
-import model.PatientDAO;
+import main.java.model.Doctor;
+import main.java.model.DoctorDAO;
+import main.java.model.Patient;
+import main.java.model.PatientDAO;
 
 /**
  * Handles authentication and navigation to doctor or patient views.

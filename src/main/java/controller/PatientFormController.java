@@ -1,4 +1,4 @@
-package controller;
+package main.java.controller;
 
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
@@ -9,8 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.*;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-import model.Patient;
-import model.PatientDAO;
+import main.java.model.Patient;
+import main.java.model.PatientDAO;
 
 /**
  * Provides the form used to create a new patient account.

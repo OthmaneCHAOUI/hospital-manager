@@ -161,6 +161,7 @@ do not necessarily have automated test coverage.
 
 ### DONE
 
+- [x] Completely move project structure to standard maven structure
 - [x] Configure Maven as the declared project build system.
 - [x] Move icons from `src/resources` to `src/assets/icons`.
 - [x] Add `config.env.example` as a safe configuration template.

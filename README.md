@@ -76,12 +76,12 @@ The application follows an organization inspired by the MVC (*Model-View-Control
                 Database
 ```
 
-- **View (`view/`)**: contains the FXML interfaces.
-- **Controller (`controller/`)**: handles interactions between the user and the application.
-- **Model (`model/`)**: contains business objects, data access classes (DAO), and the database connection.
-- **Style (`style/`)**: contains CSS stylesheets.
-- **Assets (`assets/`)**: contains the icons and images used by the interface.
-- **Utils (`utils/`)**: contains, among other things, the database SQL script.
+- **View (`src/main/java/view/`)**: contains the FXML interfaces.
+- **Controller (`src/main/java/controller/`)**: handles interactions between the user and the application.
+- **Model (`src/main/java/model/`)**: contains business objects, data access classes (DAO), and the database connection.
+- **Style (`src/main/resources/style/`)**: contains CSS stylesheets.
+- **Assets (`src/main/resources/assets/`)**: contains the icons and images used by the interface.
+- **SQL scripts (`src/main/resources/`)**: initialize the database and load its dataset.
 
 This organization facilitates the separation of responsibilities between the graphical interface, interaction processing, and data persistence.
 
@@ -123,10 +123,11 @@ Check that the installed versions are compatible with those declared in `pom.xml
 
 ### 3. Prepare the database
 
-The project's SQL script is located at:
+The project's SQL scripts are located at:
 
 ```text
-src/utils/Database.sql
+src/main/resources/database.sql
+src/main/resources/dataset.sql
 ```
 
 You must create a PostgreSQL role and database before starting the application. On Linux, the following commands create the `medical_center` role and prompt for its password, then create an empty `hospital_manager` database owned by that role:
@@ -141,7 +142,7 @@ Keep the password chosen for `medical_center`. Then, from the project root, crea
 ```bash
 psql -h localhost -p 5432 -U medical_center -d hospital_manager -W \
   -v ON_ERROR_STOP=1 \
-  -f src/utils/database.sql
+  -f src/main/resources/database.sql
 ```
 
 Then load the dataset :
@@ -149,14 +150,14 @@ Then load the dataset :
 ```bash
 psql -h localhost -p 5432 -U medical_center -d hospital_manager -W \
   -v ON_ERROR_STOP=1 \
-  -f src/utils/dataset.sql
+  -f src/main/resources/dataset.sql
 ```
 
 This script initializes the tables in an empty database. It does not drop the database, create the role, or copy data from an old MySQL database. Do not run it again on an already initialized database: the tables already exist and creation will fail. To migrate existing MySQL data, follow a separate export/import procedure and verify the data before switching over.
 
 ### 4. Configure the PostgreSQL connection
 
-The application does not request the PostgreSQL username or password in a dialog box. The `src/model/DBConnection.java` class reads these values from `config.env` at startup. Explicit environment variables override values in that file:
+The application does not request the PostgreSQL username or password in a dialog box. The `src/main/java/model/DBConnection.java` class reads these values from `config.env` at startup. Explicit environment variables override values in that file:
 
 | Variable | Default value / requirement |
 |---|---|
@@ -260,13 +261,9 @@ Adding automated tests would further improve the reliability of data access oper
 ```text
 hospital-manager/
 ├── src/
-│   ├── controller/   # JavaFX controllers
-│   ├── main/         # Application entry point
-│   ├── model/        # Models, DAOs, and SQL connection
-│   ├── assets/       # Icons and images
-│   ├── style/        # CSS stylesheets
-│   ├── utils/        # SQL script
-│   └── view/         # FXML interfaces
+│   ├── main/java/    # Java source files
+│   ├── main/resources/ # FXML, CSS, images, and SQL scripts
+│   └── test/java/    # Test source files
 ├── bin/              # Compiled classes (generated)
 ├── target/           # Maven-generated files
 ├── config.env.example # Safe configuration template

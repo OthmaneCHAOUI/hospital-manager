@@ -1,11 +1,11 @@
-package controller;
+package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import model.*;
+import main.java.model.*;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.sql.SQLException;

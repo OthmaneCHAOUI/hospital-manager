@@ -1,4 +1,4 @@
-package controller;
+package main.java.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,8 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.DoctorDAO;
-import model.Doctor;
+import main.java.model.DoctorDAO;
+import main.java.model.Doctor;
 
 public class DoctorFormController {
 

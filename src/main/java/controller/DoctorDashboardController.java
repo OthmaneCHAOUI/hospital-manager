@@ -1,4 +1,4 @@
-package controller;
+package main.java.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,8 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.DoctorPatient;
-import model.DoctorPatientDAO;
+import main.java.model.DoctorPatient;
+import main.java.model.DoctorPatientDAO;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,8 +34,8 @@ import javafx.util.Callback;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Doctor;
-import model.DoctorDAO;
+import main.java.model.Doctor;
+import main.java.model.DoctorDAO;
 
 /**
  * Displays the doctor dashboard and manages patient lookup and patient records.
