@@ -265,16 +265,22 @@ and the main business rules.
 ```text
 hospital-manager/
 ├── src/
-│   ├── main/java/    # Java source files
-│   ├── main/resources/ # FXML, CSS, images, and SQL scripts
-│   └── test/java/    # Test source files
-├── bin/              # Compiled classes (generated)
-├── target/           # Maven-generated files
-├── config.env.example # Safe configuration template
-├── pom.xml           # Maven configuration
-├── ROADMAP.md        # Current status and planned work
-├── LICENSE           # Project license
-└── README.md         # Documentation
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── controller/ # JavaFX controllers
+│   │   │   ├── main/       # Application entry point
+│   │   │   └── model/      # Models, DAOs, and database connection
+│   │   └── resources/
+│   │       ├── assets/     # Icons and images
+│   │       ├── database/   # Database schema and dataset scripts
+│   │       ├── style/      # CSS stylesheets
+│   │       └── view/       # FXML interfaces
+│   └── test/java/          # Test source files
+├── config.env.example      # Safe configuration template
+├── pom.xml                 # Maven configuration
+├── ROADMAP.md              # Current status and planned work
+├── LICENSE                 # Project license
+└── README.md               # Documentation
 ```
 
 The `bin/` and `target/` directories contain generated files. The source files
