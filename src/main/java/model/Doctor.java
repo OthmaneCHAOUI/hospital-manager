@@ -1,4 +1,4 @@
-package main.java.model;
+package model;
 
 /**
  * Represents a doctor profile in the medical management application.

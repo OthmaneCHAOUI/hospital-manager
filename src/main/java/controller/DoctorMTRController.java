@@ -1,4 +1,4 @@
-package main.java.controller;
+package controller;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -35,12 +35,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import main.java.model.Medication;
-import main.java.model.MedicationDAO;
-import main.java.model.Appointment;
-import main.java.model.AppointmentDAO;
-import main.java.model.MedicalTest;
-import main.java.model.MedicalTestDAO;
+import model.Medication;
+import model.MedicationDAO;
+import model.Appointment;
+import model.AppointmentDAO;
+import model.MedicalTest;
+import model.MedicalTestDAO;
 
 /**
  * Manages the doctor’s patient records for medications, tests, and

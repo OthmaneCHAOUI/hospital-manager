@@ -76,7 +76,7 @@ The application follows an organization inspired by the MVC (*Model-View-Control
                 Database
 ```
 
-- **View (`src/main/java/view/`)**: contains the FXML interfaces.
+- **View (`src/main/resources/view/`)**: contains the FXML interfaces.
 - **Controller (`src/main/java/controller/`)**: handles interactions between the user and the application.
 - **Model (`src/main/java/model/`)**: contains business objects, data access classes (DAO), and the database connection.
 - **Style (`src/main/resources/style/`)**: contains CSS stylesheets.
@@ -126,8 +126,8 @@ Check that the installed versions are compatible with those declared in `pom.xml
 The project's SQL scripts are located at:
 
 ```text
-src/main/resources/database.sql
-src/main/resources/dataset.sql
+src/main/resources/database/database.sql
+src/main/resources/database/dataset.sql
 ```
 
 You must create a PostgreSQL role and database before starting the application. On Linux, the following commands create the `medical_center` role and prompt for its password, then create an empty `hospital_manager` database owned by that role:
@@ -142,7 +142,7 @@ Keep the password chosen for `medical_center`. Then, from the project root, crea
 ```bash
 psql -h localhost -p 5432 -U medical_center -d hospital_manager -W \
   -v ON_ERROR_STOP=1 \
-  -f src/main/resources/database.sql
+  -f src/main/resources/database/database.sql
 ```
 
 Then load the dataset :
@@ -150,7 +150,7 @@ Then load the dataset :
 ```bash
 psql -h localhost -p 5432 -U medical_center -d hospital_manager -W \
   -v ON_ERROR_STOP=1 \
-  -f src/main/resources/dataset.sql
+  -f src/main/resources/database/dataset.sql
 ```
 
 This script initializes the tables in an empty database. It does not drop the database, create the role, or copy data from an old MySQL database. Do not run it again on an already initialized database: the tables already exist and creation will fail. To migrate existing MySQL data, follow a separate export/import procedure and verify the data before switching over.
