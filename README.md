@@ -243,7 +243,10 @@ Table names not enclosed in quotation marks are converted to lowercase by Postgr
 
 ## Tests
 
-The repository does not contain a test directory identified in its tree.
+The project has a standard `src/test/java` directory and JUnit Jupiter is
+configured in `pom.xml`, but no test classes have been added yet. Running
+`mvn clean test` currently compiles the application successfully and reports
+that there are no tests to run.
 
 For now, manually check the main scenarios:
 
@@ -254,7 +257,8 @@ For now, manually check the main scenarios:
 - viewing and editing data;
 - handling connection errors and invalid input.
 
-Adding automated tests would further improve the reliability of data access operations and the main business rules.
+Adding automated tests would improve the reliability of data access operations
+and the main business rules.
 
 ## Project structure
 

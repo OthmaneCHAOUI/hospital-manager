@@ -1,6 +1,6 @@
 # Project Roadmap
 
-Last reviewed: 25-10-2026
+Last reviewed: 2026-10-26
 
 This roadmap reflects the current state of the JavaFX/PostgreSQL application.
 Completed items indicate that the implementation or documentation exists; they
@@ -75,6 +75,7 @@ do not necessarily have automated test coverage.
 - [x] Configure Maven to target Java 21.
 - [x] Configure JavaFX 21.0.2 and the PostgreSQL JDBC driver.
 - [x] Configure the JavaFX Maven plugin to launch `main.Main`.
+- [x] Configure JUnit Jupiter and Maven Surefire for future automated tests.
 - [x] Document manual checks for startup, database connection,
   authentication, navigation, data operations, connection errors, and invalid
   input.
@@ -84,8 +85,6 @@ do not necessarily have automated test coverage.
 
 ### TODO
 
-- [ ] Add a real test source layout and configure it explicitly alongside the
-  current custom `src` production source root.
 - [ ] Add unit tests for validation, authentication decisions, model behavior,
   date/time handling, and business rules without starting JavaFX.
 - [ ] Add DAO integration tests against a disposable PostgreSQL database.
@@ -161,23 +160,20 @@ do not necessarily have automated test coverage.
 
 ### DONE
 
-- [x] Completely move project structure to standard maven structure
-- [x] Configure Maven as the declared project build system.
-- [x] Move icons from `src/resources` to `src/assets/icons`.
+- [x] Move the project to the standard Maven structure:
+  `src/main/java`, `src/main/resources`, and `src/test/java`.
+- [x] Configure Maven as the supported build/run/test path.
+- [x] Move icons to `src/main/resources/assets/icons`.
 - [x] Add `config.env.example` as a safe configuration template.
 - [x] Remove the `ROADMAP.md` ignore rule so roadmap changes can be tracked.
-- [x] Document the current custom source/resource layout.
+- [x] Document the standard source/resource layout.
 - [x] Document PostgreSQL setup, environment variables, schema/data
   initialization, compilation, and running the application.
 
 ### TODO
 
-- [ ] Make Maven the single supported build/run/test path.
 - [ ] Replace or update any machine-specific VS Code/manual `javac` workflow
   so it uses the same dependencies as Maven, or remove it.
-- [ ] Consider migrating to the standard Maven layout:
-  `src/main/java`, `src/main/resources`, and `src/test/java`; otherwise,
-  explicitly test and document the custom configuration.
 - [ ] Add versioned database migrations instead of treating `database.sql` as a
   one-time initializer.
 - [ ] Document a safe MySQL-to-PostgreSQL data export/import procedure if
@@ -199,7 +195,7 @@ do not necessarily have automated test coverage.
 | **High** | Patient-linked records use national-ID strings instead of patient foreign keys. | No final data-model decision or migration has been implemented. | **Open** |
 | **Medium** | Database work is performed from controller actions and may freeze the JavaFX UI. | Move persistence work to background tasks/services. | **Open** |
 | **Medium** | The project has no automated test sources. | `mvn clean test` succeeds, but reports no tests to run. | **Open** |
-| **Medium** | The custom `src` source root makes standard test placement ambiguous. | Maven currently compiles the custom layout; standardization or explicit test configuration is still needed. | **Open** |
+| **Medium** | The project previously used a non-standard `src` source root, making test placement ambiguous. | Moved production code/resources to `src/main` and added `src/test/java`; JUnit/Surefire are configured. | **Closed** |
 | **Medium** | The schema script is not a versioned or repeatable migration mechanism. | The limitation is documented; migrations remain outstanding. | **Partly** |
 | **Medium** | The project has no documented legacy MySQL-to-PostgreSQL data migration process. | The README warns that the current scripts initialize a new database only. | **Partly** |
 | **Medium** | FXML views previously referenced missing icon files. | Added the missing icons under `src/assets/icons/` and verified all references. | **Closed** |
