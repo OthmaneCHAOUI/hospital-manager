@@ -43,7 +43,7 @@ public class DoctorPatientDAO {
 
             pstmt.setString(1, patient.getName());
             pstmt.setString(2, patient.getFirstName());
-            pstmt.setDate(3, java.sql.Date.valueOf(patient.getDateNaissance()));
+            pstmt.setDate(3, java.sql.Date.valueOf(patient.getBirthDate()));
             pstmt.setString(4, patient.getNationalId());
             pstmt.setString(5, patient.getCity());
             pstmt.setString(6, patient.getPhone());
@@ -90,7 +90,7 @@ public class DoctorPatientDAO {
 
             pstmt.setString(1, newDoctorPatient.getName());
             pstmt.setString(2, newDoctorPatient.getFirstName());
-            pstmt.setDate(3, java.sql.Date.valueOf(newDoctorPatient.getDateNaissance()));
+            pstmt.setDate(3, java.sql.Date.valueOf(newDoctorPatient.getBirthDate()));
             pstmt.setString(4, newDoctorPatient.getCity());
             pstmt.setString(5, newDoctorPatient.getPhone());
             pstmt.setString(6, newDoctorPatient.getAddress());

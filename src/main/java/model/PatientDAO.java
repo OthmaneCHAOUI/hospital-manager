@@ -57,7 +57,7 @@ public class PatientDAO {
                 patient.setFirstName(rs.getString("firstName"));
                 patient.setNationalId(rs.getString("nationalId"));
                 patient.setPassword(rs.getString("password"));
-                patient.setDateNaissance(
+                patient.setBirthDate(
                         rs.getDate("birth_date") != null ? rs.getDate("birth_date").toLocalDate() : null);
                 patient.setCity(rs.getString("city"));
                 patient.setEmail(rs.getString("email"));
@@ -83,8 +83,8 @@ public class PatientDAO {
             pstmt.setString(4, patient.getEmail());
             pstmt.setString(5, patient.getAddress());
             pstmt.setString(6, patient.getPhone());
-            if (patient.getDateNaissance() != null)
-                pstmt.setDate(7, Date.valueOf(patient.getDateNaissance()));
+            if (patient.getBirthDate() != null)
+                pstmt.setDate(7, Date.valueOf(patient.getBirthDate()));
             else
                 pstmt.setNull(7, java.sql.Types.DATE);
             pstmt.setString(8, patient.getPassword());

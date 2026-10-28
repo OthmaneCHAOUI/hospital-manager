@@ -6,18 +6,42 @@ import java.time.LocalDate;
  * Represents a patient record and the personal information tied to it.
  */
 public class Patient {
+    /**
+     * =============================================================
+     * Attributes
+     * =============================================================
+     */
+    
     private int id;
     private String name, firstName, nationalId, password, city, phone, address, gender, accountCreated, email;
     private LocalDate birthDate;
 
+    /**
+     * =============================================================
+     * Constructors
+     * =============================================================
+     */
+    
     public Patient() {
     }
 
+    /**
+     * Constructor for creating a Patient object with only nationalId and password.
+     * @param nationalId The national ID of the patient.
+     * @param password The password of the patient.
+     */
     public Patient(String nationalId, String password) {
         this.nationalId = nationalId;
         this.password = password;
     }
 
+    /**
+     * Constructor for creating a Patient object with name, firstName, nationalId, and password.
+     * @param name The last name of the patient.
+     * @param firstName The first name of the patient.
+     * @param nationalId The national ID of the patient.
+     * @param password The password of the patient.
+     */
     public Patient(String name, String firstName, String nationalId, String password) {
         this.name = name;
         this.firstName = firstName;
@@ -25,6 +49,14 @@ public class Patient {
         this.password = password;
     }
 
+    /**
+     * Constructor for creating a Patient object with name, firstName, nationalId, password, and birthDate.
+     * @param name The last name of the patient.
+     * @param firstName The first name of the patient.
+     * @param nationalId The national ID of the patient.
+     * @param password The password of the patient.
+     * @param birthDate The birth date of the patient.
+     */
     public Patient(String name, String firstName, String nationalId, String password, LocalDate birthDate) {
         this.name = name;
         this.firstName = firstName;
@@ -33,6 +65,20 @@ public class Patient {
         this.birthDate = birthDate;
     }
 
+    /**
+     * Constructor for creating a Patient object with all attributes.
+     * @param name The last name of the patient.
+     * @param firstName The first name of the patient.
+     * @param nationalId The national ID of the patient.
+     * @param password The password of the patient.
+     * @param city The city where the patient resides.
+     * @param phone The phone number of the patient.
+     * @param address The address of the patient.
+     * @param gender The gender of the patient.
+     * @param accountCreated The date when the patient's account was created.
+     * @param email The email address of the patient.
+     * @param birthDate The birth date of the patient.
+     */
     public Patient(String name, String firstName, String nationalId, String password, String city, String phone,
             String address, String gender, String accountCreated, String email, LocalDate birthDate) {
         this.name = name;
@@ -48,6 +94,12 @@ public class Patient {
         this.birthDate = birthDate;
     }
 
+    /**
+     * =============================================================
+     * Getters and Setters
+     * =============================================================
+     */
+    
     public int getId() {
         return id;
     }
@@ -88,11 +140,11 @@ public class Patient {
         this.password = password;
     }
 
-    public LocalDate getDateNaissance() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setDateNaissance(LocalDate birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -136,23 +188,44 @@ public class Patient {
         this.gender = gender;
     }
 
-    public String getCompteCree() {
+    public String getAccountCreated() {
         return accountCreated;
     }
 
-    public void setCompteCree(String accountCreated) {
+    public void setAccountCreated(String accountCreated) {
         this.accountCreated = accountCreated;
     }
 
-    public int getAge() {
-        if (birthDate == null)
-            return 0;
-        return java.time.Period.between(birthDate, java.time.LocalDate.now()).getYears();
-    }
+    /**
+     * =============================================================
+     * Additional Methods
+     * =============================================================
+     */
+    
+    /**
+     * Gets the age of the patient.
+     * @return The age of the patient.
+     */
+    // public int getAge() {
+    //     if (birthDate == null)
+    //         return 0;
+    //     return java.time.Period.between(birthDate, java.time.LocalDate.now()).getYears();
+    // }
 
-    public void setAge(int age) {
-        if (birthDate != null) {
-            this.birthDate = java.time.LocalDate.now().minusYears(age);
-        }
-    }
+    /**
+     * Sets the age of the patient by calculating the birth date based on the provided age.
+     * If the provided age is negative, the birth date will not be updated.
+     * If the birth date is not set, this method will not set it and will return without making any changes.
+     * @param age The age of the patient to set. The birth date will be calculated as the current date minus the provided age in years.
+     * @throws IllegalArgumentException if the provided age is negative.
+     */
+    // public void setAge(int age) {
+    //     if (age < 0) {
+    //         throw new IllegalArgumentException("Age cannot be negative.");
+    //     }
+        
+    //     if (birthDate != null) {
+    //         this.birthDate = java.time.LocalDate.now().minusYears(age);
+    //     }
+    // }
 }

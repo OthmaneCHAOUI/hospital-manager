@@ -315,7 +315,7 @@ public class DoctorDashboardController {
                 DoctorPatient patient = new DoctorPatient();
                 patient.setName(nameInput.getText());
                 patient.setFirstName(firstNameInput.getText());
-                patient.setDateNaissance(dpDateNaissance.getValue()); // LocalDate
+                patient.setBirthDate(dpDateNaissance.getValue()); // LocalDate
                 patient.setNationalId(nationalIdInput.getText());
                 patient.setCity(cityInput.getText());
                 patient.setPhone(phoneInput.getText());

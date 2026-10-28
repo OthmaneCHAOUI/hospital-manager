@@ -203,7 +203,7 @@ public class PatientDashboardController {
         emailField.setText(patient.getEmail());
         phoneField.setText(patient.getPhone());
         addressField.setText(patient.getAddress());
-        birthDatePicker.setValue(patient.getDateNaissance());
+        birthDatePicker.setValue(patient.getBirthDate());
         selectedSexe = patient.getGender();
         genderMenu.setText(selectedSexe);
         passwordField.setText(patient.getPassword());
@@ -215,7 +215,7 @@ public class PatientDashboardController {
             patient.setEmail(emailField.getText());
             patient.setPhone(phoneField.getText());
             patient.setAddress(addressField.getText());
-            patient.setDateNaissance(birthDatePicker.getValue());
+            patient.setBirthDate(birthDatePicker.getValue());
             patient.setGender(selectedSexe);
             patient.setPassword(passwordField.getText());
 
