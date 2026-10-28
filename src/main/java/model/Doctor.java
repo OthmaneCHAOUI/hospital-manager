@@ -4,6 +4,12 @@ package model;
  * Represents a doctor profile in the medical management application.
  */
 public class Doctor {
+    /**
+     * =============================================================
+     * Attributes
+     * =============================================================
+     */
+    
     private int id;
     private String name;
     private String firstName;
@@ -14,9 +20,25 @@ public class Doctor {
     private String clinicAddress;
     private String password;
 
+    /**
+     * =============================================================
+     * Constructors
+     * =============================================================
+     */
+    
+    /**
+     * No-args constructor for creating an empty Doctor object.
+     */
     public Doctor() {
     }
 
+    /**
+     * Constructor for creating a Doctor object with basic information.
+     * @param id The ID of the doctor.
+     * @param name The name of the doctor.
+     * @param firstName The first name of the doctor.
+     * @param specialty The specialty of the doctor.
+     */
     public Doctor(int id, String name, String firstName, String specialty) {
         this.id = id;
         this.name = name;
@@ -24,6 +46,17 @@ public class Doctor {
         this.specialty = specialty;
     }
 
+    /**
+     * Constructor for creating a Doctor object with all information.
+     * @param name The name of the doctor.
+     * @param firstName The first name of the doctor.
+     * @param nationalId The national ID of the doctor.
+     * @param specialty The specialty of the doctor.
+     * @param clinicName The name of the clinic where the doctor works.
+     * @param phone The phone number of the doctor.
+     * @param clinicAddress The address of the clinic where the doctor works.
+     * @param password The password of the doctor.
+     */
     public Doctor(String name, String firstName, String nationalId, String specialty, String clinicName, String phone,
             String clinicAddress, String password) {
         this.name = name;
@@ -36,6 +69,12 @@ public class Doctor {
         this.password = password;
     }
 
+    /**
+     * =============================================================
+     * Getters and Setters
+     * =============================================================
+     */
+    
     public int getId() {
         return id;
     }

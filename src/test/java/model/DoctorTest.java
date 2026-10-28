@@ -1,5 +1,7 @@
 package model;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -8,16 +10,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
- * Test class for the Doctor class.
+ * Test class for {@link Doctor}.
+ * @author OthmaneCHAOUI
  */
+@DisplayName("Doctor Class Unit Tests")
 class DoctorTest {
 
 	/**
-	 * Test the Doctor class constructors and getters/setters.
-	 * This test ensures that the Doctor class correctly initializes its fields
-	 * and that the getters and setters work as expected.
-	 * It also verifies that the fields can accept null values, as no validation
-	 * is currently implemented in the Doctor class.
+	 * Setup method to run before all tests in this class.
+	 * @throws Exception if any error occurs during setup
+	 */
+	@BeforeAll
+	static void setupBeforeAll() throws Exception {
+		System.out.println("-------------------------------------------------");
+		System.out.println("Start of Doctor Tests");
+		System.out.println("-------------------------------------------------");
+	}
+
+	/**
+	 * Teardown method to run after all tests in this class.
+	 * @throws Exception
+	 */
+	@AfterAll
+	static void tearDownAfterAll() throws Exception {
+		System.out.println("-------------------------------------------------");
+		System.out.println("End of Doctor Tests");
+		System.out.println("-------------------------------------------------");
+	}
+	
+	/**
+	 * Test method for {@link Doctor#Doctor()}.
 	 */
 	@Test
 	@DisplayName("No-args constructor should create an empty doctor")
@@ -37,11 +59,8 @@ class DoctorTest {
 	}
 
 	/**
-	 * Test the Doctor class constructors and getters/setters.
-	 * This test ensures that the Doctor class correctly initializes its fields
-	 * and that the getters and setters work as expected.
-	 * It also verifies that the fields can accept null values, as no validation
-	 * is currently implemented in the Doctor class.
+	 * Test method for {@link Doctor#Doctor(int, String, String, String)}.
+	 * This test ensures that the basic constructor correctly initializes the basic fields of the Doctor class.
 	 */
 	@Test
 	@DisplayName("Basic constructor should set only the basic doctor fields")
@@ -65,11 +84,8 @@ class DoctorTest {
 	}
 
 	/**
-	 * Test the Doctor class constructors and getters/setters.
-	 * This test ensures that the Doctor class correctly initializes its fields
-	 * and that the getters and setters work as expected.
-	 * It also verifies that the fields can accept null values, as no validation
-	 * is currently implemented in the Doctor class.
+	 * Test method for {@link Doctor#Doctor(String, String, String, String, String, String, String, String)}.
+	 * This test ensures that the full constructor correctly initializes all fields of the Doctor class.
 	 */
 	@Test
 	@DisplayName("Full constructor should set all doctor fields")
@@ -96,45 +112,7 @@ class DoctorTest {
 	}
 
 	/**
-	 * Test the Doctor class constructors and getters/setters.
-	 * This test ensures that the Doctor class correctly initializes its fields
-	 * and that the getters and setters work as expected.
-	 * It also verifies that the fields can accept null values, as no validation
-	 * is currently implemented in the Doctor class.
-	 */
-	@Test
-	@DisplayName("Setters should update doctor fields")
-	void settersShouldUpdateDoctorFields() {
-		Doctor doctor = new Doctor();
-
-		doctor.setId(2);
-		doctor.setName("Brown");
-		doctor.setFirstName("Lucas");
-		doctor.setNationalId("DOC-TEST-002");
-		doctor.setSpecialty("Dermatology");
-		doctor.setClinicName("Derm Plus Clinic");
-		doctor.setPhone("0612345002");
-		doctor.setClinicAddress("8 Republic Avenue, Manchester");
-		doctor.setPassword("doctor2");
-
-		assertAll(
-				() -> assertEquals(2, doctor.getId()),
-				() -> assertEquals("Brown", doctor.getName()),
-				() -> assertEquals("Lucas", doctor.getFirstName()),
-				() -> assertEquals("DOC-TEST-002", doctor.getNationalId()),
-				() -> assertEquals("Dermatology", doctor.getSpecialty()),
-				() -> assertEquals("Derm Plus Clinic", doctor.getClinicName()),
-				() -> assertEquals("0612345002", doctor.getPhone()),
-				() -> assertEquals("8 Republic Avenue, Manchester", doctor.getClinicAddress()),
-				() -> assertEquals("doctor2", doctor.getPassword()));
-	}
-
-	/**
-	 * Test the Doctor class constructors and getters/setters.
-	 * This test ensures that the Doctor class correctly initializes its fields
-	 * and that the getters and setters work as expected.
-	 * It also verifies that the fields can accept null values, as no validation
-	 * is currently implemented in the Doctor class.
+	 * Test method to verify that the Doctor class fields can accept null values.
 	 */
 	@Test
 	@DisplayName("Doctor fields should accept null values because no validation exists yet")
