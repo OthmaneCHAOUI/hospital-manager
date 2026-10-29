@@ -3,10 +3,23 @@ package model;
 import java.time.LocalDate;
 
 public class Medication {
+
+    /**
+     * ============================================
+     * Attributes
+     * ============================================
+     */
+    
     private int id, idDoctor, duration;
     private String nationalIdPatient, name, description;
     private LocalDate startDate;
 
+    /**
+     * ============================================
+     * Constructors
+     * ============================================
+     */
+    
     public Medication() {
     }
 
@@ -36,6 +49,12 @@ public class Medication {
         this.description = description;
     }
 
+    /**
+     * ============================================
+     * Getters and Setters
+     * ============================================
+     */
+    
     public int getId() {
         return id;
     }
