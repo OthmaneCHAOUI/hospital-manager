@@ -24,8 +24,7 @@ public class MedicationTest {
     @BeforeAll 
     static void setupBeforeAll() throws Exception {
         System.out.println("-------------------------------------------------");
-        System.out.println("Start of Medication Tests");
-        System.out.println("-------------------------------------------------");
+        System.out.println("Setting up Medication Tests");
     }
 
     /**
@@ -34,8 +33,7 @@ public class MedicationTest {
      */
     @AfterAll
     static void tearDownAfterAll() throws Exception {
-        System.out.println("-------------------------------------------------");
-        System.out.println("End of Medication Tests");
+        System.out.println("Tearing down Medication Tests");
         System.out.println("-------------------------------------------------");
     }
 

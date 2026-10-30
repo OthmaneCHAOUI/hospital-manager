@@ -2,11 +2,26 @@ package model;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a medical test conducted by a doctor for a patient.
+ */
 public class MedicalTest {
+    /**
+     * ====================================================
+     * Attributes
+     * ====================================================
+     */
+    
     private int id, idDoctor;
     private String nationalIdPatient, testType, result, doctorType, status;
     private LocalDate testDate;
 
+    /**
+     * ====================================================
+     * Constructors
+     * ====================================================
+     */
+    
     public MedicalTest() {
     }
 
@@ -22,6 +37,12 @@ public class MedicalTest {
         this.status = status;
     }
 
+    /**
+     * ====================================================
+     * Getters and Setters
+     * ====================================================
+     */
+    
     public int getId() {
         return id;
     }

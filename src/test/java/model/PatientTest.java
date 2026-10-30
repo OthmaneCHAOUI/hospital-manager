@@ -23,7 +23,6 @@ public class PatientTest {
     public static void setUpBeforeAll() {
         System.out.println("------------------------------------------------");
         System.out.println("Setting up PatientTest...");
-        System.out.println("------------------------------------------------");
     }
 
     /**
@@ -31,7 +30,6 @@ public class PatientTest {
      */
     @AfterAll 
     public static void tearDownAfterAll() {
-        System.out.println("------------------------------------------------");
         System.out.println("Tearing down PatientTest...");
         System.out.println("------------------------------------------------");
     }

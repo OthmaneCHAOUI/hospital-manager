@@ -23,8 +23,7 @@ class DoctorTest {
 	@BeforeAll
 	static void setupBeforeAll() throws Exception {
 		System.out.println("-------------------------------------------------");
-		System.out.println("Start of Doctor Tests");
-		System.out.println("-------------------------------------------------");
+		System.out.println("Setting up Doctor Tests");
 	}
 
 	/**
@@ -33,13 +32,13 @@ class DoctorTest {
 	 */
 	@AfterAll
 	static void tearDownAfterAll() throws Exception {
-		System.out.println("-------------------------------------------------");
-		System.out.println("End of Doctor Tests");
+		System.out.println("Tearing down Doctor Tests");
 		System.out.println("-------------------------------------------------");
 	}
 	
 	/**
 	 * Test method for {@link Doctor#Doctor()}.
+	 * This test verifies that the no-args constructor of the Doctor class creates an object with default values.
 	 */
 	@Test
 	@DisplayName("No-args constructor should create an empty doctor")
